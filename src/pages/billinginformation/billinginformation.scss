@@ -1,0 +1,105 @@
+page-billinginformation {
+	.content{
+		background-image: url("../assets/imgs/reviewbg.png");
+        background-size: cover;
+        background-position: top center;
+        background-repeat: no-repeat;
+
+        h2{
+        	@extend .fontsize15px;
+        	width: 100%;
+		    float: left;
+		    margin: 5px 0 !important;
+        }
+        .left{
+        	width: 50%;
+        	float: left;
+        	padding-right: 5px;
+        }
+        .right{
+        	width: 50%;
+        	float: left;
+        	padding-left: 5px;
+        }
+        .item{
+			width: 100%;
+			float: left;
+			border: none !important;
+			padding: 0;
+			min-height: auto !important;
+			background: transparent;
+			margin: 5px 0;
+			box-shadow: 0 3px 3px #cccccc;
+			border-radius: 5px;
+			background-color: rgba(255,255,255,0.8);
+		
+
+			.item-inner{
+				padding-right: 0;
+				border: none !important;
+
+				.label{
+					color: #9d9d9d !important;
+					@extend .inputsize;
+					padding-left: 15px;
+					margin: 11px 0px
+				}
+				ion-input{
+					@extend .inputsize;
+					padding-left: 15px;
+					.text-input{
+						margin: 11px 0px
+					}
+				}
+				ion-datetime{
+					@extend .inputsize;	
+					padding: 11px 15px 11px 10px;				
+				}
+				ion-select{
+					@extend .inputsize;
+					padding: 11px 15px 11px 10px;
+					max-width: 100%;
+					width: 100%;
+
+					.select-icon{
+						height: 18px;
+					}
+				}
+			}
+		}
+		.btn1{
+			margin-top: 16px;
+			text-transform: uppercase;
+		}
+    }
+    .img-sec{
+        width: 100%;
+        float: left;
+        margin: 5px 0;
+
+        img{
+        width: 75px;
+        float: left;
+        margin-right: 10px;
+        height: 46px;
+        }
+    }		
+}
+.alertCustomCss{
+    .alert-wrapper{
+        background-color: #fff;
+    }
+    img{
+        width: 70px;
+    }
+    .alert-sub-title {
+        color: #000;
+        font-weight: 700;
+        font-size: 15px !important;
+    }
+    .alert-button{
+        color: #101010;
+        background-color: #84ebf9;
+        margin: 0;
+    }
+}

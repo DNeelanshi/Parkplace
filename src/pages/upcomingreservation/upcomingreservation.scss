@@ -1,0 +1,82 @@
+page-upcomingreservation {
+	.content{
+		background-image: url("../assets/imgs/reviewbg.png");
+        background-size: cover;
+        background-position: top center;
+        background-repeat: no-repeat;
+        
+        .checkin{
+            font-size: 13px;
+            background-color:#05b8c0;
+            border-radius: 5px;
+            font-weight: 500;
+            width: 90px;
+            box-shadow: none;
+            margin-left: 0;
+            height: 27px;
+            line-height: 27px;
+            padding: 0;
+        }
+    }
+    .item{
+    	align-items: start;
+    	padding-left: 8px;
+    	border-radius: 5px;
+    	box-shadow: 0 3px 3px #dcdbdb;
+    	margin-bottom: 10px;
+
+    	ion-thumbnail {
+		    min-width: 65px !important;
+		    min-height: 55px !important;
+		    margin: 8px 11px 8px 2px !important;
+
+		    img{
+		    	width: 65px !important;
+		    	height: 55px !important;
+		    }
+		}
+		.item-inner{
+			padding-right: 10px;
+		
+			.label{
+				margin: 8px auto;
+
+				h2{
+					@extend .fontsize15px;
+				}
+				p{
+					@extend .fontsize13px;
+					white-space: normal;
+
+					.left{
+						font-weight: 500;
+						color: #08afb8;
+					}
+				}
+			}
+		}
+    }
+    .nodata{
+        position: absolute;
+        top: 0;
+        bottom: 0;
+        right: 0;
+        left: 0;
+        margin: auto;
+        height: fit-content;
+        text-align: center;
+        
+        img{
+            width: 95px;
+        }
+        
+        span{
+            width: 100%;
+            float: left;
+            text-align: center;
+            font-size: 16px;
+            font-weight: 500;
+            margin: 10px 0 0 0;
+        }
+    }
+}

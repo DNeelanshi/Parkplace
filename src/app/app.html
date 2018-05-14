@@ -1,0 +1,69 @@
+<ion-menu [content]="content">
+    <ion-header>
+        <ion-toolbar>
+            <div class="top-sec">
+                <div class="img-wrapper">
+                    <img *ngIf="appsetting.SrcImage" class="pick0" [src]="appsetting.SrcImage">
+			<img *ngIf="!appsetting.SrcImage"  src="assets/imgs/user.png">
+                </div>
+                <h2>{{appsetting.username}}</h2>
+                <p>{{appsetting.emailuser}}</p>
+            </div>
+        </ion-toolbar>
+    </ion-header>
+
+    <ion-content>
+        <!--        <ion-list>
+                    <button menuClose ion-item *ngFor="let p of pages; let i=index"(click)="toggleGroup(i)" [ngClass]="{active: isGroupShown(i)}">
+                            {{p.title}}
+                            <ion-icon color="success" item-right [name]="isGroupShown(i) ? 'arrow-dropdown' : 'arrow-dropright'"></ion-icon>
+                                            <ion-icon item-start><img src="{{p.icon}}"></ion-icon>
+                        <ion-list [class.visible]="p?.subItems?.length>0">
+                            <ion-item *ngFor="let sub of p?.subItems" text-wrap>{{sub.displayName}}</ion-item>
+                  </ion-list>
+                    </button>
+
+                    <button menuClose ion-item>
+                        Sign Out
+                        <ion-icon item-start><img src="assets/imgs/homeicon.png"></ion-icon>
+                    </button>
+
+                </ion-list>-->
+
+        <ion-list class="accordion-list">
+            <!-- First Level -->
+            <ion-list-header *ngFor="let item of pages; let i = index" no-lines no-padding style="padding-left: 0;">
+                <!-- Toggle Button -->
+                <button ion-item (click)="toggleSection(item,i)" detail-none [ngClass]="{'section-active': item.open, 'section': !item.open}" class="menubtn">
+                    <ion-icon><img src="{{item.icon}}"></ion-icon>
+                    {{ item.title }}
+                    <ion-icon style="position:static;" item-end name="add" *ngIf="item?.subItems.length>0 && !item.open"></ion-icon>
+                    <ion-icon item-end name="remove" style="position:static;" *ngIf="item?.subItems.length>0 && item.open"></ion-icon>
+                </button>
+
+
+                <ion-list *ngIf="item?.subItems && item.open" no-lines style="margin: 0;">
+                    <!-- Second Level -->
+                    <ion-list-header *ngFor="let child of item?.subItems; let j = index" no-padding style="padding-left: 0;">
+                        <!-- Toggle Button -->
+                        <button ion-item (click)="openPage(child,i,j)" *ngIf="item?.subItems" class="child" detail-none>
+                            <!--            <ion-icon item-left name="add" *ngIf="!child.open"></ion-icon>
+                                        <ion-icon item-left name="close" *ngIf="child.open"></ion-icon>-->
+                            <ion-icon><img src="{{child.icon}}"></ion-icon>
+                            {{ child.displayName }}
+                        </button>
+                    </ion-list-header>
+                </ion-list>
+
+            </ion-list-header>
+             <button ion-item class="menubtn" (click)="signout()">
+                Sign Out
+               <ion-icon ><img src="assets/imgs/signouticon.png"></ion-icon>
+            </button>
+        </ion-list>
+    </ion-content>
+
+</ion-menu>
+
+<!-- Disable swipe-to-go-back because it's poor UX to combine STGB with side menus -->
+<ion-nav [root]="rootPage" #content swipeBackEnabled="false"></ion-nav>

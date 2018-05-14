@@ -1,0 +1,55 @@
+<!--
+  Generated template for the AddcarinfoPage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header>
+
+  <ion-toolbar color="theme-header">
+  	<button ion-button menuToggle>
+      <ion-icon><img class="menuicon" src="assets/imgs/menuicon.png"></ion-icon>
+    </button>
+    <ion-title>Add Car information</ion-title>
+  </ion-toolbar>
+
+</ion-header>
+
+
+<ion-content>
+    <form #addcarform="ngForm" name='addcarform' novalidate (submit)="Addcar(addcarform)">
+	<div class="top-sec">
+		<img  *ngIf="carpic == '' " src="assets/imgs/carinfo.png">
+                 <img  *ngIf="carpic" [src]="carpic" >
+		<button ion-button color="theme-header" type="button" (click)="carpicupload()">Add</button>
+	</div>
+	<div class="content-sec" padding>
+		<ion-list no-lines>
+
+		  <ion-item>
+		    <ion-label fixed>Car Make</ion-label>
+		    <ion-input type="text" [(ngModel)]="data.carmake" name="carmake" #carmake="ngModel" placeholder="e.g i20 Hyundai" required></ion-input>
+		  </ion-item>
+
+		  <ion-item>
+		    <ion-label fixed>Model</ion-label>
+		    <ion-input type="text" [(ngModel)]="data.model" name="model" #model="ngModel" placeholder="elite" required></ion-input>
+		  </ion-item>
+
+		  <ion-item>
+		    <ion-label fixed>Year</ion-label>
+		    <!--<ion-input type="text" [(ngModel)]="data.year" name="year" #year="ngModel" required></ion-input>-->
+                     <ion-datetime  displayFormat="YYYY" pickerFormat="YYYY" max="{{date}}" min="1950" [(ngModel)]="data.year"  name="year" #year="ngModel" ></ion-datetime>
+		  </ion-item>
+
+		  <ion-item>
+		    <ion-label fixed>License Plate</ion-label>
+		    <ion-input type="text" [(ngModel)]="data.licence" name="licence" #licence="ngModel" placeholder="e.g U.P#12Q1007" required></ion-input>
+		  </ion-item>
+
+		</ion-list>
+		<button ion-button class="btn1" block color="theme-header" type="submit" [disabled]='!addcarform.valid'>Submit</button>
+	</div>
+        
+          </form>
+</ion-content>

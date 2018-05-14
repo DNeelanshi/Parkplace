@@ -1,0 +1,51 @@
+<!--
+  Generated template for the ViewreservationtwoPage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header>
+
+  <ion-navbar color="theme-header">
+  	<button ion-button menuToggle>
+      <ion-icon><img class="menuicon" src="assets/imgs/menuicon.png"></ion-icon>
+    </button>
+    <ion-title>view reservation</ion-title>
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content padding>
+     <ion-refresher (ionRefresh)="doRefresh($event)">
+    <ion-refresher-content
+        pullingIcon="arrow-dropdown"
+      pullingText="Pull to refresh"
+      refreshingSpinner="circles"
+      refreshingText="Refreshing..."></ion-refresher-content>
+  </ion-refresher>
+	<ion-list no-lines *ngFor="let dat of Reservationdata">
+		<ion-item>
+		    <ion-avatar item-start>
+		      <img *ngIf='dat.propic' [src]="dat.propic">
+                        <img *ngIf='!dat.propic' src="assets/imgs/user.png">
+		    </ion-avatar>
+		    <h2>{{dat.customername}}</h2>
+		    <p>{{dat.parking_date|date}}</p>
+		    <p><span class="left">Space Number: </span> <span class="right">{{dat.spacenumber}}</span></p>
+		    <p><span class="left">Booking Time: </span> <span class="right">{{dat.parking_start_time}} To {{dat.parking_end_time}}</span></p>
+		    <p><span class="left">Address: </span> <span class="right">{{dat.address}}</span></p>
+		    <p><span class="left">Amount Paid: </span> <span class="right">${{dat.amount_to_parking_provider}}.00</span></p>
+		 </ion-item>
+
+
+
+	</ion-list>
+   <p class="nodata" *ngIf="show == 0"><img src="assets/imgs/nodata.png"><span>No Reservations found</span></p>
+      <ion-infinite-scroll (ionInfinite)="doInfinite($event)" style="position: fixed;  bottom: 0;">
+    <ion-infinite-scroll-content
+      loadingSpinner="bubbles"
+      loadingText="Loading more data...">
+    </ion-infinite-scroll-content>
+  </ion-infinite-scroll>
+</ion-content>

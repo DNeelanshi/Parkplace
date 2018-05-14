@@ -1,0 +1,87 @@
+<!--
+  Generated template for the BillinginformationPage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header>
+
+  <ion-navbar color="theme-header">
+  	<button ion-button menuToggle>
+      <ion-icon><img class="menuicon" src="assets/imgs/menuicon.png"></ion-icon>
+    </button>
+    <ion-title>Add Payment Info</ion-title>
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content padding>
+        <form #bilingform="ngForm" name='bilingform' novalidate (submit)="Billing(bilingform)" style="width:100%; float: left;">
+            <h2>Accepting Card Types</h2>
+	<div class="img-sec">
+		<img src="assets/imgs/visa.png">
+		<img src="assets/imgs/mstrcrd.png">
+	</div>
+	<h2>Credit/Debit Card :</h2>
+	<ion-list>
+		<div >
+		  <ion-item>
+		    <ion-input type="text" placeholder="Cardholder name" [(ngModel)]="data.firstname" name="firstname" #firstname="ngModel" required></ion-input>
+		  </ion-item>
+		</div> 
+
+<!--		<div class="right">
+		  <ion-item>
+		    <ion-input type="text" placeholder="Last Name" [(ngModel)]="data.lastname" name="lastname" #lastname="ngModel" required></ion-input>
+		  </ion-item>
+		</div>-->
+
+		  <ion-item>
+		    <ion-input type="tel" minlength="16" maxlength="16"  placeholder="Credit Card Number" [(ngModel)]="data.cardnumber" name="cardnumber" #cardnumber="ngModel" required></ion-input>
+		  </ion-item>
+              <ion-item>
+		    <ion-input type="tel" minlength="3" maxlength="3"  placeholder="CVC/CVV" [(ngModel)]="data.cvc" name="cvc" #cvc="ngModel" required></ion-input>
+		  </ion-item>
+
+		  <ion-item>
+		     <ion-label>Expiration</ion-label>
+  			 <ion-datetime displayFormat="MM-YYYY" pickerFormat="MM YYYY" min="{{date}}" max="2037"  [(ngModel)]="data.dateyear"  name="dateyear" #dateyear="ngModel"></ion-datetime>
+		  </ion-item>
+            
+		  <h2 style="margin: 6px 0 !important">Billing Address</h2>
+
+		   <ion-item>
+		    <ion-input type="text" placeholder="Street Address" [(ngModel)]="data.address" name="address" #address="ngModel" required></ion-input>
+		  </ion-item>
+
+		  <div class="left">
+		    <ion-item>
+		      <ion-input type="text" placeholder="City" [(ngModel)]="data.city" name="city" #city="ngModel" required></ion-input>
+		    </ion-item>
+		  </div> 
+
+		  <div class="right">
+			 <ion-item>
+			    <ion-input type="text" placeholder="State/Province" [(ngModel)]="data.state" name="state" #state="ngModel" required></ion-input>
+			 </ion-item>
+		  </div>
+
+		  <div class="left">
+		    <ion-item>
+		      <ion-input type="text"   maxlength="10" placeholder="Postal/Zip Code" [(ngModel)]="data.zipcode" name="zipcode" #zipcode="ngModel" required></ion-input>
+		    </ion-item>
+		  </div> 
+
+		  <div class="right">
+			 <ion-item>
+		          <ion-select placeholder="Country" [(ngModel)]="data.country" name="country" #country="ngModel" required>
+		            <ion-option value="San deigo">San Deigo</ion-option>
+		            
+		          </ion-select>
+			 </ion-item>
+		  </div>
+		</ion-list>
+            <button ion-button class="btn1" type='submit' color="theme-header" block [disabled]='!bilingform.valid'>Pay</button>
+                </form>
+</ion-content>

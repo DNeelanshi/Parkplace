@@ -1,0 +1,55 @@
+<!--
+  Generated template for the AddpaymentPage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header>
+
+  <ion-navbar color="theme-header">
+  	<button ion-button menuToggle>
+      <ion-icon><img class="menuicon" src="assets/imgs/menuicon.png"></ion-icon>
+    </button>
+    <ion-title>add payment info</ion-title>
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content padding>
+	<h2>Card Type</h2>
+	<div class="img-sec">
+		<img src="assets/imgs/visa.png">
+		<img src="assets/imgs/mstrcrd.png">
+	</div>
+	<ion-list no-lines>
+      <h2>Card Holder Name</h2>
+	  <ion-item>   
+	    <ion-input type="text" value=""></ion-input>
+	  </ion-item>
+
+	  <h2>Card Number</h2>
+	  <ion-item>   
+	    <ion-input type="number" value=""></ion-input>
+	  </ion-item>
+	  <h2>Expiry Date</h2>
+	  <div class="outer" style="padding-right: 5px;">
+	  	<ion-item>
+		  <ion-datetime displayFormat="MMMM" placeholder="Month"></ion-datetime>
+		</ion-item>
+	  </div>
+	  <div class="outer" style="padding-left: 5px;">
+	  	<ion-item>
+		  <ion-datetime displayFormat="YYYY" placeholder="Year"></ion-datetime>
+		</ion-item>
+	  </div>
+	</ion-list>
+</ion-content>
+<ion-footer>
+	<ion-toolbar>
+		<div class="btn-sec">
+			<button ion-button color="theme-header" >SAVE</button>
+			<button ion-button style="background-color: #ffe28f; color: #000;" >CANCEL</button>
+		</div>
+	</ion-toolbar>
+</ion-footer>

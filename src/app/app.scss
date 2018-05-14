@@ -1,0 +1,253 @@
+// http://ionicframework.com/docs/theming/
+
+
+// App Global Sass
+// --------------------------------------------------
+// Put style rules here that you want to apply globally. These
+// styles are for the entire app and not just one component.
+// Additionally, this file can be also used as an entry point
+// to import other Sass files to be included in the output CSS.
+//
+// Shared Sass variables, which can be used to adjust Ionic's
+// default Sass variables, belong in "theme/variables.scss".
+//
+// To declare rules for a specific mode, create a child rule
+// for the .md, .ios, or .wp mode classes. The mode class is
+// automatically applied to the <body> element in the app.
+.alert.alert-danger.red{
+  color: #ff0000 !important;
+  width: 100%;
+  float: left;
+  font-size: 12px;
+  text-align: center;
+  font-weight: 400;
+}
+.showpwd{
+  position: absolute;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  margin: 0 !important;
+  padding-right: 10px;
+  z-index: 9999;
+  .icon{
+    line-height: 40px;
+  }
+
+  .ion-md-eye:before {
+    content: "\f425";
+  }
+  .ion-md-eye-off:before {
+    content: "\f17a";
+  }
+}
+.eyeshow{
+  font-size: 22px !important;
+  line-height: 28px !important;
+}
+.ion-md-eye:before {
+  content: "\f425";
+}
+.btn1{
+	width: 100%;
+	float: left;
+	margin: 0;
+	font-size: 15px;
+	font-weight: 500;
+	text-transform: capitalize;
+	height: 42px;
+	border-radius: 5px;
+	box-shadow: none;
+	letter-spacing: 0.5px;
+}
+.btn1.activated{
+	background-color: #02777d;
+}
+.menuicon{
+	width: 19px;
+    float: left;
+}
+.header .title .toolbar-title{
+	font-size: 17px !important;
+    font-weight: 700 !important;
+    color: #fff !important;
+    letter-spacing: 0.5px !important;
+    text-transform: capitalize;
+}
+.header .title-md{
+	position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    margin: auto;
+    text-align: center;
+    width: calc(100% - 150px);
+}
+span.back-button-text.back-button-text-ios {
+    display: none !important;
+}
+/*========================Menu Page Css Include Here==========================*/
+ion-menu{
+	.header{
+		.toolbar-background{
+      // background-color: #f2f2f2;
+      background-image: url("../assets/imgs/reviewbg.png");
+      background-size: cover;
+      background-position: bottom center;
+      background-repeat: no-repeat;
+		}
+		.top-sec{
+			width: 100%;
+			float: left;
+			text-align: center;
+			padding: 25px 0;
+
+			.img-wrapper{
+			width: 80px;
+			height: 80px;
+			border-radius: 50%;
+			border: 3px solid #dadada;
+			overflow: hidden;
+			margin: auto;
+			box-shadow: 0 0 8px #cccccc;
+
+				img{
+					height: 100%;
+					float: left;
+					width: 100%;
+				}
+			}
+			h2{
+				font-weight: 400;
+				font-size: 16px;
+				color: #000;
+				text-transform: uppercase;
+    			margin: 10px 0 5px 0;
+    			width: 100%;
+    			float: left;
+			}
+			p{
+				font-weight: 400;
+				font-size: 14px;
+				color: #000;
+				width: 100%;
+    			float: left;
+    			margin: 0;
+			}
+		}
+	}
+	.content{
+		background-image: url("../assets/imgs/menubg.png");
+        background-size: cover;
+        background-position: top center;
+        background-repeat: no-repeat;
+
+        ion-list-header{
+        	margin-bottom: 0 !important;
+        	background: transparent !important;
+        	border:none !important;
+
+        	.label{
+        		margin: 0;
+        	}
+        }
+
+
+	        .menubtn{
+	        	background-color: rgba(248, 248, 248, 0.5);
+			    border: none;
+			    margin: 1px 0;
+			    color: #1e1e1e;
+			    font-size: 14px;
+			    font-weight: 400;
+			    padding-left: 40px;
+	    		position: relative;
+
+			    .icon{
+			    	position: absolute;
+				    left: 16px;
+				    top: 0;
+				    bottom: 0;
+				    margin: auto !important;
+				    height: fit-content;
+
+			    	img{
+			    		width: 20px;
+			    		margin-bottom: 1px;
+			    		float: left;
+			    	}
+			    }
+			    .item-inner{
+			    	border: none!important;
+			    	margin-left: 10px !important;
+			    	background-image: none;
+			    }
+			    &:first-child{
+			    	border-top: none !important;
+			    }
+			    &:last-child{
+			    	border-bottom: none !important;
+			    }
+	        }
+	        .child{
+	        	background-color: rgba(248, 248, 248, 0.5);
+			    border: none;
+			    margin: 1px 0;
+			    color: #676767;
+			    font-size: 14px;
+			    font-weight: 400;
+			    padding-left: 40px;
+	    		position: relative;
+
+			    .icon{
+			    	position: absolute;
+				    left: 16px;
+				    top: 0;
+				    bottom: 0;
+				    margin: auto !important;
+				    height: fit-content;
+
+			    	img{
+			    		width: 20px;
+			    		margin-bottom: 1px;
+			    		float: left;
+			    	}
+			    }
+			    .item-inner{
+			    	border: none!important;
+			    	margin-left: 10px !important;
+			    }
+			    &:first-child{
+			    	border-top: none !important;
+			    }
+			    &:last-child{
+			    	border-bottom: none !important;
+			    }
+	        }
+
+    }
+}
+    .nodata{
+        position: absolute;
+        top: 0;
+        bottom: 0;
+        right: 0;
+        left: 0;
+        margin: auto;
+        height: fit-content;
+        text-align: center;
+        
+        img{
+            width: 95px;
+        }
+        
+        span{
+            width: 100%;
+            float: left;
+            text-align: center;
+            font-size: 16px;
+            font-weight: 500;
+            margin: 10px 0 0 0;
+        }
+    }

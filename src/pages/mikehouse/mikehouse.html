@@ -1,0 +1,82 @@
+<!--
+  Generated template for the MikehousePage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header>
+
+    <ion-navbar color="theme-header">
+        <ion-title>{{parkdetail.parking_name}}</ion-title>
+    </ion-navbar>
+</ion-header>
+
+
+<ion-content >
+    <ion-slides pager="true" >
+        <span *ngFor="let dat of images">
+            <ion-slide>
+                <!--      <img src="assets/imgs/mikehouse.png">-->
+                <img [src]="dat.parking_image">
+            </ion-slide>
+        </span>
+        <!--    <ion-slide>
+              <img src="assets/imgs/mikehouse.png">
+            </ion-slide>
+        
+            <ion-slide>
+              <img src="assets/imgs/mikehouse.png">
+            </ion-slide>-->
+
+    </ion-slides>
+    <div class="content-sec">
+        <div class="top-sec">
+            <h1>{{parkdetail.parking_name}}</h1>
+            <address>
+                {{parkdetail.street_address}},{{parkdetail.city}} <br>{{parkdetail.city}},{{parkdetail.zip_code}}
+            </address>
+            <p (click)="review()"><span class="rating">
+                    <ul>
+                        <li><ion-icon name="star" color="yellow"></ion-icon></li>
+                        <li><ion-icon name="star" color="yellow"></ion-icon></li>
+                        <li><ion-icon name="star" color="yellow"></ion-icon></li>
+                        <li><ion-icon name="star" color="gray"></ion-icon></li>
+                        <li><ion-icon name="star" color="gray"></ion-icon></li>
+                    </ul>
+                </span>
+                <span>102 Reviews</span>
+            </p>
+
+            <!--            <div class="img-wrapper">
+                            <img src="assets/imgs/mikelocation.png">
+                        </div>-->
+
+        </div>
+        <h2><span>Hourly Rate</span><span class="right">${{parkdetail.hourly_rate}}.00</span></h2>
+        <h2><span>Space Number</span><span class="right">{{parkdetail.space_number}}</span></h2>
+        <h2><span>Restrictions</span><span class="right">{{parkdetail.restriction}}</span></h2>
+
+        <h2><span>Space Availability</span><span class="right">{{parkdetail.parking_size}} vehicles</span></h2>
+        <h1 class="time-head">Available Parking Time</h1>
+        <div class="left-sec" *ngFor="let dats of parkdetail.opening_days_and_timings">
+            <h2><span>{{dats.day}}</span><span class="right">{{dats.opening_time}} to {{dats.closing_time}}</span></h2>
+        </div>
+<!--        <div class="left-sec">
+            <h2><span>Sunday</span><span class="right">23:00 to 24:00</span></h2>
+        </div>
+        <div class="left-sec">
+            <h2><span>Sunday</span><span class="right">23:00 to 24:00</span></h2>
+        </div>
+        <div class="left-sec">
+            <h2><span>Sunday</span><span class="right">23:00 to 24:00</span></h2>
+        </div>-->
+
+        <div class="reserve" padding>
+            <h1>Want to reserve a space?</h1>
+            <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged.</p>	
+        </div>
+        <div class="btnsec" padding>
+            <button ion-button block color="theme-header" class="btn1" (click)="reservepay()">RESERVE AND PAY</button>
+        </div>
+    </div>
+</ion-content>

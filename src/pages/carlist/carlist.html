@@ -1,0 +1,85 @@
+<!--
+  Generated template for the CarlistPage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<!--
+  Generated template for the ParkinglistPage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header>
+
+  <ion-toolbar color="theme-header">
+  	<button ion-button menuToggle>
+      <ion-icon><img class="menuicon" src="assets/imgs/menuicon.png"></ion-icon>
+    </button>
+    <ion-title>Car lists</ion-title>
+  </ion-toolbar>
+
+</ion-header>
+
+
+<ion-content padding>
+	<ion-list no-lines *ngFor="let data of Userdata">
+	  <ion-item>
+	    <ion-thumbnail item-start>
+	        <img [src]="data.car_images">
+	    </ion-thumbnail>
+              <h2>{{data.car_maker}}</h2>
+	    <p><span class="left">Model: {{data.model}}</span> <span class="right"></span></p>
+	    <p><span class="left">Licence Plate: {{data.licencse_plate}}</span> <span class="right"></span></p>
+             <p><span class="left">Year: {{data.year}}</span> <span class="right"></span></p>
+	    <div class="action">
+	    	<span  ><img src="assets/imgs/edit.png" (click)="edit(data)"></span>
+	    	<ion-icon name="trash" (click)="delete(data)"></ion-icon>
+	    </div>
+	  </ion-item>
+
+	   <!-- <ion-item>
+	    <ion-thumbnail item-start>
+	      <img src="assets/imgs/car.png">
+	    </ion-thumbnail>
+	    <h2>Tom's House</h2>
+	    <p><span class="left">Address: </span> <span class="right">600 Mission Blvd San Diego, CA 92109</span></p>
+	    <p><span class="left">Space Number: </span> <span class="right">300</span></p>
+	    <p><span class="left">Amount Paid: </span> <span class="right">$5</span></p>
+	    <div class="action">
+	    	<img src="assets/imgs/edit.png">
+	    	<ion-icon name="trash"></ion-icon>
+	    </div>
+	  </ion-item> -->
+<!--
+	   <ion-item>
+	    <ion-thumbnail item-start>
+	      <img src="assets/imgs/car.png">
+	    </ion-thumbnail>
+	    <h2>Tom's House</h2>
+	    <p><span class="left">Address: </span> <span class="right">600 Mission Blvd San Diego, CA 92109</span></p>
+	    <p><span class="left">Space Number: </span> <span class="right">300</span></p>
+	    <p><span class="left">Amount Paid: </span> <span class="right">$5</span></p>
+	    <div class="action">
+	    	<img src="assets/imgs/edit.png">
+	    	<ion-icon name="trash"></ion-icon>
+	    </div>
+	  </ion-item> -->
+
+	   <!-- <ion-item>
+	    <ion-thumbnail item-start>
+	      <img src="assets/imgs/car.png">
+	    </ion-thumbnail>
+	    <h2>Tom's House</h2>
+	    <p><span class="left">Address: </span> <span class="right">600 Mission Blvd San Diego, CA 92109</span></p>
+	    <p><span class="left">Space Number: </span> <span class="right">300</span></p>
+	    <p><span class="left">Amount Paid: </span> <span class="right">$5</span></p>
+	    <div class="action">
+	    	<img src="assets/imgs/edit.png">
+	    	<ion-icon name="trash"></ion-icon>
+	    </div>
+	  </ion-item> -->
+
+	</ion-list>
+</ion-content>
+

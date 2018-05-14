@@ -1,0 +1,82 @@
+page-getstarted {
+	 .content{
+         background-image: url("../assets/imgs/bg.png");
+         background-size: cover;
+         background-position: bottom center;
+         background-repeat: no-repeat;
+
+        .top-sec{
+	        width: 100%;
+	        float: left;
+	        text-align: center;
+	        padding: 15px 0px;
+
+	        img{
+		        width: 115px;
+		        margin: auto;
+		        padding: 50px 0px;
+		    }
+    	}
+    	.carparking{
+		    position: absolute;
+		    top: 60px;
+		    bottom: 0;
+		    left: 0;
+		    right: 0;
+		    height: fit-content;
+		    margin: auto;
+		    text-align: center;
+
+		    h1 {
+		        @extend .fontsize15px; 
+		        margin-bottom: 0;		        
+		    }
+		    p {
+		        @extend .fontsize13px;
+		        margin-top: 5px;
+		    }
+		}
+		.grid {
+		    padding: 300px 0px 0px 0px;
+		    margin-left: auto;
+		    margin-right: auto;
+		    width: 100%;
+		    display: flex;
+		    flex-direction: column;
+
+		    .customer{
+			    font-size: 15px;
+			    font-weight: 400;
+			    border-radius: 5px;
+			    height: 43px;
+			    margin: 0;
+			    box-shadow: none;
+		    }
+		    .customer.activated{
+		    	background-color: #02777d;
+		    }
+		}
+		.left_vstrip {
+		    position: absolute;
+		    top: 0;
+		    left: 0;
+		    width: 10px;
+		    background:  #08afb8;
+		    bottom: 0;
+		    margin: auto;
+		    height: 50vh;
+		    border-radius: 0 46px 46px 0;
+		}
+		.right_vstrip {
+		    position: absolute;
+		    right: 0;
+		    width: 10px;
+		    background:  #08afb8;
+		    top: 0;
+		    bottom: 0;
+		    margin: auto;
+		    height: 50vh;
+		    border-radius:46px 0 0 46px;
+		}
+    }
+}

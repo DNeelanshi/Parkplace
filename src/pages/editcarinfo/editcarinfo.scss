@@ -1,0 +1,74 @@
+page-editcarinfo {
+	.content{
+		background-image: url("../assets/imgs/reviewbg.png");
+        background-size: cover;
+        background-position: top center;
+        background-repeat: no-repeat;
+
+        .top-sec{
+        	width: 100%;
+        	float: left;
+        	position: relative;
+
+        	img{
+        		width: 100%;
+        		float: left;
+        	}
+
+        	.button{
+        		font-size: 13px;
+        		font-weight: 700;
+        		text-transform: uppercase;
+        		position: absolute;
+        		bottom: 15px;
+        		right: 15px;
+        		margin: 0;
+			    width: 65px;
+			    height: 27px;
+			    letter-spacing: 0.5px;
+			    border-radius: 4px;
+			    box-shadow: none;
+        	}
+        }
+        .content-sec{
+    		width: 100%;
+    		float: left;
+    		padding-top: 22px;
+
+    		.item{
+				width: 100%;
+				float: left;
+				padding: 0;
+				min-height: auto !important;
+				background: transparent;
+				margin: 5px 0;
+				box-shadow: 0 2px 3px #cccccc;
+				background-color: rgba(255,255,255,0.8);
+			    border-radius: 5px;
+			    padding-left: 15px;
+
+				.item-inner{
+					padding-right: 0;
+					border: none !important;
+					
+					.label{
+						@extend .inputsize;
+						margin: 11px 0px;
+						color: #9d9d9d !important;
+					}
+
+					ion-input{
+						@extend .inputsize;
+						.text-input{
+							margin: 11px 0px;
+						}
+					}
+				}
+			}
+			.btn1{
+				margin-top: 25px;
+    			text-transform: uppercase;
+			}
+    	}
+    }
+}

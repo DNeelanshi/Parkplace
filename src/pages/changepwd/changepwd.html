@@ -1,0 +1,41 @@
+<!--
+  Generated template for the ChangepwdPage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header>
+
+  <ion-navbar color="theme-header">
+    <ion-title>change password</ion-title>
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content padding>
+	<div class="img-wrapper">
+		<img src="assets/imgs/lock.png">
+  </div>
+  <form #changepass="ngForm" novalidate (submit)="changepassword(changepass)">
+	<div class="content-sec">
+
+		<ion-list>
+		  <ion-item>
+       <ion-icon name="{{iconname}}" item-end class="eyeshow" (click)="showPassword()"></ion-icon>
+		    <ion-input type="{{ptype}}" placeholder="Current Password" [(ngModel)]="data.currentpass" name="currentpass" #currentpass="ngModel" required></ion-input>
+		  </ion-item>
+		  <ion-item>
+       <ion-icon name="{{iconname1}}" (click)="showPassword1()" item-end class="eyeshow"></ion-icon>
+		    <ion-input  type="{{ptype1}}" placeholder="New Password" [(ngModel)]="data.newpass" name="newpass" #newpass="ngModel" required></ion-input>
+		  </ion-item>
+		  <ion-item>
+        <ion-icon name="{{iconname2}}" (click)="showPassword2()" item-end class="eyeshow"></ion-icon>
+		    <ion-input  type="{{ptype2}}" placeholder="Confirm Password" [(ngModel)]="data.confirmpass" name="confirmpass" #confirmpass="ngModel" required></ion-input>
+		  </ion-item>
+		</ion-list>
+    <button class="btn1" color="theme-header" ion-button block  type="submit" [disabled]='!changepass.valid'>SAVE</button>
+
+  </div>
+</form>
+</ion-content>

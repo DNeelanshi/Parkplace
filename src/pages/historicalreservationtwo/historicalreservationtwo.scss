@@ -1,0 +1,42 @@
+page-historicalreservationtwo {
+	.content{
+		background-image: url("../assets/imgs/reviewbg.png");
+        background-size: cover;
+        background-position: top center;
+        background-repeat: no-repeat;
+    }
+    .item{
+    	align-items: start;
+    	padding-left: 8px;
+    	border-radius: 5px;
+    	box-shadow: 0 3px 3px #dcdbdb;
+    	margin-bottom: 10px;
+
+    	ion-avatar {
+		    min-width: 50px !important;
+		    min-height: 50px !important;
+		    margin: 8px 11px 8px 2px !important;
+
+		    img{
+		    	width: 50px !important;
+		    	height: 50px !important;
+		    	border: 2px solid #e5e2de;
+		    }
+		}
+		.item-inner{
+			padding-right: 10px;
+		
+			.label{
+				margin-bottom: 8px;
+
+				h2{
+					@extend .fontsize15px;
+				}
+				p{
+					@extend .fontsize13px;
+					white-space: normal;
+				}
+			}
+		}
+    }
+}

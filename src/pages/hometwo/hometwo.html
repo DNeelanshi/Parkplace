@@ -1,0 +1,47 @@
+<!--
+  Generated template for the HometwoPage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header>
+
+  <ion-toolbar color="theme-header">
+  	<button ion-button menuToggle>
+      <ion-icon><img class="menuicon" src="assets/imgs/menuicon.png"></ion-icon>
+    </button>
+    <ion-title>home</ion-title>
+  </ion-toolbar>
+
+</ion-header>
+
+
+<ion-content>
+    <div #map id="map"></div>
+    <div class="place">
+      <ion-list >
+
+          <ion-item *ngIf = "display == 1" >
+          <ion-thumbnail item-start>
+            <img [src]="Userdata.parking_images[0].parking_image">
+          </ion-thumbnail>
+          <h2>{{Userdata.parking_name}}</h2>
+          <p>{{Userdata.street_address}},{{Userdata.city}}</p>
+          <p>{{Userdata.state}},{{Userdata.zip_code}}</p>
+          <p><span class="rating">
+            <ul>
+              <li><ion-icon name="star" color="yellow"></ion-icon></li>
+              <li><ion-icon name="star" color="yellow"></ion-icon></li>
+              <li><ion-icon name="star" color="yellow"></ion-icon></li>
+              <li><ion-icon name="star" color="gray"></ion-icon></li>
+              <li><ion-icon name="star" color="gray"></ion-icon></li>
+            </ul>
+          </span>
+          <span>125 Reviews</span>
+        </p>
+           </ion-item>
+
+        
+      </ion-list>
+    </div>
+</ion-content>

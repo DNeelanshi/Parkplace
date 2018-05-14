@@ -1,0 +1,79 @@
+page-changepwd {
+	.content{
+		background-image: url("../assets/imgs/reviewbg.png");
+        background-size: cover;
+        background-position: top center;
+        background-repeat: no-repeat;
+			.img-wrapper{
+				width: 100%;
+				float: left;
+				text-align: center;
+				padding: 30px 0;
+
+				img{
+					width: 80px;
+					margin: auto;
+				}
+			}
+
+		.content-sec{
+			width: 100%;
+			float: left;
+			padding:0 10px;
+			padding-top: 5px;
+
+			.item{
+				width: 100%;
+				float: left;
+				border: none !important;
+				padding: 0;
+				min-height: auto !important;
+				background: transparent;
+				margin: 5px 0;
+				box-shadow: 0 2px 3px #cccccc;
+				background-color: rgba(255,255,255,0.8);
+        border-radius: 5px;
+
+        // These are two changes
+
+				.item-inner{
+					padding-right: 0;
+					border: none !important;
+
+					ion-input{
+						@extend .inputsize;
+						padding-left: 15px;
+
+						.text-input{
+							margin: 11px 0px
+						}
+					}
+					ion-textarea{
+						@extend .inputsize;
+						background-color: rgba(255,255,255,0.8);
+						border-radius: 5px;
+						padding-left: 15px;
+
+					}
+				}
+			}
+			.btn{
+				background-color: rgba(255,255,255,0.8);
+				border-radius: 5px;
+				padding-left: 15px;
+				height: 40px;
+
+				h3{
+					@extend .inputsize;
+				}
+				.icon{
+					color: #222222;
+				}
+				.ion-md-arrow-forward:before{ content: "\f3d1";}
+			}
+			.btn1{
+				margin-top: 20px;
+			}
+		}
+	}
+}

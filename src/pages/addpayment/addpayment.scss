@@ -1,0 +1,87 @@
+page-addpayment {
+	.content{
+		background-image: url("../assets/imgs/reviewbg.png");
+        background-size: cover;
+        background-position: top center;
+        background-repeat: no-repeat;	
+	
+		.item{
+			width: 100%;
+			float: left;
+			border: none !important;
+			padding: 0;
+			min-height: auto !important;
+			background: transparent;
+			margin: 5px 0;
+			box-shadow: 0 2px 3px #cccccc;
+			background-color: rgba(255,255,255,0.8);
+		    border-radius: 5px;
+
+			.item-inner{
+				padding-right: 0;
+				border: none !important;
+				
+
+				ion-input{
+					@extend .inputsize;
+					padding-left: 15px;
+
+					.text-input{
+						margin: 11px 0px
+					}
+				}
+			}
+		}
+		h2{
+			@extend .fontsize15px;
+			width: 100%;
+			float: left;
+			margin: 10px 0 !important;
+		}
+		.outer{
+			width: 50%;
+			float: left;
+
+			ion-datetime{
+				.datetime-text{
+					@extend .inputsize;
+				}
+			}
+		}
+		.img-sec{
+			width: 100%;
+    		        float: left;
+
+    		img{
+    			width: 75px;
+    			float: left;
+    			margin-right: 10px;
+    			height: 46px;
+    		}
+		}		
+	}
+	ion-footer{
+		ion-toolbar{
+			padding: 0 !important;
+   		 	min-height: auto !important;
+			.btn-sec{
+				width: 100%;
+				float: left;
+				display: flex;
+
+				.button{
+					width: 100%;
+				    margin: 0;
+				    border: none;
+				    border-radius: 0;
+				    text-transform: uppercase;
+				    font-size: 15px;
+				    font-weight: 500;
+				    letter-spacing: 0.5px;
+				    box-shadow: none !important;
+				    height: 42px;
+				}
+			}
+		}
+	}
+}

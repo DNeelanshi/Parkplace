@@ -1,0 +1,100 @@
+<!--
+  Generated template for the SignupPage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header hidden>
+
+  <ion-navbar>
+    <ion-title>signup</ion-title>
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content padding>
+	<div class="content-sec">
+		<div class="top-sec">
+			<h1>Register</h1>
+			<h2>Welcome to Parking Place!<br>Sign up for easy parking</h2>
+		</div>
+		<form class="loginfrm" #registrationForm="ngForm" name='registrationForm' novalidate (submit)="Registration1(registrationForm)">
+			<ion-list>
+
+			  <ion-item>
+			    <ion-input type="text" placeholder="Name" [(ngModel)]="data.firstname" name="firstname" #firstname="ngModel"  required></ion-input>
+			  </ion-item>
+        <div class="alert alert-danger red" color="danger">
+            <div *ngIf="firstname.errors && (firstname.dirty || firstname.touched)">
+                <div [hidden]="!firstname.errors.required">
+                    First name is required
+                </div>
+            </div>
+        </div>
+			  <ion-item>
+			    <ion-input type="text" placeholder="E-mail" [(ngModel)]="data.email" name="email" #email="ngModel" pattern="^[A-Za-z0-9._%+-]{3,}@[a-zA-Z]{3,}([.]{1}[a-zA-Z]{2,}|[.]{1}[a-zA-Z]{2,}[.]{1}[a-zA-Z]{1,63})$" required></ion-input>
+			  </ion-item>
+        <div class="alert alert-danger red" color="danger">
+            <div *ngIf="email.errors && (email.dirty || email.touched)">
+                <div [hidden]="!email.errors.required">
+                    Email is required
+                </div>
+                <div [hidden]="!email.errors.pattern">
+                    Invalid email
+                </div>
+            </div>
+        </div>
+			  <ion-item>
+			    <ion-input placeholder="Phone(xxxxxxxxxx)"  type="tel" [(ngModel)]="data.phone" name="phone" #phone="ngModel" pattern="^[0-9]+([0-9]+)+$" maxlength="10" required ></ion-input>
+			  </ion-item>
+        <div class="alert alert-danger red" color="danger">
+            <div *ngIf="phone.errors && (phone.dirty || phone.touched)">
+                <div [hidden]="!phone.errors.required">
+                    Phone number required
+                </div>
+                <div [hidden]="!phone.errors.pattern">
+                    Only number allowed
+                </div>
+            </div>
+        </div>
+			  <ion-item>
+            <ion-icon name="{{iconname}}" item-end class="eyeshow" (click)="showPassword()"></ion-icon>
+			    <ion-input type="{{ptype}}" placeholder="Password" [(ngModel)]="data.password" name="password" #password="ngModel" minlength="6" required></ion-input>
+			  </ion-item>
+        <div class="alert alert-danger red" color="danger">
+            <div *ngIf="password.errors && (password.dirty || password.touched)">
+                <div [hidden]="!password.errors.required">
+                    Password is required
+                </div>
+                <div [hidden]="!password.errors.minlength">
+                    Password must be at least 6 digits
+                </div>
+                <!-- <div [hidden]="!password.errors.pattern">
+                    Password is weak(It should be combination of a-z/A-Z,0-9/@*#)
+                </div> -->
+
+            </div>  </div>
+			   <ion-item>
+            <ion-icon name="{{iconname1}}" item-end class="eyeshow" (click)="showPassword1()"></ion-icon>
+			    <ion-input type="{{ptype1}}" placeholder="Confirm Password" [(ngModel)]="data.cpassword" name="cpassword" #cpassword="ngModel" required></ion-input>
+			  </ion-item>
+        <div class="alert alert-danger red" color="danger">
+            <div *ngIf="cpassword.errors && (cpassword.dirty || cpassword.touched)">
+                <div [hidden]="!cpassword.errors.required">
+                    Password is required
+                </div>
+
+            </div>  </div>
+			</ion-list>
+			<div class="btnsec">
+				<button ion-button block color="theme-header" class="btn1" type="submit" [disabled]='!registrationForm.valid' >Sign up</button>
+				<button type="button" ion-button block class="btn1 fb" (click)="Facebooklogin()">Sign up with Facebook</button>
+      </div>
+		</form>
+		<div class="signup">
+			<h2 style="font-size: 14px; font-weight: 400; margin-bottom: 6px;">I  have an account?</h2>
+			<h2><span (click)="signin()">Sign in</span></h2>
+		</div>
+	</div>
+</ion-content>

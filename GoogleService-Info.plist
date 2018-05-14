@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>AD_UNIT_ID_FOR_BANNER_TEST</key>
+	<string>ca-app-pub-3940256099942544/2934735716</string>
+	<key>AD_UNIT_ID_FOR_INTERSTITIAL_TEST</key>
+	<string>ca-app-pub-3940256099942544/4411468910</string>
+	<key>CLIENT_ID</key>
+	<string>275107940705-4b4r2is71h366p3a8g2ic4psglv1rgjc.apps.googleusercontent.com</string>
+	<key>REVERSED_CLIENT_ID</key>
+	<string>com.googleusercontent.apps.275107940705-4b4r2is71h366p3a8g2ic4psglv1rgjc</string>
+	<key>API_KEY</key>
+	<string>AIzaSyBskljotj2JD_i4MwsqxjJk28_pT8hNUa4</string>
+	<key>GCM_SENDER_ID</key>
+	<string>275107940705</string>
+	<key>PLIST_VERSION</key>
+	<string>1</string>
+	<key>BUNDLE_ID</key>
+	<string>io.ionic.parkplace</string>
+	<key>PROJECT_ID</key>
+	<string>park-place-54bf3</string>
+	<key>STORAGE_BUCKET</key>
+	<string>park-place-54bf3.appspot.com</string>
+	<key>IS_ADS_ENABLED</key>
+	<true></true>
+	<key>IS_ANALYTICS_ENABLED</key>
+	<false></false>
+	<key>IS_APPINVITE_ENABLED</key>
+	<false></false>
+	<key>IS_GCM_ENABLED</key>
+	<true></true>
+	<key>IS_SIGNIN_ENABLED</key>
+	<true></true>
+	<key>GOOGLE_APP_ID</key>
+	<string>1:275107940705:ios:c799dc52778944c6</string>
+	<key>DATABASE_URL</key>
+	<string>https://park-place-54bf3.firebaseio.com</string>
+</dict>
+</plist>

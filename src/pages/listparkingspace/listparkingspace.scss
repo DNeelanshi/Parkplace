@@ -1,0 +1,453 @@
+page-listparkingspace {
+		/*.content{
+		background-image: url("../assets/imgs/reviewbg.png");
+        background-size: cover;
+        background-position: top center;
+        background-repeat: no-repeat;
+		
+		.content-sec{
+			width: 100%;
+			float: left;
+			padding-top: 5px;
+
+			h2{
+				@extend .fontsize15px;
+				width: 100%;
+			    float: left;
+			    margin: 5px 0;
+			}
+			.mainsec{
+				width: 50%;
+				float: left;
+				margin: 5px 0;
+				.outer_div{					
+				    box-shadow: 0 2px 3px #cccccc;
+				    border-radius: 5px;
+				    background-color: rgba(255, 255, 255, 0.9);
+				    width: 100%;
+				    float:left;
+				    padding: 5px 0px;
+
+				    h2{
+				    	font-size: 15px;
+				    	color: #1e1e1e;
+				    	width: 100%;
+					    float: left;
+					    padding-left: 16px;
+					    margin: 5px 0;
+					    white-space: nowrap;
+					    overflow: hidden;
+					    text-overflow: ellipsis;
+				    }
+				    .item{
+				    	height: 25px;
+				    	box-shadow: none;
+
+				    	.datetime-text{
+				    		font-size: 15px;
+						    font-weight: 400;
+				    	}
+				    }
+				}
+			}
+			.item{
+				width: 100%;
+				float: left;
+				border: none !important;
+				padding: 0;
+				min-height: auto !important;
+				background: transparent;
+				margin: 5px 0;
+				box-shadow: 0 2px 3px #cccccc;
+				border-radius: 5px;
+				background-color: rgba(255,255,255,0.9);
+			
+
+				.item-inner{
+					padding-right: 0;
+					border: none !important;
+
+					ion-input{
+						@extend .inputsize;
+						padding-left: 15px;
+						.text-input{
+							margin: 11px 0px
+						}
+					}
+					ion-textarea{
+						@extend .inputsize;
+						padding-left: 15px;
+	    			
+					}
+				}
+				
+		   
+			.doct{
+				width: 130px;
+				float: left;
+				position: relative;
+			    margin: 10px 0 0 0;
+
+				img{
+					width: 100%;
+					float: left;
+					border-radius: 5px;
+					box-shadow: 0 0px 20px #b5b2b2;
+				}
+				.delete-img{
+				    position: absolute;
+			        right: 5px;
+			        top: 5px;
+			        width: 12px;
+				}
+			}
+			.btn1{
+				margin-top: 10px;
+			}
+		}
+		.photosec{
+	         width: 100%;
+	         float: left;
+	         padding-top: 20px;
+
+	         h2{
+	         	@extend .fontsize15px;
+	         	span{
+			        font-size: 15px;
+			        font-weight: 400;
+			     }
+			     .button{
+			        position: absolute;
+			        padding: 0;
+			        margin: 0;
+			        right: 0;
+			        top: -3px;
+				    width: 33px;
+				    height: 24px;
+			        box-shadow: none;
+			        border-radius: 5px;
+
+			        .icon{
+				        font-size: 22px;
+				        font-weight: 600;
+				        color: #fff;
+				     }
+				     .ion-md-add:before{ content: "\f102" !important; }
+     				.ion-md-close:before{ content: "\f406" !important; }
+			     }
+	         }
+	         .col{
+	         	padding: 3px !important;
+	         }
+	         .image-wrapper{
+		         width: 100%;
+		         float: left;
+		         position: relative;
+
+		         img{
+		         	width: 100%;
+		         	float: left;
+		         	border-radius: 5px;
+		         }
+
+		         .delete-img{
+			        position: absolute;
+			        right: 3px;
+			        top: 3px;
+			        width: 12px;
+			     }
+		     }
+	     }
+	     ion-select{
+					@extend .inputsize;
+					padding-left: 15px;
+					.text-input{
+						margin: 11px 0px
+					}
+				}
+				
+
+			.padding-right{padding: 0 0 0 5px !important;} 
+		    .padding-left{padding: 0 5px 0 0 !important;}
+		    .paddingnone{padding: 0 !important;}
+		    .paddingtopbtm{ padding:0 5px !important}
+		     .addbtn{
+			      padding: 0; 
+			      .item-inner{ 
+			      	padding-right: 0 !important; 
+			      .label{ margin: 0; }
+			      }
+
+			      .button{
+			        margin: 0;
+			        padding: 0;
+			        width: 100%;
+			        font-size: 26px !important;
+			    }
+			 }
+
+			 
+		}
+	}*/
+
+	.content{
+		background-image: url("../assets/imgs/reviewbg.png");
+        background-size: cover;
+        background-position: top center;
+        background-repeat: no-repeat;
+		
+		.content-sec{
+			width: 100%;
+			float: left;
+			padding-top: 5px;
+
+			h2{
+				@extend .fontsize15px;
+				width: 100%;
+			    float: left;
+			    margin: 5px 0;
+			    .icon{
+			    	float: right;
+			    }
+			    .ion-md-trash:before {
+				    content: "\f4c5";
+				}
+			}
+			.mainsec{
+				width: 50%;
+				float: left;
+				margin: 5px 0;
+				.outer_div{					
+				    box-shadow: 0 2px 3px #cccccc;
+				    border-radius: 5px;
+				    background-color: rgba(255, 255, 255, 0.9);
+				    width: 100%;
+				    float:left;
+				    padding: 5px 0px;
+
+				    h2{
+				    	font-size: 15px;
+				    	color: #1e1e1e;
+				    	width: 100%;
+					    float: left;
+					    padding-left: 16px;
+					    margin: 5px 0;
+					    white-space: nowrap;
+					    overflow: hidden;
+					    text-overflow: ellipsis;
+				    }
+				    .item{
+				    	height: 25px;
+				    	box-shadow: none;
+
+				    	.datetime-text{
+				    		font-size: 15px;
+						    font-weight: 400;
+				    	}
+				    }
+				}
+			}
+			.item{
+				width: 100%;
+				float: left;
+				border: none !important;
+				padding: 0;
+				min-height: auto !important;
+				background: transparent;
+				margin: 5px 0;
+				box-shadow: 0 2px 3px #cccccc;
+				border-radius: 5px;
+				background-color: rgba(255,255,255,0.9);
+			
+
+				.item-inner{
+					padding-right: 0;
+					border: none !important;
+
+					ion-input{
+						@extend .inputsize;
+						padding-left: 15px;
+						.text-input{
+							margin: 11px 0px
+						}
+					}
+					ion-textarea{
+						@extend .inputsize;
+						padding-left: 15px;
+
+						.text-input{
+							margin: 0 !important;
+						    min-height: 85px;
+						    padding: 10px 0;
+						    width: 100%;
+						    float: left;
+						    padding-right: 12px;
+						}
+	    			
+					}
+				}
+			}
+			.doct{
+				width: 130px;
+				float: left;
+				position: relative;
+			    margin: 10px 0 0 0;
+
+				img{
+					width: 100%;
+					float: left;
+					border-radius: 5px;
+					box-shadow: 0 0px 20px #b5b2b2;
+				}
+				.delete-img{
+				    position: absolute;
+			        right: 5px;
+			        top: 5px;
+			        width: 12px;
+				}
+			}
+			.btn1{
+				margin-top: 10px;
+			}
+		}
+		.photosec{
+	         width: 100%;
+	         float: left;
+	         padding-top: 20px;
+
+	         h2{
+	         	@extend .fontsize15px;
+	         	span{
+			        font-size: 15px;
+			        font-weight: 400;
+			     }
+			     .button{
+			        position: absolute;
+			        padding: 0;
+			        margin: 0;
+			        right: 0;
+			        top: -3px;
+				    width: 33px;
+				    height: 24px;
+			        box-shadow: none;
+			        border-radius: 5px;
+
+			        .icon{
+				        font-size: 22px;
+				        font-weight: 600;
+				        color: #fff;
+				     }
+				     .ion-md-add:before{ content: "\f102" !important; }
+     				.ion-md-close:before{ content: "\f406" !important; }
+			     }
+	         }
+	         .col{
+	         	padding: 3px !important;
+	         }
+	         .image-wrapper{
+		         width: 100%;
+		         float: left;
+		         position: relative;
+
+		         img{
+		         	width: 100%;
+		         	float: left;
+		         	border-radius: 5px;
+		         }
+
+		         .delete-img{
+			        position: absolute;
+			        right: 3px;
+			        top: 3px;
+			        width: 12px;
+			     }
+		     }
+	     }
+	}
+	.tagsec{
+        width: 100%;
+        float: left;
+
+        .inner-sec{
+	        width: 100px;
+	        float: left;
+	        padding: 7px;
+	        margin: 5px 5px 5px 0;
+	        position: relative;
+	        box-shadow: 0 2px 3px #cccccc;
+			border-radius: 5px;
+			background-color: rgba(255,255,255,0.9);
+
+	         .icon{
+		        position: absolute;
+			    top: 1px;
+			    right: 1px;
+			    height: 15px;
+			    width: 15px;
+			    text-align: center;
+			    line-height: 14px;
+			    border-radius: 50%;
+			    border: 0.5px solid #222222;
+			    font-size: 15px;
+			    font-weight: 700;
+		    }
+		    .ion-md-close:before {
+			    content: "\f406";
+			}
+		    p{
+		    	@extend .inputsize;
+		    	text-align: center;
+		    	font-size: 11px;
+		    	margin: 0;
+		    }
+	    }
+    }
+    .padding-right{padding: 0 0 0 5px !important;} 
+    .padding-left{padding: 0 5px 0 0 !important;}
+    .paddingnone{padding: 0 !important;}
+    .paddingtopbtm{ padding:0 5px !important}
+    .addbtn{
+      padding: 0; 
+      height: 40px;
+      .item-inner{ 
+      	padding-right: 0 !important; 
+      .label{ margin: 0; }
+      }
+
+      .button{
+        margin: 0;
+        padding: 0;
+        width: 100%;
+        font-size: 26px !important;
+        float: left;
+	    height: 40px;
+	    color: #1e1e1e;
+
+	    .ion-md-add:before {
+		    content: "\f102";
+		}
+		.icon{
+			font-weight: 700;
+		}
+      }
+    }
+    ion-datetime{
+		@extend .inputsize;
+		padding: 0 !important;
+		.datetime-text{
+			margin: 11px 0px;
+			padding-left: 15px;
+		}
+	}
+	 ion-select{
+		@extend .inputsize;
+		padding: 0 8px !important;
+	}
+	.slct{
+		@extend .inputsize;
+		margin: 11px 0px;
+		padding-left: 15px;
+    	color: #ababaa !important;
+	}
+}
+

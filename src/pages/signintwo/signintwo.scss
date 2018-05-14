@@ -1,0 +1,107 @@
+page-signintwo {
+	.content {
+        background-image: url("../assets/imgs/signinimg.png");
+        background-size: cover;
+        background-position: top center;
+        background-repeat: no-repeat;
+
+		.content-sec{
+			width: 100%;
+			float: left;
+			padding: 0 10px;
+
+			.img-wrapper{
+				width: 100%;
+				float: left;
+				text-align: center;
+        padding: 40px 0;
+        position: relative;
+
+        h4{
+          position: absolute;
+          top: 5px;
+          left: 0;
+          margin: 0;
+          font-size: 14px;
+          color: #05b8c0;
+
+          .icon{
+            float: left;
+            margin-right: 5px;
+            font-size: 16px;
+          }
+          .ion-ios-arrow-back:before {
+            content: "\f27d" !important;
+          }
+        }
+
+				img{
+					width: 115px;
+					margin: auto;
+				}
+			}
+			.item{
+				width: 100%;
+				float: left;
+				padding: 0;
+				min-height: auto !important;
+        margin: 5px 0;
+        background-color: rgba(255,255,255,0.8);
+        border: 1px solid #fff;
+        border-radius: 5px;
+        height: 41px;
+
+				.item-inner{
+					padding-right: 0;
+					border: none !important;
+
+					ion-input{
+						@extend .inputsize;
+						padding-left: 15px;
+
+						.text-input{
+							margin: 11px 0px
+						}
+					}
+				}
+			}
+			.forgot{
+				width: 100%;
+				float: left;
+				text-align: right;
+				padding: 5px 0 10px 0;
+
+				h2{
+					@extend .fontsize14px;
+					margin: 0;
+					color: #000;
+					width: fit-content;
+					float: right;
+				}
+			}
+			.btnsec{
+				width: 100%;
+				float: left;
+
+				.btn1{
+					margin-bottom: 30px;
+					text-transform: none;
+				}
+				.fb{
+					background-color: #4867aa;
+				}
+			}
+			.signup{
+				width: 100%;
+				float: left;
+				text-align: center;
+				padding-top: 40px;
+
+				h2{
+					@extend .fontsize15px;
+					margin: 0;
+				}
+			}
+		}
+	}
+}

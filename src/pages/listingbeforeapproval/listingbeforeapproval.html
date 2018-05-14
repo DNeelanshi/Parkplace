@@ -1,0 +1,69 @@
+<!--
+  Generated template for the ListingbeforeapprovalPage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header>
+
+    <ion-toolbar color="theme-header">
+        <button ion-button menuToggle>
+         <ion-icon><img class="menuicon" src="assets/imgs/menuicon.png"></ion-icon>
+       </button>
+       <ion-title>list parking space</ion-title>
+     </ion-toolbar>
+
+</ion-header>
+
+
+<ion-content padding>
+    <form #addparkingform="ngForm" name='addparkingform' novalidate (submit)="Addparking(addparkingform)">
+  	<div class="content-sec">
+
+    <ion-list>
+        <ion-item>
+          <ion-input type="text" placeholder="Address" (input)="updateSearch()" [(ngModel)]="data.address" name="address" #address="ngModel"></ion-input>
+        </ion-item>
+        <ion-list *ngIf="autocompleteItems != ' ' "  class="suggestion">
+          <ion-item class="subsug"
+          *ngFor="let item of autocompleteItems"
+          (click)="chooseItem(item)" >
+          {{ item.description }}
+          </ion-item>
+        </ion-list>
+      
+      </ion-list>
+   <button *ngIf="stripebutton == true" class="btn1" color="theme-header" type="button" ion-button block (click)="stripeconnect()">Connect with stripe</button>
+  <button class="btn1" color="theme-header" type="button" ion-button block (click)="uploadagreement()">Upload Leasing Agreement</button>
+  <div class="doct" *ngIf="leasingpic">
+    <img [src]="leasingpic">
+    <img src="assets/imgs/crosimg.png" class="delete-img" (click)="DeleteImage1()">
+  </div>
+  <!-- <div class="doct" *ngIf="!leasingpic">
+    <img src="assets/imgs/document.png">
+    <img src="assets/imgs/crosimg.png" class="delete-img">
+  </div> -->
+</div>
+
+<div class="photosec">
+        <h2 style="position:relative;width: 100%; float: left;">Add Photo <span>( Multiple photos )</span>
+        <button ion-button color="theme-header" *ngIf="bit<=2" type="button" (click)="CameraAction()"><ion-icon name="add"></ion-icon></button>
+        </h2>
+        <ion-grid style="padding:0;" *ngIf="arr.length>0">
+            <ion-row>
+              <ion-col col-4 *ngFor = "let ar of arr;let i = index">
+              <div class="image-wrapper">
+                    <img src="{{ar}}">
+                    <img src="assets/imgs/crosimg.png" class="delete-img" (click)="DeleteImage(i)">
+                  </div>
+              </ion-col>
+
+            </ion-row>
+          </ion-grid>
+      </div>
+      <button style="margin-top: 25px;" ion-button color="theme-header" block class="btn1" type="submit" [disabled]='!addparkingform.valid'>SAVE</button>
+    </form>
+    <div  *ngIf="blurr == true" class="disebale">
+      <h1>Your Listing has been<br> Submitted.<br>Please check your Approval<br> Status</h1>
+    </div>
+</ion-content>

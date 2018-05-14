@@ -1,0 +1,83 @@
+<ion-header>
+  <ion-toolbar>
+    <button ion-button menuToggle>
+      <ion-icon ><img class="menuicon" src="assets/imgs/menuicon.png"></ion-icon>
+    </button>
+    <ion-title>Home</ion-title>
+  </ion-toolbar>
+    <div class="searchout">
+   <ion-item class="search">
+    <img item-end (click)="initmap()" src="assets/imgs/location.png">
+    <ion-input type="text"  placeholder="Search Location" (input)="updateSearch()" [(ngModel)]="data.search" name="search" #search="ngModel" ></ion-input>
+  </ion-item>
+     <ion-list *ngIf="autocompleteItems != ' ' " class="suggestion">
+          <ion-item
+          *ngFor="let item of autocompleteItems"
+          (click)="chooseItem(item)" >
+          {{ item.description }}
+          </ion-item>
+          </ion-list>
+    </div>
+</ion-header>
+
+
+  <ion-content>
+       <div #map id="map"></div>
+<!--    <div class="mapouter">
+      <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2952.9352172945055!2d-71.80711768488622!3d42.25855597919382!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x89e40663492673c1%3A0xaf8e200228d2a96e!2s2+Ionic+Ave%2C+Worcester%2C+MA+01608%2C+USA!5e0!3m2!1sen!2sin!4v1511332038652" width="600" height="450" frameborder="0" style="border:0" allowfullscreen></iframe>
+    </div>-->
+    <div class="serch-sec">
+      <ion-list no-lines>
+        <ion-item style="border-bottom: 1px solid #e5e5e5; padding-right: 40px;">
+          <ion-label>City</ion-label>
+          <ion-select [(ngModel)]="data.city" name="city" #city="ngModel">
+            <ion-option value="San Deigo">San Deigo</ion-option>
+<!--            <ion-option value="n64">Nintendo64</ion-option>
+            <ion-option value="ps">PlayStation</ion-option>
+            <ion-option value="genesis">Sega Genesis</ion-option>
+            <ion-option value="saturn">Sega Saturn</ion-option>
+            <ion-option value="snes">SNES</ion-option>-->
+          </ion-select>
+          <ion-icon class="serchicon" item-end (click)="serachdata()" name="search"></ion-icon>
+           
+        </ion-item>
+        <div class="time" style="border-right: 1px solid #e5e5e5;">
+          <ion-item>
+            <ion-label>Time</ion-label>
+            <ion-datetime displayFormat="h:mm A" pickerFormat="h mm A" [(ngModel)]="data.startime" name="startime" #startime="ngModel"></ion-datetime>
+          </ion-item>
+        </div>
+        <div class="time">
+          <ion-item>
+            <ion-label>Date</ion-label>
+            <ion-datetime displayFormat="MM-DD-YYYY" pickerFormat="MM DD YYYY" [(ngModel)]="data.date" name="date" #date="ngModel" min="{{daate}}" max="2037"></ion-datetime>
+          </ion-item>
+        </div>
+      </ion-list>
+    </div>
+
+    <div class="place">
+      <ion-list>
+        <ion-item  *ngIf="display == 1" (click)="viewparking(Userdata)">
+          <ion-thumbnail item-start>
+            <img [src]="Userdata.parking_images[0].parking_image">
+          </ion-thumbnail>
+         <h2>{{Userdata.parking_name}}</h2>
+          <p>{{Userdata.street_address}},{{Userdata.city}}</p>
+          <p>{{Userdata.state}},{{Userdata.zip_code}}</p>
+          <button ion-button color="theme-header">Reserve</button>
+          <p><span class="rating">
+            <ul>
+              <li><ion-icon name="star" color="yellow"></ion-icon></li>
+              <li><ion-icon name="star" color="yellow"></ion-icon></li>
+              <li><ion-icon name="star" color="yellow"></ion-icon></li>
+              <li><ion-icon name="star" color="gray"></ion-icon></li>
+              <li><ion-icon name="star" color="gray"></ion-icon></li>
+            </ul>
+          </span>
+          <span>125 Reviews</span>
+        </p>
+        </ion-item>
+      </ion-list>
+    </div>
+</ion-content>

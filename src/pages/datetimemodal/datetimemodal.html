@@ -1,0 +1,62 @@
+<!--
+  Generated template for the DatetimemodalPage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header hidden>
+
+    <ion-navbar>
+        <ion-title>datetimemodal</ion-title>
+    </ion-navbar>
+
+</ion-header>
+
+
+<ion-content padding>
+    <div class="overouter" (click)="dismiss()"></div>
+
+
+
+    <div class="centerbox">
+        <div class="main-sec">
+        <div class="top-sec">
+
+        <h2>Select parking day and timings</h2>
+        <ion-list>
+            <ion-item>
+                <ion-label>Booking Date</ion-label>
+                <ion-datetime  displayFormat="MM-DD-YYYY" pickerFormat="MM DD YYYY" min="{{date}}" max="2037" [(ngModel)]="data.datee"  (ngModelChange)="changes()" name="datee" #datee="ngModel" ></ion-datetime>
+        </ion-item>
+            <ion-item>
+                <ion-label class="slct">Select Day</ion-label>
+                <ion-select  [(ngModel)]="data.day" name="day" #day="ngModel">
+                    <span *ngFor="let dat of datetime.opening_days_and_timings"> <ion-option value={{dat.day}}>{{dat.day}}</ion-option></span>
+<!--                    <ion-option value="Monday">Monday</ion-option>
+                    <ion-option value="Tuesday">Tuesday</ion-option>
+                    <ion-option value="Wednesday">Wednesday</ion-option>
+                    <ion-option value="Thursday">Thursday</ion-option>
+                    <ion-option value="Friday">Friday</ion-option>
+                    <ion-option value="Saturday">Saturday</ion-option>-->
+                </ion-select>
+            </ion-item>
+           
+            <ion-item>
+                <ion-label>Start Time</ion-label>
+                <ion-datetime  displayFormat="HH:mm A" pickerFormat="HH:mm A"  [(ngModel)]="data.start"  name="start" #start="ngModel" ></ion-datetime>
+        </ion-item>
+
+            <ion-item>
+                <ion-label>End Time</ion-label>
+                <ion-datetime displayFormat="HH:mm A" pickerFormat="HH:mm A" [(ngModel)]="data.end" name="end" #end="ngModel" ></ion-datetime>
+            </ion-item>
+        </ion-list>
+        </div>
+        <div class="btn-sec">
+            <button block ion-button clear style="border-right: 0.5px solid #ccc;" (click)="dismiss1()">Cancel</button>
+            <button block ion-button clear style="border-left: 0.5px solid #ccc;" (click)="dismiss()">Ok</button>
+        </div>
+    </div>
+    </div>
+   
+</ion-content>
