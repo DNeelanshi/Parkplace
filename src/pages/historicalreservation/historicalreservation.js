@@ -11,8 +11,9 @@ import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { Appsetting } from "../../providers/appsetting";
 import { Http, Headers, RequestOptions } from '@angular/http';
-import { ToastController, AlertController, LoadingController } from 'ionic-angular';
+import { ToastController, AlertController, LoadingController, MenuController } from 'ionic-angular';
 import 'rxjs/add/operator/map';
+import * as moment from 'moment';
 /**
  * Generated class for the HistoricalreservationPage page.
  *
@@ -20,12 +21,13 @@ import 'rxjs/add/operator/map';
  * Ionic pages and navigation.
  */
 var HistoricalreservationPage = /** @class */ (function () {
-    function HistoricalreservationPage(navCtrl, navParams, http, toastCtrl, alertCtrl, loadingCtrl, appsetting) {
+    function HistoricalreservationPage(navCtrl, navParams, http, toastCtrl, alertCtrl, menuCtrl, loadingCtrl, appsetting) {
         this.navCtrl = navCtrl;
         this.navParams = navParams;
         this.http = http;
         this.toastCtrl = toastCtrl;
         this.alertCtrl = alertCtrl;
+        this.menuCtrl = menuCtrl;
         this.loadingCtrl = loadingCtrl;
         this.appsetting = appsetting;
         this.Reservationdata = [];
@@ -33,6 +35,7 @@ var HistoricalreservationPage = /** @class */ (function () {
         this.Pagetotal = 1;
         this.pagon = 1;
         this.pagein = 1;
+        this.menuCtrl.swipeEnable(true);
         this.getreservations(1);
         this.Reservationdata = [];
     }
@@ -72,6 +75,8 @@ var HistoricalreservationPage = /** @class */ (function () {
                         _this.Reservationdata1.forEach(function (value, key) {
                             value.reservation_data.forEach(function (value1, key1) {
                                 value1.parking_space.forEach(function (value2, key2) {
+                                    value.parking_start_time = moment(value.parking_start_time, "h:mm: A").format("hh:mm A");
+                                    value.parking_end_time = moment(value.parking_end_time, "h:mm: A").format("hh:mm A");
                                     if (value.parking_id == value2._id) {
                                         imagearray = [];
                                         for (var i = 0; i < value2.parking_images.length; i++) {
@@ -155,6 +160,7 @@ var HistoricalreservationPage = /** @class */ (function () {
             Http,
             ToastController,
             AlertController,
+            MenuController,
             LoadingController,
             Appsetting])
     ], HistoricalreservationPage);

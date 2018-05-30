@@ -4,7 +4,7 @@ import {Appsetting} from "../../providers/appsetting";
 import {HomePage} from '../home/home';
 import {MikehousePage} from '../mikehouse/mikehouse';
 import {Http, Headers, RequestOptions} from '@angular/http';
-import {ToastController, AlertController, LoadingController} from 'ionic-angular';
+import {ToastController, AlertController, LoadingController,MenuController} from 'ionic-angular';
 import {Facebook, FacebookLoginResponse} from '@ionic-native/facebook';
 import {MyApp} from '../../app/app.component';
 import {ActionSheetController} from 'ionic-angular';
@@ -35,8 +35,10 @@ export class AddcarinfoPage {
         private camera: Camera,
         public http: Http,
         public alertCtrl: AlertController,
+         public menuCtrl: MenuController,
         public loadingCtrl: LoadingController,
         public appsetting: Appsetting) {
+         this.menuCtrl.swipeEnable(true);
            this.pagenameprevious=this.navCtrl.last();
 //        console.log("VAL");
            console.log(this.pagenameprevious.component.name);
@@ -50,7 +52,7 @@ export class AddcarinfoPage {
         let options = new RequestOptions({headers: headers});
         var userid = JSON.parse(localStorage.getItem('UserDetailcustomer'))._id;
                  if(this.carpicture == undefined){
-            this.AlertMsg1('Car picture is required');
+           this.carpicture="https://s.hswstatic.com/gif/hydrogen-vehicle-danger-1.jpg";
         
           }else{
         var postdata = {
@@ -60,7 +62,7 @@ export class AddcarinfoPage {
             licencse_plate: cardata.value.licence,
             user_id: userid,
             car_images:this.carpicture
-//            car_images: "https://s.hswstatic.com/gif/hydrogen-vehicle-danger-1.jpg"
+           
 
         };
 
@@ -80,7 +82,7 @@ export class AddcarinfoPage {
                 Loading.dismiss();
                 console.log(data);
                 if(data.status == true){
-                    this.AlertMsg1('Car information added succesfully')
+                    this.AlertMsg1('Car information added successfully')
                   if(this.pagenameprevious.component.name == 'MikehousePage'){
                     
                     this.navCtrl.push(MikehousePage);
@@ -89,6 +91,7 @@ export class AddcarinfoPage {
                     }
                 }
             })
+            
         })
           }
     }
@@ -142,11 +145,12 @@ export class AddcarinfoPage {
 
     public chooseImage(Type) {
         console.log(Type)
+        
         const options: CameraOptions = {
             quality: 10,
             sourceType: Type,
-            targetWidth: 767,
-            targetHeight: 100,
+            targetWidth:600,
+            targetHeight:600,
             correctOrientation: true,
             allowEdit: true,
             destinationType: this.camera.DestinationType.DATA_URL,

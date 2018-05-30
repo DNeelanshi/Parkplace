@@ -8,6 +8,8 @@ import { AddcarinfoPage } from '../addcarinfo/addcarinfo';
 import { DatetimemodalPage } from '../datetimemodal/datetimemodal';
 import { Stripe } from '@ionic-native/stripe';
 import { BillinginformationPage } from '../billinginformation/billinginformation';
+import { HomePage } from '../home/home';
+import * as moment from 'moment';
 /**
  * Generated class for the MikehousePage page.
  *
@@ -22,12 +24,23 @@ import { BillinginformationPage } from '../billinginformation/billinginformation
 })
 export class MikehousePage {
 parkdetail:any=[];
+parkdetail1:any=[];
 selldetail:any=[];
 amount:any;
 Cardata:any=[];
 images:any=[];
 datedata:any=[];
 userdetail:any=[];
+ reviewarry:any=[];
+   Rating:number=0;
+   totalvalue:number=0;
+   Userdata:any;
+   totalreviews:any=0;
+   starone: any = 'star-outline';
+    startwo: any = 'star-outline';
+    starthree: any = 'star-outline';
+    starfour: any = 'star-outline';
+    starfive: any = 'star-outline';
   constructor(public navCtrl: NavController, public navParams: NavParams,
         public http: Http,
         public toastCtrl: ToastController,
@@ -37,7 +50,9 @@ userdetail:any=[];
         public modalCtrl: ModalController,
         public loadingCtrl: LoadingController,
         public appsetting: Appsetting,private stripe: Stripe) {
+          this.menuCtrl.swipeEnable(true);
         this.getdetail();
+        console.log(this.navCtrl.last().component.name);
 //        console.log(typeof(this.navParams.data))
 //        if(typeof(this.navParams.data) == "string"){
 //           
@@ -48,10 +63,118 @@ userdetail:any=[];
   ionViewDidLoad() {
     console.log('ionViewDidLoad MikehousePage');
   }
+  gotohome(){
+      this.navCtrl.push(HomePage)
+  }
 getdetail(){
+    var temp=this;
     this.parkdetail = JSON.parse(localStorage.getItem('Parkdetail'))
     this.selldetail = JSON.parse(localStorage.getItem('sellerparkdetail'))
     console.log(this.parkdetail);
+    this.parkdetail.opening_days_and_timings.forEach(
+    function(value,key){
+        value.opening_time= moment(value.opening_time,"h:mm: A").format("hh:mm A");
+         value.closing_time= moment(value.closing_time,"h:mm: A").format("hh:mm A");
+    })
+    this.parkdetail1= this.parkdetail;
+    console.log(this.parkdetail1);
+     if(temp.parkdetail.review_and_rating.length){
+                    temp.totalreviews =  temp.parkdetail.review_and_rating.length;
+                    
+                    console.log(temp.totalreviews);
+                    }else{
+                        temp.totalreviews = 0;
+                    }
+                    temp.Rating=0;
+                    temp.reviewarry = temp.parkdetail.review_and_rating
+                    temp.reviewarry.forEach(function (value, key) {
+                temp.Rating = (temp.Rating + value.rating);
+                
+                console.log('totalRating:'+temp.Rating);
+                console.log('totallength'+temp.reviewarry.length)
+                temp.totalvalue = temp.Rating /temp.reviewarry.length
+                temp.totalvalue = Number((temp.totalvalue).toFixed(1));
+                console.log('totalaverage'+temp.totalvalue);
+                })
+                 if(temp.totalvalue  == 1){
+                  temp.starone = 'star'
+              }
+              else if(temp.totalvalue  == 2){
+                   temp.starone = 'star'
+                  temp.startwo = 'star'
+              }
+              else if(temp.totalvalue == 3){
+                   temp.starone = 'star'
+                  temp.startwo = 'star'
+                  temp.starthree = 'star'
+              }
+              else if(temp.totalvalue == 4){
+                  temp.starone = 'star'
+                  temp.startwo = 'star'
+                  temp.starthree = 'star'
+                   temp.starfour = 'star'
+              }
+             else if(temp.totalvalue == 5){
+                 temp.starone = 'star'
+                  temp.startwo = 'star'
+                  temp.starthree = 'star'
+                   temp.starfour = 'star'
+                  temp.starfive = 'star'
+             }  else if((1.1 <= temp.totalvalue)&&(temp.totalvalue <= 1.5)){
+           
+              temp.starone = 'star-half'
+                  
+              }  else if((1.6 <= temp.totalvalue)&&(temp.totalvalue <= 1.9)){
+            
+              temp.starone = 'star'
+                  temp.startwo = 'star'
+                
+              }  else if((2.1 <= temp.totalvalue)&&(temp.totalvalue <= 2.5)){
+           
+              temp.starone = 'star'
+                  temp.startwo = 'star'
+                   temp.starthree = 'star-half'
+                
+              }  else if((2.6 <= temp.totalvalue)&&(temp.totalvalue <= 2.9)){
+             
+              temp.starone = 'star'
+                  temp.startwo = 'star'
+                  temp.starthree = 'star'
+                
+              }
+                else if((3.1<= temp.totalvalue)&&(temp.totalvalue <= 3.5)){
+                   
+              temp.starone = 'star'
+                  temp.startwo = 'star'
+                  temp.starthree = 'star'
+                   temp.starfour='star-half'
+                
+              }
+                else if((3.6 <= temp.totalvalue)&&(temp.totalvalue <= 3.9)){
+                   
+              temp.starone = 'star'
+                  temp.startwo = 'star'
+                  temp.starthree = 'star'
+                  temp.starfour='star'
+              }
+           else if((4.1 <= temp.totalvalue)&&(temp.totalvalue <= 4.5)){
+            
+              temp.starone = 'star'
+                  temp.startwo = 'star'
+                  temp.starthree = 'star'
+                   temp.starfour='star-half'
+                
+              }
+                else if((4.6 <= temp.totalvalue)&&(temp.totalvalue <= 4.9)){
+                   
+              temp.starone = 'star'
+                  temp.startwo = 'star'
+                  temp.starthree = 'star'
+                  temp.starfour='star'
+                  temp.starfive='star'
+                
+              }
+              
   console.log(this.selldetail);
     this.images=this.parkdetail.parking_images;
      let headers = new Headers();
@@ -217,8 +340,13 @@ address:this.parkdetail.street_address+','+this.parkdetail.city+','+this.parkdet
 //    console.log(postdata);
 //      }
 //  
-  review(){
-      
+  review(reviewdata){
+      console.log(reviewdata);
+      var posttreviewdata = {
+         parkid:reviewdata._id,
+         selid:this.selldetail._id
+      };
+      localStorage.setItem('reviewdata',JSON.stringify(posttreviewdata))
    this.navCtrl.push(ReviewsPage);
   }
 

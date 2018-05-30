@@ -1,4 +1,30 @@
 page-reviews {
+       .back-button{
+        display: none !important;
+    }
+    .custome-backbtn{
+        font-size: 1.7rem;
+        .icon{
+            font-size: 3.4rem;
+            float: left;
+        }
+    }
+    .bottomicon ul li .icon {
+        font-size: 22px;
+        font-weight: 500;
+     }
+     .bottomicon ul {
+       width: 100%;
+       float: left;
+       padding-bottom: 7px !important;
+       color: #ffcb29;     
+     }
+      .bottomicon ul ion-icon.icon.icon-ios.ion-ios-star-outline{
+            color: #000 !important;
+       }
+       .bottomicon ul icon icon-md ion-md-star-outline{
+            color: #000 !important;
+       }
 	.content{
 		background-image: url("../assets/imgs/reviewbg.png");
         background-size: cover;
@@ -40,6 +66,7 @@ page-reviews {
 					address{
 						@extend .fontsize13px;
 						font-style: normal;
+                                                white-space: normal;
 					}
 					.right-sec{
 						position: absolute;
@@ -73,9 +100,9 @@ page-reviews {
 			width: 100%;
 			float: left;
 			padding-top: 20px;
-			height: calc(100vh - 353px);
-		    overflow: hidden;
-		    overflow-y: scroll;
+			height: calc(100vh - 362px);
+                        overflow: hidden;
+                        overflow-y: scroll;
 
 			.list{
 				.item{
@@ -106,6 +133,20 @@ page-reviews {
 							h2{
 								@extend .fontsize15px;
 								margin: 0;
+                                                                padding-right: 48px;
+                                                                position: relative;
+                                                                overflow: hidden;
+                                                                white-space: normal;
+                                                                .icon{
+                                                                        position: absolute;
+                                                                        right: 0;
+                                                                        top: 0px;
+                                                                        font-size: 21px;
+                                                                    }
+                                                                    .ion-md-trash:before {
+                                                                        content: "\f4c5" !important;
+                                                                    }
+                                                                }
 							}
 							ul{
 								margin: 0;
@@ -133,6 +174,10 @@ page-reviews {
 			right: 0;
 			margin: auto;
 			z-index: 9999;
+                        background-image: url("../assets/imgs/reviewbg.png");
+                        background-size: cover;
+                        background-position: bottom center;
+                        background-repeat: no-repeat;
 
 			h2{
 				@extend .fontsize15px;
@@ -186,4 +231,4 @@ page-reviews {
 		}
 	}
 
-}
+

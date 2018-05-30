@@ -11,9 +11,10 @@ import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { Appsetting } from "../../providers/appsetting";
 import { Http, Headers, RequestOptions } from '@angular/http';
-import { ToastController, AlertController, LoadingController } from 'ionic-angular';
+import { ToastController, AlertController, LoadingController, MenuController } from 'ionic-angular';
 import { ActionSheetController } from 'ionic-angular';
 import { Camera } from '@ionic-native/camera';
+import * as moment from 'moment';
 /**
  * Generated class for the ListparkingspacePage page.
  *
@@ -21,7 +22,7 @@ import { Camera } from '@ionic-native/camera';
  * Ionic pages and navigation.
  */
 var ListparkingspacePage = /** @class */ (function () {
-    function ListparkingspacePage(navCtrl, navParams, toastCtrl, actionSheetCtrl, camera, http, alertCtrl, loadingCtrl, appsetting) {
+    function ListparkingspacePage(navCtrl, navParams, toastCtrl, actionSheetCtrl, camera, http, alertCtrl, menuCtrl, loadingCtrl, appsetting) {
         this.navCtrl = navCtrl;
         this.navParams = navParams;
         this.toastCtrl = toastCtrl;
@@ -29,6 +30,7 @@ var ListparkingspacePage = /** @class */ (function () {
         this.camera = camera;
         this.http = http;
         this.alertCtrl = alertCtrl;
+        this.menuCtrl = menuCtrl;
         this.loadingCtrl = loadingCtrl;
         this.appsetting = appsetting;
         this.data = {};
@@ -40,7 +42,9 @@ var ListparkingspacePage = /** @class */ (function () {
         this.sendopeningtime = [];
         this.sendclosingtime = [];
         this.daytime = [];
+        this.daytime1 = [];
         this.geocoder = new google.maps.Geocoder();
+        this.menuCtrl.swipeEnable(true);
         this.getuserinfo();
     }
     ListparkingspacePage_1 = ListparkingspacePage;
@@ -71,9 +75,6 @@ var ListparkingspacePage = /** @class */ (function () {
                         if (data.data.first_add == false) {
                             _this.userarray = data.data.parking_space[0];
                             _this.data.streetaddress = _this.userarray.street_address;
-                            _this.data.city = _this.userarray.city;
-                            _this.data.state = _this.userarray.state;
-                            _this.data.zip = _this.userarray.zip_code;
                             _this.parkid = _this.userarray._id;
                             _this.leasingpic = _this.userarray.agreement_pic;
                             _this.leasingpicture = _this.userarray.agreement_pic;
@@ -113,26 +114,39 @@ var ListparkingspacePage = /** @class */ (function () {
         console.log(timedata.value.day);
         console.log(timedata.value.startime);
         console.log(timedata.value.endtime);
+        var c = moment(timedata.value.startime, "h:mm: A").format("hh:mm A");
+        var z = moment(timedata.value.endtime, "h:mm: A").format("hh:mm A");
+        console.log(z);
+        console.log(c);
         if (timedata.value.day && timedata.value.startime && timedata.value.endtime) {
             var a = timedata.value.startime.split(':');
             var b = timedata.value.endtime.split(':');
             if (b[0] > a[0]) {
                 if (a[0] > 11) {
                     // console.log(timedata.value.openinghours.includes("PM"));
-                    timedata.value.startime = timedata.value.startime + ' PM';
+                    //                timedata.value.startime = timedata.value.startime + ' PM';
+                    timedata.value.startime = timedata.value.startime;
                 }
                 else {
                     //console.log(timedata.value.openinghours.includes("AM"));
-                    timedata.value.startime = timedata.value.startime + ' AM';
+                    //                timedata.value.startime = timedata.value.startime + ' AM';
+                    timedata.value.startime = timedata.value.startime;
                 }
                 console.log(timedata.value.openinghours);
                 if (b[0] > 11) {
-                    timedata.value.endtime = timedata.value.endtime + ' PM';
+                    //                timedata.value.endtime = timedata.value.endtime + ' PM';
+                    timedata.value.endtime = timedata.value.endtime;
                 }
                 else {
-                    timedata.value.endtime = timedata.value.endtime + ' AM';
+                    //                timedata.value.endtime = timedata.value.endtime + ' AM';
+                    timedata.value.endtime = timedata.value.endtime;
                 }
                 console.log(timedata.value.endtime);
+                var dayOpeningClosing1 = {
+                    day: timedata.value.day,
+                    startime: c,
+                    endtime: z
+                };
                 var dayOpeningClosing = {
                     day: timedata.value.day,
                     startime: timedata.value.startime,
@@ -148,18 +162,19 @@ var ListparkingspacePage = /** @class */ (function () {
                 console.log(this.sendopeningtime.join(','));
                 console.log(this.sendclosingtime.join(','));
                 /**** array for display day,opeing time and closing time on html after selection **********/
-                this.daytime.push(dayOpeningClosing);
+                this.daytime.push(dayOpeningClosing1);
+                //             this.daytime1.push(dayOpeningClosing);
                 console.log(this.daytime);
                 this.data.day = '';
                 this.data.startime = '';
                 this.data.endtime = '';
             }
             else {
-                this.AlertMsg1('Closing time must be greater than opening time!');
+                this.AlertMsg3('Closing time must be greater than opening time!');
             }
         }
         else {
-            this.AlertMsg1('Are you sure you selected day,opening and closing time?');
+            this.AlertMsg3('Are you sure you selected day,opening and closing time?');
         }
     };
     ListparkingspacePage.prototype.DeleteTimes = function (event, ind) {
@@ -169,12 +184,19 @@ var ListparkingspacePage = /** @class */ (function () {
         /**** pop a value from array by index ************/
         console.log(temp.daytime);
         temp.daytime.splice(ind, 1);
+        //        temp.daytime1.splice(ind, 1);
         console.log(this.daytime.length);
+        //          console.log(this.daytime1.length);
         if (this.daytime.length == 0) {
             this.data.day = '';
             this.data.startime = '';
             this.data.endtime = '';
         }
+        //         if (this.daytime1.length == 0) {
+        //            this.data.day = '';
+        //            this.data.startime = '';
+        //            this.data.endtime = '';
+        //        }
     };
     ListparkingspacePage.prototype.CameraAction = function () {
         var _this = this;
@@ -232,7 +254,7 @@ var ListparkingspacePage = /** @class */ (function () {
             _this.bit = _this.bit + 1;
             //alert(this.bit);
             if (_this.bit > 3) {
-                _this.AlertMsg1('You cannot upload more than 3 images');
+                _this.AlertMsg3('You cannot upload more than 3 images');
             }
             else {
                 _this.arr.push('data:image/jpeg;base64,' + imageData);
@@ -300,7 +322,7 @@ var ListparkingspacePage = /** @class */ (function () {
                     //      alert(this.srcImage+''+this.srcImage1+''+this.srcImage2);
                 }
                 else {
-                    _this.AlertMsg1('Image cannot be uploaded.Please try again later');
+                    _this.AlertMsg3('Image cannot be uploaded.Please try again later');
                 }
             });
         }, function (err) {
@@ -308,7 +330,7 @@ var ListparkingspacePage = /** @class */ (function () {
             alert(JSON.stringify(err));
         });
     };
-    ListparkingspacePage.prototype.AlertMsg1 = function (msg) {
+    ListparkingspacePage.prototype.AlertMsg3 = function (msg) {
         var alert = this.alertCtrl.create({
             title: 'Park Place',
             message: msg,
@@ -395,7 +417,7 @@ var ListparkingspacePage = /** @class */ (function () {
                         _this.leasingpicture = data.data;
                     }
                     else {
-                        _this.AlertMsg1('Image cannot be uploaded.Please try again later');
+                        _this.AlertMsg3('Image cannot be uploaded.Please try again later');
                     }
                 });
             }, function (err) {
@@ -450,17 +472,19 @@ var ListparkingspacePage = /** @class */ (function () {
                 console.log(this.streettosend, this.statetosend, this.citytosend, this.ziptosend);
                 //      alert(this.streettosend+','+this.statetosend+','+this.citytosend+','+this.ziptosend+','+this.lat+','+this.long);
                 setTimeout(function () {
-                    temp.finalladd(parkingdata, _this.streettosend, _this.statetosend, _this.citytosend, _this.ziptosend, _this.lat, _this.long);
+                    //        temp.finalladd(parkingdata,this.streettosend,this.statetosend,this.citytosend,this.ziptosend,this.lat,this.long);
+                    temp.finalladd(parkingdata, parkingdata.value.streetaddress, parkingdata.value.state, parkingdata.value.city, parkingdata.value.zip, _this.lat, _this.long);
                 }, 500);
             }
             else {
-                this.AlertMsg1('There is some error in getting location.');
+                temp.AlertMsg3('There is some error in getting location.');
             }
         });
     };
     ListparkingspacePage.prototype.finalladd = function (formdetail, streettosend, statetosend, citytosend, ziptosend, lat, long) {
         var _this = this;
         console.log(formdetail);
+        var temp = this;
         var headers = new Headers();
         headers.append('Content-Type', 'application/x-www-form-urlencoded;charset=utf-8');
         var options = new RequestOptions({ headers: headers });
@@ -471,6 +495,24 @@ var ListparkingspacePage = /** @class */ (function () {
         }
         else {
             if (this.daytime.length > 0) {
+                console.log(this.daytime);
+                this.senddays = [];
+                this.sendopeningtime = [];
+                this.sendclosingtime = [];
+                this.daytime.forEach(function (value, key) {
+                    console.log(value);
+                    value.startime = moment(value.startime, ["hh:mm A"]).format("HH:mm");
+                    value.endtime = moment(value.endtime, ["hh:mm A"]).format("HH:mm");
+                    console.log(value);
+                    temp.senddays.push(value.day);
+                    var ot = value.startime.split(' ');
+                    var ct = value.endtime.split(' ');
+                    temp.sendopeningtime.push(ot[0]);
+                    temp.sendclosingtime.push(ct[0]);
+                });
+                console.log(this.senddays);
+                console.log(this.sendopeningtime);
+                console.log(this.sendclosingtime);
                 console.log(this.leasingpicture);
                 console.log(this.srcImage, this.srcImage1, this.srcImage2);
                 if ((this.leasingpicture == undefined) || (this.leasingpicture == "")) {
@@ -558,19 +600,19 @@ var ListparkingspacePage = /** @class */ (function () {
                             Loading.dismiss();
                             console.log(data);
                             if (data.status == true) {
-                                _this.AlertMsg1('Added succesfully');
+                                _this.AlertMsg3('Added successfully');
                                 localStorage.setItem('UserDetailseller', JSON.stringify(data.data[0]));
                                 _this.navCtrl.push(ListparkingspacePage_1);
                             }
                             else {
-                                _this.AlertMsg1(data.message);
+                                _this.AlertMsg3(data.message);
                             }
                         });
                     });
                 }
             }
             else {
-                this.AlertMsg1('Please mention Space availability');
+                this.AlertMsg3('Please mention Space availability');
             }
         }
     };
@@ -633,6 +675,7 @@ var ListparkingspacePage = /** @class */ (function () {
             Camera,
             Http,
             AlertController,
+            MenuController,
             LoadingController,
             Appsetting])
     ], ListparkingspacePage);

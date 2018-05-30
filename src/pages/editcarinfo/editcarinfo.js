@@ -11,7 +11,7 @@ import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { Appsetting } from "../../providers/appsetting";
 import { Http, Headers, RequestOptions } from '@angular/http';
-import { ToastController, AlertController, LoadingController } from 'ionic-angular';
+import { ToastController, AlertController, LoadingController, MenuController } from 'ionic-angular';
 import { ActionSheetController } from 'ionic-angular';
 import { Camera } from '@ionic-native/camera';
 import { CarlistPage } from '../carlist/carlist';
@@ -23,7 +23,7 @@ import * as moment from 'moment';
  * Ionic pages and navigation.
  */
 var EditcarinfoPage = /** @class */ (function () {
-    function EditcarinfoPage(navCtrl, navParams, toastCtrl, actionSheetCtrl, camera, http, alertCtrl, loadingCtrl, appsetting) {
+    function EditcarinfoPage(navCtrl, navParams, toastCtrl, actionSheetCtrl, camera, http, alertCtrl, menuCtrl, loadingCtrl, appsetting) {
         this.navCtrl = navCtrl;
         this.navParams = navParams;
         this.toastCtrl = toastCtrl;
@@ -31,11 +31,13 @@ var EditcarinfoPage = /** @class */ (function () {
         this.camera = camera;
         this.http = http;
         this.alertCtrl = alertCtrl;
+        this.menuCtrl = menuCtrl;
         this.loadingCtrl = loadingCtrl;
         this.appsetting = appsetting;
         this.data = [];
         this.carpic = '';
         this.cardata = [];
+        this.menuCtrl.swipeEnable(true);
         this.date = moment(new Date()).format('YYYY-MM-DD');
         console.log(this.date);
         this.getdetail();
@@ -49,8 +51,9 @@ var EditcarinfoPage = /** @class */ (function () {
             console.log(this.cardata);
             this.data.carmake = this.cardata.car_maker;
             this.data.model = this.cardata.model;
-            this.data.license = this.cardata.licencse_plate;
-            this.data.year = this.cardata.year;
+            this.data.licence = this.cardata.licencse_plate;
+            this.data.year = JSON.stringify(this.cardata.year);
+            console.log(moment(this.cardata.year).format('YYYY'));
             this.carpic = this.cardata.car_images;
             this.carpicture = this.cardata.car_images;
             this.carid = this.cardata._id;
@@ -71,11 +74,12 @@ var EditcarinfoPage = /** @class */ (function () {
                 car_maker: cardata.value.carmake,
                 model: cardata.value.model,
                 year: cardata.value.year,
-                licencse_plate: cardata.value.license,
+                licencse_plate: cardata.value.licence,
                 user_id: userid,
                 car_images: this.carpicture,
                 car_id: this.carid
             };
+            //        return false;
             var serialized = this.serializeObj(postdata);
             console.log(postdata);
             var Loading = this.loadingCtrl.create({
@@ -150,8 +154,8 @@ var EditcarinfoPage = /** @class */ (function () {
         var options = {
             quality: 10,
             sourceType: Type,
-            targetWidth: 767,
-            targetHeight: 100,
+            targetWidth: 600,
+            targetHeight: 600,
             correctOrientation: true,
             allowEdit: true,
             destinationType: this.camera.DestinationType.DATA_URL,
@@ -215,6 +219,7 @@ var EditcarinfoPage = /** @class */ (function () {
             Camera,
             Http,
             AlertController,
+            MenuController,
             LoadingController,
             Appsetting])
     ], EditcarinfoPage);

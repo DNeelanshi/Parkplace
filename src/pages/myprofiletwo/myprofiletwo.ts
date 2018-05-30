@@ -8,7 +8,7 @@ import {ForgotpwdPage} from '../forgotpwd/forgotpwd';
 import { Appsetting } from "../../providers/appsetting";
 import { HomePage } from '../home/home';
 import { Http, Headers, RequestOptions } from '@angular/http';
-import { ToastController, AlertController, LoadingController} from 'ionic-angular';
+import { ToastController, AlertController, LoadingController,MenuController} from 'ionic-angular';
 import { Facebook, FacebookLoginResponse } from '@ionic-native/facebook';
 import { FCM } from '@ionic-native/fcm';
 import 'rxjs/add/operator/map';
@@ -36,8 +36,10 @@ public dataa:any= { };
   private fb: Facebook,
   private fcm: FCM,
   public alertCtrl: AlertController,
+   public menuCtrl: MenuController,
     public loadingCtrl: LoadingController,
     public appsetting: Appsetting) {
+      this.menuCtrl.swipeEnable(true);
     this.getuserdetail();
   }
   getuserdetail(){

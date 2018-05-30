@@ -11,7 +11,8 @@ import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { Appsetting } from "../../providers/appsetting";
 import { Http, Headers, RequestOptions } from '@angular/http';
-import { ToastController, AlertController, LoadingController } from 'ionic-angular';
+import { ToastController, AlertController, LoadingController, MenuController } from 'ionic-angular';
+import * as moment from 'moment';
 /**
  * Generated class for the ViewreservationtwoPage page.
  *
@@ -19,12 +20,13 @@ import { ToastController, AlertController, LoadingController } from 'ionic-angul
  * Ionic pages and navigation.
  */
 var ViewreservationtwoPage = /** @class */ (function () {
-    function ViewreservationtwoPage(navCtrl, navParams, http, toastCtrl, alertCtrl, loadingCtrl, appsetting) {
+    function ViewreservationtwoPage(navCtrl, navParams, http, toastCtrl, alertCtrl, menuCtrl, loadingCtrl, appsetting) {
         this.navCtrl = navCtrl;
         this.navParams = navParams;
         this.http = http;
         this.toastCtrl = toastCtrl;
         this.alertCtrl = alertCtrl;
+        this.menuCtrl = menuCtrl;
         this.loadingCtrl = loadingCtrl;
         this.appsetting = appsetting;
         this.Reservationdata = [];
@@ -32,9 +34,50 @@ var ViewreservationtwoPage = /** @class */ (function () {
         this.Pagetotal = 1;
         this.pagon = 1;
         this.pagein = 1;
-        this.getreservations(1);
+        this.parkdetails = [];
+        this.menuCtrl.swipeEnable(true);
+        //      alert('new');
         this.Reservationdata = [];
+        this.parkdetails = [];
+        this.getuserdetail(1);
     }
+    ViewreservationtwoPage.prototype.ngOnInit = function () {
+    };
+    ViewreservationtwoPage.prototype.getuserdetail = function (pg) {
+        var _this = this;
+        //    alert('hjgj');
+        var headers = new Headers();
+        headers.append('Content-Type', 'application/x-www-form-urlencoded;charset=utf-8');
+        var options = new RequestOptions({ headers: headers });
+        if (localStorage.getItem('UserDetailseller')) {
+            var userid = JSON.parse(localStorage.getItem('UserDetailseller'))._id;
+            console.log(userid);
+            var postdata = {
+                user_id: userid
+            };
+            // alert('hjgj');
+            var serialized = this.serializeObj(postdata);
+            console.log(postdata);
+            var Loading = this.loadingCtrl.create({
+                spinner: 'bubbles',
+                cssClass: 'loader',
+                content: "Loading",
+                dismissOnPageChange: true
+            });
+            Loading.present().then(function () {
+                _this.http.post(_this.appsetting.myGlobalVar + 'users/userinfo', serialized, options).map(function (res) { return res.json(); }).subscribe(function (data) {
+                    Loading.dismiss();
+                    console.log(data);
+                    if (data.status == true) {
+                        //                 alert('hjgj');
+                        _this.parkdetails = data.data.parking_space;
+                        console.log(_this.parkdetails);
+                        _this.getreservations(pg);
+                    }
+                });
+            });
+        }
+    };
     ViewreservationtwoPage.prototype.getreservations = function (pagenumber) {
         var _this = this;
         var Loading = this.loadingCtrl.create({
@@ -67,25 +110,40 @@ var ViewreservationtwoPage = /** @class */ (function () {
                         _this.pagein = data.page;
                         _this.Reservationdata1 = data.data;
                         _this.show = 1;
-                        _this.Reservationdata1.forEach(function (value, key) {
-                            value.reservation_data.forEach(function (value2, key1) {
-                                value.customername = value2.name;
-                                if (value2.profile_pic) {
-                                    value.propic = value2.profile_pic;
-                                }
+                        var temp = _this;
+                        console.log(data);
+                        //                        this.parkdetails.forEach(function(value3,key3){
+                        for (var y = 0; y < _this.parkdetails.length; y++) {
+                            _this.Reservationdata1.forEach(function (value, key) {
+                                value.reservation_data.forEach(function (value2, key1) {
+                                    value.parking_start_time = moment(value.parking_start_time, "hh:mm: A").format("hh:mm A");
+                                    value.parking_end_time = moment(value.parking_end_time, "hh:mm: A").format("hh:mm A");
+                                    console.log(value.parking_start_time);
+                                    console.log(value.parking_end_time);
+                                    value.customername = value2.name;
+                                    if (value2.profile_pic) {
+                                        value.propic = value2.profile_pic;
+                                    }
+                                    if (temp.parkdetails[y]._id == value.parking_id) {
+                                        value.parkingname = temp.parkdetails[y].parking_name;
+                                    }
+                                });
                             });
-                        });
+                        }
+                        //})
+                        console.log(_this.Reservationdata1);
                         var temp = _this;
                         _this.Reservationdata1.forEach(function (value, key) {
                             temp.Reservationdata.push(value);
                         });
+                        console.log(temp.Reservationdata);
                     }
                     else {
                         _this.show = 0;
                     }
-                    Loading.dismiss();
                 });
             }
+            Loading.dismiss();
         });
     };
     ViewreservationtwoPage.prototype.doRefresh = function (refresher) {
@@ -93,8 +151,9 @@ var ViewreservationtwoPage = /** @class */ (function () {
         console.log('Begin async operation', refresher);
         setTimeout(function () {
             //            this.firsthit();
-            _this.getreservations(1);
+            _this.getuserdetail(1);
             _this.Reservationdata = [];
+            _this.parkdetails = [];
             //             this.get();
             console.log('Async operation has ended');
             refresher.complete();
@@ -110,7 +169,7 @@ var ViewreservationtwoPage = /** @class */ (function () {
             console.log(this.Pagetotal);
             this.pagon++;
             console.log(this.pagon);
-            this.getreservations(this.pagon);
+            this.getuserdetail(this.pagon);
         }
         else if (this.Pagetotal == this.pagein) {
             event.complete();
@@ -138,6 +197,7 @@ var ViewreservationtwoPage = /** @class */ (function () {
             Http,
             ToastController,
             AlertController,
+            MenuController,
             LoadingController,
             Appsetting])
     ], ViewreservationtwoPage);

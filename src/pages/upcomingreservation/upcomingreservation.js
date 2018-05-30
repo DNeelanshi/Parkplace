@@ -12,8 +12,10 @@ import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { DetailPage } from '../detail/detail';
 import { Appsetting } from "../../providers/appsetting";
 import { Http, Headers, RequestOptions } from '@angular/http';
-import { ToastController, AlertController, LoadingController } from 'ionic-angular';
+import { ToastController, AlertController, LoadingController, MenuController, ModalController } from 'ionic-angular';
 import 'rxjs/add/operator/map';
+import { RatingmodelPage } from '../ratingmodel/ratingmodel';
+import * as moment from 'moment';
 /**
  * Generated class for the UpcomingreservationPage page.
  *
@@ -21,12 +23,14 @@ import 'rxjs/add/operator/map';
  * Ionic pages and navigation.
  */
 var UpcomingreservationPage = /** @class */ (function () {
-    function UpcomingreservationPage(navCtrl, navParams, http, toastCtrl, alertCtrl, loadingCtrl, appsetting) {
+    function UpcomingreservationPage(navCtrl, navParams, http, toastCtrl, alertCtrl, menuCtrl, modalCtrl, loadingCtrl, appsetting) {
         this.navCtrl = navCtrl;
         this.navParams = navParams;
         this.http = http;
         this.toastCtrl = toastCtrl;
         this.alertCtrl = alertCtrl;
+        this.menuCtrl = menuCtrl;
+        this.modalCtrl = modalCtrl;
         this.loadingCtrl = loadingCtrl;
         this.appsetting = appsetting;
         this.Reservationdata = [];
@@ -34,6 +38,8 @@ var UpcomingreservationPage = /** @class */ (function () {
         this.Pagetotal = 1;
         this.pagon = 1;
         this.pagein = 1;
+        this.exists = 0;
+        this.menuCtrl.swipeEnable(true);
         this.getreservations(1);
         this.Reservationdata = [];
     }
@@ -71,9 +77,12 @@ var UpcomingreservationPage = /** @class */ (function () {
                         _this.pagein = data.page;
                         _this.Reservationdata1 = data.data;
                         _this.show = 1;
+                        var temp = _this;
                         _this.Reservationdata1.forEach(function (value, key) {
                             value.reservation_data.forEach(function (value1, key1) {
                                 value1.parking_space.forEach(function (value2, key2) {
+                                    value.parking_start_time = moment(value.parking_start_time, "h:mm: A").format("hh:mm A");
+                                    value.parking_end_time = moment(value.parking_end_time, "h:mm: A").format("hh:mm A");
                                     if (value.parking_id == value2._id) {
                                         imagearray = [];
                                         for (var i = 0; i < value2.parking_images.length; i++) {
@@ -96,7 +105,7 @@ var UpcomingreservationPage = /** @class */ (function () {
                             temp.Reservationdata.push(value);
                         });
                         //      this.Reservationdata = this.Reservationdata1;
-                        //          console.log(this.Reservationdata);
+                        console.log(_this.Reservationdata);
                     }
                     else {
                         _this.show = 0;
@@ -109,32 +118,79 @@ var UpcomingreservationPage = /** @class */ (function () {
     };
     UpcomingreservationPage.prototype.changestatus = function (datta) {
         var _this = this;
+        this.exists = 0;
+        var userid = JSON.parse(localStorage.getItem('UserDetailcustomer'))._id;
+        var temp = this;
         console.log(datta);
-        var headers = new Headers();
-        headers.append('Content-Type', 'application/x-www-form-urlencoded;charset=utf-8');
-        var options = new RequestOptions({ headers: headers });
-        var postdata = {
-            parking_id: datta._id,
-            checkin_status: 2
-        };
-        var serialized = this.serializeObj(postdata);
-        console.log(postdata);
-        var Loading = this.loadingCtrl.create({
-            spinner: 'bubbles',
-            cssClass: 'loader',
-            content: "Loading",
-            dismissOnPageChange: true
-        });
-        Loading.present().then(function () {
-            _this.http.post(_this.appsetting.myGlobalVar + 'payments/ChangeCheckin', serialized, options).map(function (res) { return res.json(); }).subscribe(function (data) {
-                console.log(data);
-                Loading.dismiss();
-                if (data.status == true) {
-                    //          this.getreservations(1);
-                    _this.navCtrl.push(UpcomingreservationPage_1);
-                }
+        datta.reservation_data.forEach(function (value1, key1) {
+            value1.parking_space.forEach(function (value2, key2) {
+                value2.review_and_rating.forEach(function (value3, key3) {
+                    if (value3.user_id == userid) {
+                        temp.exists = 1;
+                        return false;
+                    }
+                });
             });
         });
+        console.log(this.exists);
+        if (this.exists == 0) {
+            var rateModal = this.modalCtrl.create(RatingmodelPage, { parkid: datta.parking_id });
+            rateModal.onDidDismiss(function (data1) {
+                var headers = new Headers();
+                headers.append('Content-Type', 'application/x-www-form-urlencoded;charset=utf-8');
+                var options = new RequestOptions({ headers: headers });
+                var postdata = {
+                    parking_id: datta._id,
+                    checkin_status: 2
+                };
+                var serialized = _this.serializeObj(postdata);
+                console.log(postdata);
+                var Loading = _this.loadingCtrl.create({
+                    spinner: 'bubbles',
+                    cssClass: 'loader',
+                    content: "Loading",
+                    dismissOnPageChange: true
+                });
+                Loading.present().then(function () {
+                    _this.http.post(_this.appsetting.myGlobalVar + 'payments/ChangeCheckin', serialized, options).map(function (res) { return res.json(); }).subscribe(function (data) {
+                        console.log(data);
+                        Loading.dismiss();
+                        if (data.status == true) {
+                            _this.navCtrl.push(UpcomingreservationPage_1);
+                        }
+                    });
+                });
+            });
+            rateModal.present();
+        }
+        else {
+            var headers = new Headers();
+            headers.append('Content-Type', 'application/x-www-form-urlencoded;charset=utf-8');
+            var options_1 = new RequestOptions({ headers: headers });
+            var postdata = {
+                parking_id: datta._id,
+                checkin_status: 2
+            };
+            var serialized = this.serializeObj(postdata);
+            console.log(postdata);
+            var Loading = this.loadingCtrl.create({
+                spinner: 'bubbles',
+                cssClass: 'loader',
+                content: "Loading",
+                dismissOnPageChange: true
+            });
+            Loading.present().then(function () {
+                _this.http.post(_this.appsetting.myGlobalVar + 'payments/ChangeCheckin', serialized, options_1).map(function (res) { return res.json(); }).subscribe(function (data) {
+                    console.log(data);
+                    Loading.dismiss();
+                    if (data.status == true) {
+                        _this.navCtrl.push(UpcomingreservationPage_1);
+                    }
+                });
+            });
+        }
+        //          this.getreservations(1);
+        //
     };
     UpcomingreservationPage.prototype.ionViewDidLoad = function () {
         console.log('ionViewDidLoad UpcomingreservationPage');
@@ -190,6 +246,8 @@ var UpcomingreservationPage = /** @class */ (function () {
             Http,
             ToastController,
             AlertController,
+            MenuController,
+            ModalController,
             LoadingController,
             Appsetting])
     ], UpcomingreservationPage);

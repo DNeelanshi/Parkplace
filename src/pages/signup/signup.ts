@@ -7,7 +7,7 @@ import {ForgotpwdPage} from '../forgotpwd/forgotpwd';
 import { Appsetting } from "../../providers/appsetting";
 import { HomePage } from '../home/home';
 import { Http, Headers, RequestOptions } from '@angular/http';
-import { ToastController, AlertController, LoadingController} from 'ionic-angular';
+import { ToastController, AlertController, LoadingController,MenuController} from 'ionic-angular';
 import { Facebook, FacebookLoginResponse } from '@ionic-native/facebook';
 import { FCM } from '@ionic-native/fcm';
 import 'rxjs/add/operator/map';
@@ -24,7 +24,7 @@ import 'rxjs/add/operator/map';
     templateUrl: 'signup.html',
 })
 export class SignupPage {
-  public data:any='';
+  public data:any=[];
   userData:any={};
   devicetoken:any;
   public ptype = 'password';
@@ -35,6 +35,7 @@ export class SignupPage {
    public showpass1:boolean = false;
   constructor(
     public navCtrl: NavController,
+     public menuCtrl: MenuController,
     public navParams: NavParams,
     public events: Events,
   public toastCtrl: ToastController,
@@ -45,8 +46,19 @@ export class SignupPage {
   public alertCtrl: AlertController,
   public loadingCtrl: LoadingController
   ) {
-//
-           
+   this.menuCtrl.swipeEnable(false);
+
+     fcm.getToken().then(token=>{
+      this.devicetoken = token;
+
+      })
+     fcm.onNotification().subscribe(data=>{
+   if(data.wasTapped){
+     console.log("Received in background");
+   } else {
+     console.log("Received in foreground");
+   };
+ })   
   }
 
     ionViewDidLoad() {
@@ -63,6 +75,16 @@ export class SignupPage {
           toast.present();
         }
     }
+    validationphone2(phon){
+        console.log(phon);
+  console.log(phon.length);
+if(phon.length==3){
+  this.data.phone= this.data.phone +'-';
+} else if(phon.length==7){
+ this.data.phone=this.data.phone+'-';
+}
+
+}
     showPassword() {
       // alert('hjj')
       console.log('showpassword');
@@ -96,6 +118,9 @@ let options = new RequestOptions({ headers: headers });
 if(register.value.password != register.value.cpassword){
 this.AlertMsg('Passwords must match')
 }else{
+if(register.value.phone){
+  register.value.phone= register.value.phone.replace(/-/g,"");
+  }
 var postdata = {
   name: register.value.firstname,
   email: register.value.email,
@@ -125,6 +150,10 @@ dismissOnPageChange:true
           this.appsetting.emailuser = response.data.email;
           localStorage.setItem('UserDetail',JSON.stringify(response.data));
           localStorage.setItem('UserDetailcustomer',JSON.stringify(response.data));
+           if(localStorage.getItem('UserDetailseller')){
+          localStorage.removeItem('UserDetailseller');
+          localStorage.removeItem('Done')
+         }
           this.events.publish('customer', 'customer');
           this.navCtrl.push(HomePage);
         }else{
@@ -134,6 +163,7 @@ dismissOnPageChange:true
     })
   }
     }
+    
     serializeObj(obj) {
       var result = [];
       for (var property in obj)
@@ -196,6 +226,10 @@ dismissOnPageChange:true
           this.appsetting.emailuser = response.data.email;
           localStorage.setItem('UserDetail',JSON.stringify(response.data));
           localStorage.setItem('UserDetailcustomer',JSON.stringify(response.data));
+           if(localStorage.getItem('UserDetailseller')){
+          localStorage.removeItem('UserDetailseller');
+          localStorage.removeItem('Done')
+         }
           this.events.publish('customer', 'customer');
           this.navCtrl.push(HomePage);
                               } else {

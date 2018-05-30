@@ -7,7 +7,7 @@ import { SignupPage } from '../signup/signup';
 import { Appsetting } from "../../providers/appsetting";
 import { HomePage } from '../home/home';
 import { Http, Headers, RequestOptions } from '@angular/http';
-import { ToastController, AlertController, LoadingController} from 'ionic-angular';
+import { ToastController, AlertController, LoadingController,MenuController} from 'ionic-angular';
 import { Facebook, FacebookLoginResponse } from '@ionic-native/facebook';
 import{ListingbeforeapprovalPage} from '../listingbeforeapproval/listingbeforeapproval';
 import { MyApp } from '../../app/app.component';
@@ -35,6 +35,7 @@ export class SignintwoPage {
    public showpass:boolean = false;
     constructor(
       public navCtrl: NavController,
+       public menuCtrl: MenuController,
       public navParams: NavParams,
       public events: Events,
     public http: Http,
@@ -45,7 +46,19 @@ export class SignintwoPage {
     public alertCtrl: AlertController,
     public loadingCtrl: LoadingController
     ) {
-         
+    
+      this.menuCtrl.swipeEnable(false);
+            fcm.getToken().then(token=>{
+      this.devicetoken = token;
+
+      })
+     fcm.onNotification().subscribe(data=>{
+   if(data.wasTapped){
+     console.log("Received in background");
+   } else {
+     console.log("Received in foreground");
+   };
+ })
     }
  getstarted(){
       this.navCtrl.push(GetstartedPage);
@@ -93,6 +106,10 @@ export class SignintwoPage {
               if(response.status == true){
                 localStorage.setItem('UserDetail',JSON.stringify(response.userinfo));
                 localStorage.setItem('UserDetailseller',JSON.stringify(response.userinfo));
+                  if(localStorage.getItem('UserDetailcustomer')){
+            localStorage.removeItem('UserDetailcustomer');
+     
+            }
                  Userdata = response.userinfo;
                 this.appsetting.username = response.userinfo.name;
         this.appsetting.emailuser = response.userinfo.email;
@@ -103,7 +120,7 @@ export class SignintwoPage {
           this.appsetting.haveparking = 1;
                 }else{
                     if(response.userinfo.parking_space.length > 0){
-       check = response.userinfo.parking_space[0].parking_status;
+       check = response.userinfo.parking_space[0].status;
        console.log(check);
        }
                 }
@@ -206,7 +223,7 @@ if(Userdata.first_add == false){
                           email: this.userData.email,
                           role: 'seller',
                           regitration_type: 'facebook',
-                          divice_token: this.devicetoken,
+                          divice_token:this.devicetoken,
                           profile_pic: this.userData.picture,
                           password: this.userData.id,
                       }
@@ -226,6 +243,10 @@ if(Userdata.first_add == false){
                               if (response.status == true) {
                                   localStorage.setItem('UserDetail',JSON.stringify(response.data));
                 localStorage.setItem('UserDetailseller',JSON.stringify(response.data));
+                  if(localStorage.getItem('UserDetailcustomer')){
+            localStorage.removeItem('UserDetailcustomer');
+     
+            }
                 this.appsetting.username = response.data.name;
         this.appsetting.emailuser = response.data.email;
         // this.appsetting.SrcImage = response.userinfo.profile_pic;s
@@ -235,7 +256,7 @@ if(Userdata.first_add == false){
           this.appsetting.haveparking = 1;
                 }else{
                     if(response.data.parking_space.length > 0){
-       check = response.data.parking_space[0].parking_status;
+       check = response.data.parking_space[0].status;
        console.log(check);
        }
                 }

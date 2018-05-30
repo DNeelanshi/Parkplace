@@ -12,7 +12,7 @@ import { IonicPage, NavController, NavParams, Events } from 'ionic-angular';
 import { ChangepwdPage } from '../changepwd/changepwd';
 import { Appsetting } from "../../providers/appsetting";
 import { Http, Headers, RequestOptions } from '@angular/http';
-import { ToastController, AlertController, LoadingController, ActionSheetController } from 'ionic-angular';
+import { ToastController, AlertController, LoadingController, ActionSheetController, MenuController } from 'ionic-angular';
 import 'rxjs/add/operator/map';
 import { Camera } from '@ionic-native/camera';
 /**
@@ -22,19 +22,21 @@ import { Camera } from '@ionic-native/camera';
  * Ionic pages and navigation.
  */
 var EditprofilePage = /** @class */ (function () {
-    function EditprofilePage(navCtrl, navParams, http, toastCtrl, alertCtrl, events, loadingCtrl, appsetting, camera, actionSheetCtrl) {
+    function EditprofilePage(navCtrl, navParams, http, toastCtrl, alertCtrl, menuCtrl, events, loadingCtrl, appsetting, camera, actionSheetCtrl) {
         this.navCtrl = navCtrl;
         this.navParams = navParams;
         this.http = http;
         this.toastCtrl = toastCtrl;
         this.alertCtrl = alertCtrl;
+        this.menuCtrl = menuCtrl;
         this.events = events;
         this.loadingCtrl = loadingCtrl;
         this.appsetting = appsetting;
         this.camera = camera;
         this.actionSheetCtrl = actionSheetCtrl;
-        this.data = {};
+        this.data = [];
         this.profileinfo = [];
+        this.menuCtrl.swipeEnable(true);
         this.getuserdetail();
     }
     EditprofilePage.prototype.getuserdetail = function () {
@@ -65,11 +67,27 @@ var EditprofilePage = /** @class */ (function () {
                     _this.userid = _this.profileinfo._id;
                     _this.data.firstname = _this.profileinfo.name;
                     _this.data.email = _this.profileinfo.email;
-                    _this.data.phone = _this.profileinfo.phone_number;
+                    if (_this.profileinfo.phone_number) {
+                        console.log(_this.profileinfo.phone_number.length);
+                        var str = _this.profileinfo.phone_number;
+                        var res = str.substring(0, 3);
+                        var res1 = str.substring(3, 6);
+                        var res2 = str.substring(6, 10);
+                        _this.data.phone = res + '-' + res1 + '-' + res2;
+                    }
+                    //this.data.phone = this.profileinfo.phone_number;
                     _this.srcImage = data.data.profile_pic;
                     console.log(_this.profileinfo.phone_number);
                 });
             });
+        }
+    };
+    EditprofilePage.prototype.phonevalidation3 = function (phn) {
+        if (phn.length == 3) {
+            this.data.phone = this.data.phone + '-';
+        }
+        else if (phn.length == 7) {
+            this.data.phone = this.data.phone + '-';
         }
     };
     EditprofilePage.prototype.getpicture1 = function () {
@@ -207,6 +225,9 @@ var EditprofilePage = /** @class */ (function () {
         var headers = new Headers();
         headers.append('Content-Type', 'application/x-www-form-urlencoded;charset=utf-8');
         var options = new RequestOptions({ headers: headers });
+        if (editprofile.value.phone) {
+            editprofile.value.phone = editprofile.value.phone.replace(/-/g, "");
+        }
         var postdata = {
             user_id: this.userid,
             name: editprofile.value.firstname,
@@ -225,7 +246,7 @@ var EditprofilePage = /** @class */ (function () {
                 Loading.dismiss();
                 console.log(data);
                 if (data.status == true) {
-                    _this.AlertMsg('Profile updated Succesfully');
+                    _this.AlertMsg('Profile updated successfully');
                     localStorage.setItem('UserDetailcustomer', JSON.stringify(data.data));
                     _this.events.publish('customer', 'customer');
                     _this.profileinfo = data.data;
@@ -270,6 +291,7 @@ var EditprofilePage = /** @class */ (function () {
             Http,
             ToastController,
             AlertController,
+            MenuController,
             Events,
             LoadingController,
             Appsetting,

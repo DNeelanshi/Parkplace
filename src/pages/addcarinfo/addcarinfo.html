@@ -28,7 +28,7 @@
 
 		  <ion-item>
 		    <ion-label fixed>Car Make</ion-label>
-		    <ion-input type="text" [(ngModel)]="data.carmake" name="carmake" #carmake="ngModel" placeholder="e.g i20 Hyundai" required></ion-input>
+		    <ion-input type="text" [(ngModel)]="data.carmake" name="carmake" #carmake="ngModel" placeholder="i20 Hyundai" required></ion-input>
 		  </ion-item>
 
 		  <ion-item>
@@ -39,12 +39,12 @@
 		  <ion-item>
 		    <ion-label fixed>Year</ion-label>
 		    <!--<ion-input type="text" [(ngModel)]="data.year" name="year" #year="ngModel" required></ion-input>-->
-                     <ion-datetime  displayFormat="YYYY" pickerFormat="YYYY" max="{{date}}" min="1950" [(ngModel)]="data.year"  name="year" #year="ngModel" ></ion-datetime>
+                     <ion-datetime placeholder="2018" displayFormat="YYYY" pickerFormat="YYYY" max="{{date}}" min="1950" [(ngModel)]="data.year"  name="year" #year="ngModel" ></ion-datetime>
 		  </ion-item>
 
 		  <ion-item>
 		    <ion-label fixed>License Plate</ion-label>
-		    <ion-input type="text" [(ngModel)]="data.licence" name="licence" #licence="ngModel" placeholder="e.g U.P#12Q1007" required></ion-input>
+		    <ion-input type="text" [(ngModel)]="data.licence" name="licence" #licence="ngModel" placeholder="U.K#12Q1007" required></ion-input>
 		  </ion-item>
 
 		</ion-list>

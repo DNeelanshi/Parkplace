@@ -38,6 +38,7 @@ var CarlistPage = /** @class */ (function () {
         this.camera = camera;
         this.actionSheetCtrl = actionSheetCtrl;
         this.Userdata = [];
+        this.menuCtrl.swipeEnable(true);
         this.getinfo();
     }
     CarlistPage.prototype.getinfo = function () {
@@ -57,7 +58,7 @@ var CarlistPage = /** @class */ (function () {
             var Loading = this.loadingCtrl.create({
                 spinner: 'bubbles',
                 cssClass: 'loader',
-                content: "Loading",
+                //          content: "Loading",
                 dismissOnPageChange: true
             });
             Loading.present().then(function () {
@@ -65,8 +66,14 @@ var CarlistPage = /** @class */ (function () {
                     Loading.dismiss();
                     console.log(data);
                     if (data.status == true) {
-                        if (data.data.car_details) {
+                        if (data.data.car_details.length > 0) {
                             _this.Userdata = data.data.car_details;
+                            _this.show = 1;
+                        }
+                        else {
+                            console.log('no car');
+                            _this.show = 0;
+                            console.log(_this.show);
                         }
                         //  if (data.data.parking_space.length == 0){
                         ////      alert('no data');
@@ -122,7 +129,7 @@ var CarlistPage = /** @class */ (function () {
                         _this.http.request(_this.appsetting.myGlobalVar + 'users/delete_car', options).map(function (res) { return res.json(); }).subscribe(function (data) {
                             console.log(data);
                             if (data.status == true) {
-                                _this.AlertMsg('Deleted succesfully');
+                                _this.AlertMsg('Deleted successfully');
                                 _this.getinfo();
                             }
                         });

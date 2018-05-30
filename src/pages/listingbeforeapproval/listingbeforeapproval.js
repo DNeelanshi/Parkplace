@@ -11,7 +11,7 @@ import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { Appsetting } from "../../providers/appsetting";
 import { Http, Headers, RequestOptions } from '@angular/http';
-import { ToastController, AlertController, LoadingController } from 'ionic-angular';
+import { ToastController, AlertController, LoadingController, MenuController } from 'ionic-angular';
 import { ActionSheetController } from 'ionic-angular';
 import { Camera } from '@ionic-native/camera';
 import { InAppBrowser } from '@ionic-native/in-app-browser';
@@ -22,9 +22,7 @@ import { InAppBrowser } from '@ionic-native/in-app-browser';
  * Ionic pages and navigation.
  */
 var ListingbeforeapprovalPage = /** @class */ (function () {
-    function ListingbeforeapprovalPage(navCtrl, navParams, toastCtrl, actionSheetCtrl, camera, http, alertCtrl, iab, loadingCtrl, appsetting) {
-        //        alert('latestbuildneww');
-        //                  url: "http://parkpalce-env.brwtkwbdhh.us-west-1.elasticbeanstalk.com/?state=state&scope=read_write&code=ac_Cnb4QYIhr01Uouum97SIdGTWfXkvZidQ#/"
+    function ListingbeforeapprovalPage(navCtrl, navParams, toastCtrl, actionSheetCtrl, camera, http, alertCtrl, menuCtrl, iab, loadingCtrl, appsetting) {
         this.navCtrl = navCtrl;
         this.navParams = navParams;
         this.toastCtrl = toastCtrl;
@@ -32,6 +30,7 @@ var ListingbeforeapprovalPage = /** @class */ (function () {
         this.camera = camera;
         this.http = http;
         this.alertCtrl = alertCtrl;
+        this.menuCtrl = menuCtrl;
         this.iab = iab;
         this.loadingCtrl = loadingCtrl;
         this.appsetting = appsetting;
@@ -43,6 +42,9 @@ var ListingbeforeapprovalPage = /** @class */ (function () {
         this.formattedaddres = [];
         this.autocompleteItems = [];
         this.geocoder = new google.maps.Geocoder();
+        this.menuCtrl.swipeEnable(true);
+        //        alert('latestbuildneww');
+        //                  url: "http://parkpalce-env.brwtkwbdhh.us-west-1.elasticbeanstalk.com/?state=state&scope=read_write&code=ac_Cnb4QYIhr01Uouum97SIdGTWfXkvZidQ#/"
         // if(localStorage.getItem('blurr')){
         //   if(localStorage.getItem('UserDetailseller')){
         //     var ID = JSON.parse(localStorage.getItem('UserDetailseller'))._id;
@@ -136,7 +138,7 @@ var ListingbeforeapprovalPage = /** @class */ (function () {
                             console.log('next false');
                         }
                         else {
-                            if (data.data.parking_space[0].parking_status == true) {
+                            if (data.data.parking_space[0].status == true) {
                                 console.log('true');
                                 _this.blurr = true;
                             }
@@ -591,6 +593,7 @@ var ListingbeforeapprovalPage = /** @class */ (function () {
                 //      alert(this.streettosend+','+this.statetosend+','+this.citytosend+','+this.ziptosend+','+this.lat+','+this.long);
                 setTimeout(function () {
                     temp.finalladd(formdetail, _this.streettosend, _this.statetosend, _this.citytosend, _this.ziptosend, _this.lat, _this.long);
+                    //               temp.finalladd(parkingdata,parkingdata.value.streetaddress,parkingdata.value.state,parkingdata.value.city,parkingdata.value.zip,this.lat,this.long);
                 }, 500);
             }
             else {
@@ -667,7 +670,7 @@ var ListingbeforeapprovalPage = /** @class */ (function () {
                             Loading.dismiss();
                             console.log(data);
                             if (data.status == true) {
-                                _this.AlertMsg1('Added succesfully');
+                                _this.AlertMsg1('Added successfully');
                                 _this.blurr = true;
                                 _this.navCtrl.push(ListingbeforeapprovalPage_1);
                                 // localStorage.setItem('blurr',JSON.stringify(data));
@@ -730,6 +733,7 @@ var ListingbeforeapprovalPage = /** @class */ (function () {
             Camera,
             Http,
             AlertController,
+            MenuController,
             InAppBrowser,
             LoadingController,
             Appsetting])

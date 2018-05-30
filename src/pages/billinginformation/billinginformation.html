@@ -27,7 +27,7 @@
 	<ion-list>
 		<div >
 		  <ion-item>
-		    <ion-input type="text" placeholder="Cardholder name" [(ngModel)]="data.firstname" name="firstname" #firstname="ngModel" required></ion-input>
+		    <ion-input type="text" placeholder="Cardholder Name" [(ngModel)]="data.firstname" name="firstname" #firstname="ngModel" required></ion-input>
 		  </ion-item>
 		</div> 
 
@@ -52,30 +52,30 @@
 		  <h2 style="margin: 6px 0 !important">Billing Address</h2>
 
 		   <ion-item>
-		    <ion-input type="text" placeholder="Street Address" [(ngModel)]="data.address" name="address" #address="ngModel" required></ion-input>
+		    <ion-input type="text" placeholder="Street Address" [(ngModel)]="data.address" name="address" #address="ngModel" ></ion-input>
 		  </ion-item>
 
 		  <div class="left">
 		    <ion-item>
-		      <ion-input type="text" placeholder="City" [(ngModel)]="data.city" name="city" #city="ngModel" required></ion-input>
+		      <ion-input type="text" placeholder="City" [(ngModel)]="data.city" name="city" #city="ngModel" ></ion-input>
 		    </ion-item>
 		  </div> 
 
 		  <div class="right">
 			 <ion-item>
-			    <ion-input type="text" placeholder="State/Province" [(ngModel)]="data.state" name="state" #state="ngModel" required></ion-input>
+			    <ion-input type="text" placeholder="State/Province" [(ngModel)]="data.state" name="state" #state="ngModel" ></ion-input>
 			 </ion-item>
 		  </div>
 
 		  <div class="left">
 		    <ion-item>
-		      <ion-input type="text"   maxlength="10" placeholder="Postal/Zip Code" [(ngModel)]="data.zipcode" name="zipcode" #zipcode="ngModel" required></ion-input>
+		      <ion-input type="text"   maxlength="10" placeholder="Postal/Zip Code" [(ngModel)]="data.zipcode" name="zipcode" #zipcode="ngModel" ></ion-input>
 		    </ion-item>
 		  </div> 
 
 		  <div class="right">
 			 <ion-item>
-		          <ion-select placeholder="Country" [(ngModel)]="data.country" name="country" #country="ngModel" required>
+		          <ion-select placeholder="Country" [(ngModel)]="data.country" name="country" #country="ngModel" >
 		            <ion-option value="San deigo">San Deigo</ion-option>
 		            
 		          </ion-select>
@@ -84,4 +84,5 @@
 		</ion-list>
             <button ion-button class="btn1" type='submit' color="theme-header" block [disabled]='!bilingform.valid'>Pay</button>
                 </form>
+				<div *ngIf="blurr == true" class="overlay"></div>
 </ion-content>

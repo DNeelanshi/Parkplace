@@ -1,0 +1,142 @@
+page-viewreviews {
+    .content{
+		background-image: url("../assets/imgs/reviewbg.png");
+        background-size: cover;
+        background-position: top center;
+        background-repeat: no-repeat;
+		.top-sec{
+			width: 100%;
+			float: left;
+
+			.item{
+				padding: 0;
+				border-bottom: 2px dashed #757575;
+				align-items: start;
+				padding-right: 88px;
+				position: relative;
+				background: transparent;
+				border-top: none !important;
+
+				ion-thumbnail{
+					min-width: 61px !important;
+					min-height: 48px !important;
+					img{
+						height: 48px !important;
+					    width: 61px !important;
+					    border-radius: 3px;
+					}
+				}
+
+				.item-inner{
+					border: none !important;
+					padding-right: 0 !important;
+
+					.label{
+						margin-top: 9px;
+					}
+					h2{
+						@extend .fontsize15px;
+					}
+					address{
+						@extend .fontsize13px;
+						font-style: normal;
+                                                white-space: normal;
+					}
+					.right-sec{
+						position: absolute;
+						right: 0;
+						background-color: #fff;
+					    border-radius: 5px;
+					    padding: 5px 10px;
+					    text-align: center;
+					    top: 8px;
+
+					    p{@extend .fontsize13px;    margin-bottom: 5px;}
+
+						ul{
+							padding: 0;
+							margin: 0;
+							list-style-type: none;
+
+							li{
+								display: inline-block;
+
+								.icon{
+									font-size: 12px
+								}
+							}
+						}
+					}
+				}
+			}
+		}
+		.content-sec{
+			width: 100%;
+			float: left;
+			padding-top: 20px;
+			// height: calc(100vh - 362px);
+            //             overflow: hidden;
+            //             overflow-y: scroll;
+
+			.list{
+				.item{
+					background-color: #fff;
+					border: none !important;
+					border-radius: 5px;
+					box-shadow: 0px 0px 50px 0px #cecece;
+					align-items: start;
+					padding: 8px 0 8px 16px;
+					margin-bottom: 10px;
+
+					ion-avatar{
+						min-width: 60px !important;
+						min-height: 60px !important;
+
+						img{
+							width: 60px !important;
+							height: 60px !important;
+							border: 3px solid #e5e2de;
+						}
+					}
+					
+					.item-inner{
+						border: none !important;
+						.label{
+						margin-bottom: 8px;
+
+							h2{
+								@extend .fontsize15px;
+								margin: 0;
+                                padding-right:16px;
+                                white-space: normal;
+                                position: relative; 
+                                .icon{
+                                        position: absolute;
+                                        right: 0;
+                                        top: 0px;
+                                        font-size: 21px;
+                                    }
+                                    .ion-md-trash:before {
+                                        content: "\f4c5" !important;
+                                    }
+                                }
+							}
+							ul{
+								margin: 0;
+								padding: 0;
+								list-style-type: none;
+
+								li{ 
+									display: inline-block; 
+									.icon{
+										font-size: 16px;
+									}
+								}
+							}
+							p{@extend .fontsize13px; white-space: normal; margin-bottom: 0; margin-top: 2px;}
+						}
+					}
+				}
+			}
+		}
+}

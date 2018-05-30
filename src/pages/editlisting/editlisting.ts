@@ -3,7 +3,7 @@ import { IonicPage, NavController, NavParams,Events } from 'ionic-angular';
 import { Appsetting } from "../../providers/appsetting";
 import { HomePage } from '../home/home';
 import { Http, Headers, RequestOptions } from '@angular/http';
-import { ToastController, AlertController, LoadingController,ActionSheetController} from 'ionic-angular';
+import { ToastController, AlertController, LoadingController,ActionSheetController,MenuController} from 'ionic-angular';
 import 'rxjs/add/operator/map';
 import {MyprofiletwoPage} from '../myprofiletwo/myprofiletwo';
 import { Facebook, FacebookLoginResponse } from '@ionic-native/facebook';
@@ -11,6 +11,7 @@ import { MyApp } from '../../app/app.component';
 import { Camera, CameraOptions } from '@ionic-native/camera';
 import { ParkinglistPage } from '../parkinglist/parkinglist';
 declare var google;
+import * as moment from 'moment';
 /**
 /**
  * Generated class for the EditlistingPage page.
@@ -49,10 +50,12 @@ geocoder = new google.maps.Geocoder();
     public toastCtrl: ToastController,
     public alertCtrl: AlertController,
     public events: Events,
+       public menuCtrl: MenuController,
       public loadingCtrl: LoadingController,
       public appsetting: Appsetting,
       public camera: Camera,
       public actionSheetCtrl:ActionSheetController) {
+        this.menuCtrl.swipeEnable(true);
         this.getinfo();
   }
 getinfo(){
@@ -125,25 +128,36 @@ if(localStorage.getItem('Editlisting')){
             if(d[0]>c[0]){
             if (c[0] > 11) {
                 // console.log(timedata.value.openinghours.includes("PM"));
-                value.opening_time = value.opening_time + ' PM';
+//                value.opening_time = value.opening_time + ' PM';
+                var g =  value.opening_time
+                 value.opening_time = moment(value.opening_time,"h:mm: A").format("hh:mm A");
+                 
             } else {
                 //console.log(timedata.value.openinghours.includes("AM"));
-               value.opening_time = value.opening_time + ' AM';
+//               value.opening_time = value.opening_time + ' AM';
+             var g =  value.opening_time
+             value.opening_time = moment(value.opening_time,"h:mm: A").format("hh:mm A");
             }
             console.log(value.openinghours);
             if (d[0] > 11) {
-                value.closing_time = value.closing_time + ' PM';
+//                value.closing_time = value.closing_time + ' PM';
+                 var h =  value.closing_time
+                 value.closing_time = moment( value.closing_time,"h:mm: A").format("hh:mm A");
             } else {
-                value.closing_time = value.closing_time + ' AM';
+//                value.closing_time = value.closing_time + ' AM';
+             var h =  value.closing_time
+             value.closing_time = moment( value.closing_time,"h:mm: A").format("hh:mm A");
             }
             console.log(value.closing_time);
-             var ott = value.opening_time.split(' ');
-            var ctt = value.closing_time.split(' ');
+             var ott = g.split(' ');
+            var ctt = h.split(' ');
             temp.daytime.push(value);
                     temp.senddays.push(value.day);
                     temp.sendopeningtime.push(ott[0]);
                     temp.sendclosingtime.push(ctt[0]);
+       
                 }})
+               
                 console.log(temp.daytime);
                console.log(temp.sendopeningtime);
                    console.log(temp.sendclosingtime);
@@ -160,29 +174,42 @@ closingtime(timedata) {
         console.log(timedata.value);
         console.log(timedata.value.day);
         console.log(timedata.value.opening_time);
-        console.log(timedata.value.closing_time);
+        console.log(timedata.value.opening_time);
+         var c = moment(timedata.value.opening_time,"h:mm: A").format("hh:mm A");
+        var z = moment(timedata.value.closing_time,"h:mm: A").format("hh:mm A");
+        console.log(z);
+          console.log(c);
         if (timedata.value.day && timedata.value.opening_time && timedata.value.closing_time) {
             var a = timedata.value.opening_time.split(':');
             var b = timedata.value.closing_time.split(':');
             if(b[0]>a[0]){
             if (a[0] > 11) {
                 // console.log(timedata.value.openinghours.includes("PM"));
-                timedata.value.opening_time = timedata.value.opening_time + ' PM';
+//                timedata.value.opening_time = timedata.value.opening_time + ' PM';
+                timedata.value.opening_time = timedata.value.opening_time
             } else {
                 //console.log(timedata.value.openinghours.includes("AM"));
-                timedata.value.opening_time = timedata.value.opening_time + ' AM';
+//                timedata.value.opening_time = timedata.value.opening_time + ' AM';
+            timedata.value.opening_time = timedata.value.opening_time
             }
             console.log(timedata.value.openinghours);
             if (b[0] > 11) {
-                timedata.value.closing_time = timedata.value.closing_time + ' PM';
+//                timedata.value.closing_time = timedata.value.closing_time + ' PM';
+                timedata.value.closing_time = timedata.value.closing_time 
             } else {
-                timedata.value.closing_time = timedata.value.closing_time + ' AM';
+//                timedata.value.closing_time = timedata.value.closing_time + ' AM';
+            timedata.value.closing_time = timedata.value.closing_time 
             }
             console.log(timedata.value.closing_time);
             var dayOpeningClosing = {
                 day: timedata.value.day,
                 opening_time: timedata.value.opening_time,
                 closing_time: timedata.value.closing_time
+            }
+            var dayOpeningClosing1 = {
+                day: timedata.value.day,
+                opening_time:c,
+                closing_time: z
             }
             //day,opening time and closing time of data to post on api.
             this.senddays.push(timedata.value.day);
@@ -195,7 +222,7 @@ closingtime(timedata) {
             console.log(this.sendclosingtime.join(','));
 
             /**** array for display day,opeing time and closing time on html after selection **********/
-            this.daytime.push(dayOpeningClosing);
+            this.daytime.push(dayOpeningClosing1);
             console.log(this.daytime);
             this.data.day = '';
             this.data.opening_time = '';
@@ -475,8 +502,10 @@ Editparking(parkingdata){
       console.log(this.streettosend,this.statetosend,this.citytosend,this.ziptosend);
 //      alert(this.streettosend+','+this.statetosend+','+this.citytosend+','+this.ziptosend+','+this.lat+','+this.long);
       setTimeout (() => {
-        temp.finalladd(parkingdata,this.streettosend,this.statetosend,this.citytosend,this.ziptosend,this.lat,this.long);
-      }, 500)
+//        temp.finalladd(parkingdata,this.streettosend,this.statetosend,this.citytosend,this.ziptosend,this.lat,this.long);
+     temp.finalladd(parkingdata,parkingdata.value.streetaddress,parkingdata.value.state,parkingdata.value.city,parkingdata.value.zip,this.lat,this.long);
+      
+        }, 500)
 
     }else{
       temp.AlertMsg('There is some error in getting location.');
@@ -513,11 +542,15 @@ finalladd(formdetail,streettosend,statetosend,citytosend,ziptosend,lat,long){
   }else{
         if (this.daytime.length > 0) {
                console.log(this.daytime);
+               
         this.senddays=[]
         this.sendopeningtime=[]
         this.sendclosingtime=[]
         this.daytime.forEach(function(value,key){
             console.log(value)
+            value.opening_time = moment( value.opening_time,["hh:mm A"]).format("HH:mm");
+            value.closing_time = moment( value.closing_time,["hh:mm A"]).format("HH:mm");
+              console.log(value)
              temp.senddays.push(value.day);
             var ot = value.opening_time.split(' ');
             var ct = value.closing_time.split(' ');
@@ -591,7 +624,7 @@ closing_time:this.sendclosingtime.join(','),
   Loading.dismiss();
     console.log(data);
     if(data.status == true){
-      this.AlertMsg1('Parking updated succesfully');
+      this.AlertMsg1('Parking updated successfully');
       console.log(data.data[0]);
       localStorage.setItem('UserDetailseller',JSON.stringify(data.data[0]));
       this.navCtrl.push(ParkinglistPage)

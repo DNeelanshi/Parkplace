@@ -1,9 +1,18 @@
 page-billinginformation {
+	
 	.content{
 		background-image: url("../assets/imgs/reviewbg.png");
         background-size: cover;
         background-position: top center;
         background-repeat: no-repeat;
+		.overlay{
+		position:fixed;
+		width:100%;
+		height:100%;
+		background-color:rgba(0, 0, 0, 0.3);
+		top:0;
+		left:0;
+	}
 
         h2{
         	@extend .fontsize15px;
@@ -102,4 +111,5 @@ page-billinginformation {
         background-color: #84ebf9;
         margin: 0;
     }
+
 }

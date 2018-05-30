@@ -17,6 +17,8 @@ import { AddcarinfoPage } from '../addcarinfo/addcarinfo';
 import { DatetimemodalPage } from '../datetimemodal/datetimemodal';
 import { Stripe } from '@ionic-native/stripe';
 import { BillinginformationPage } from '../billinginformation/billinginformation';
+import { HomePage } from '../home/home';
+import * as moment from 'moment';
 /**
  * Generated class for the MikehousePage page.
  *
@@ -37,12 +39,24 @@ var MikehousePage = /** @class */ (function () {
         this.appsetting = appsetting;
         this.stripe = stripe;
         this.parkdetail = [];
+        this.parkdetail1 = [];
         this.selldetail = [];
         this.Cardata = [];
         this.images = [];
         this.datedata = [];
         this.userdetail = [];
+        this.reviewarry = [];
+        this.Rating = 0;
+        this.totalvalue = 0;
+        this.totalreviews = 0;
+        this.starone = 'star-outline';
+        this.startwo = 'star-outline';
+        this.starthree = 'star-outline';
+        this.starfour = 'star-outline';
+        this.starfive = 'star-outline';
+        this.menuCtrl.swipeEnable(true);
         this.getdetail();
+        console.log(this.navCtrl.last().component.name);
         //        console.log(typeof(this.navParams.data))
         //        if(typeof(this.navParams.data) == "string"){
         //           
@@ -51,11 +65,105 @@ var MikehousePage = /** @class */ (function () {
     MikehousePage.prototype.ionViewDidLoad = function () {
         console.log('ionViewDidLoad MikehousePage');
     };
+    MikehousePage.prototype.gotohome = function () {
+        this.navCtrl.push(HomePage);
+    };
     MikehousePage.prototype.getdetail = function () {
         var _this = this;
+        var temp = this;
         this.parkdetail = JSON.parse(localStorage.getItem('Parkdetail'));
         this.selldetail = JSON.parse(localStorage.getItem('sellerparkdetail'));
         console.log(this.parkdetail);
+        this.parkdetail.opening_days_and_timings.forEach(function (value, key) {
+            value.opening_time = moment(value.opening_time, "h:mm: A").format("hh:mm A");
+            value.closing_time = moment(value.closing_time, "h:mm: A").format("hh:mm A");
+        });
+        this.parkdetail1 = this.parkdetail;
+        console.log(this.parkdetail1);
+        if (temp.parkdetail.review_and_rating.length) {
+            temp.totalreviews = temp.parkdetail.review_and_rating.length;
+            console.log(temp.totalreviews);
+        }
+        else {
+            temp.totalreviews = 0;
+        }
+        temp.Rating = 0;
+        temp.reviewarry = temp.parkdetail.review_and_rating;
+        temp.reviewarry.forEach(function (value, key) {
+            temp.Rating = (temp.Rating + value.rating);
+            console.log('totalRating:' + temp.Rating);
+            console.log('totallength' + temp.reviewarry.length);
+            temp.totalvalue = temp.Rating / temp.reviewarry.length;
+            temp.totalvalue = Number((temp.totalvalue).toFixed(1));
+            console.log('totalaverage' + temp.totalvalue);
+        });
+        if (temp.totalvalue == 1) {
+            temp.starone = 'star';
+        }
+        else if (temp.totalvalue == 2) {
+            temp.starone = 'star';
+            temp.startwo = 'star';
+        }
+        else if (temp.totalvalue == 3) {
+            temp.starone = 'star';
+            temp.startwo = 'star';
+            temp.starthree = 'star';
+        }
+        else if (temp.totalvalue == 4) {
+            temp.starone = 'star';
+            temp.startwo = 'star';
+            temp.starthree = 'star';
+            temp.starfour = 'star';
+        }
+        else if (temp.totalvalue == 5) {
+            temp.starone = 'star';
+            temp.startwo = 'star';
+            temp.starthree = 'star';
+            temp.starfour = 'star';
+            temp.starfive = 'star';
+        }
+        else if ((1.1 <= temp.totalvalue) && (temp.totalvalue <= 1.5)) {
+            temp.starone = 'star-half';
+        }
+        else if ((1.6 <= temp.totalvalue) && (temp.totalvalue <= 1.9)) {
+            temp.starone = 'star';
+            temp.startwo = 'star';
+        }
+        else if ((2.1 <= temp.totalvalue) && (temp.totalvalue <= 2.5)) {
+            temp.starone = 'star';
+            temp.startwo = 'star';
+            temp.starthree = 'star-half';
+        }
+        else if ((2.6 <= temp.totalvalue) && (temp.totalvalue <= 2.9)) {
+            temp.starone = 'star';
+            temp.startwo = 'star';
+            temp.starthree = 'star';
+        }
+        else if ((3.1 <= temp.totalvalue) && (temp.totalvalue <= 3.5)) {
+            temp.starone = 'star';
+            temp.startwo = 'star';
+            temp.starthree = 'star';
+            temp.starfour = 'star-half';
+        }
+        else if ((3.6 <= temp.totalvalue) && (temp.totalvalue <= 3.9)) {
+            temp.starone = 'star';
+            temp.startwo = 'star';
+            temp.starthree = 'star';
+            temp.starfour = 'star';
+        }
+        else if ((4.1 <= temp.totalvalue) && (temp.totalvalue <= 4.5)) {
+            temp.starone = 'star';
+            temp.startwo = 'star';
+            temp.starthree = 'star';
+            temp.starfour = 'star-half';
+        }
+        else if ((4.6 <= temp.totalvalue) && (temp.totalvalue <= 4.9)) {
+            temp.starone = 'star';
+            temp.startwo = 'star';
+            temp.starthree = 'star';
+            temp.starfour = 'star';
+            temp.starfive = 'star';
+        }
         console.log(this.selldetail);
         this.images = this.parkdetail.parking_images;
         var headers = new Headers();
@@ -210,7 +318,13 @@ var MikehousePage = /** @class */ (function () {
     //    console.log(postdata);
     //      }
     //  
-    MikehousePage.prototype.review = function () {
+    MikehousePage.prototype.review = function (reviewdata) {
+        console.log(reviewdata);
+        var posttreviewdata = {
+            parkid: reviewdata._id,
+            selid: this.selldetail._id
+        };
+        localStorage.setItem('reviewdata', JSON.stringify(posttreviewdata));
         this.navCtrl.push(ReviewsPage);
     };
     MikehousePage = __decorate([

@@ -40,13 +40,18 @@
   .ion-md-eye-off:before {
     content: "\f17a";
   }
+  
 }
 .eyeshow{
   font-size: 22px !important;
   line-height: 28px !important;
+  z-index: 999999 !important;
 }
 .ion-md-eye:before {
   content: "\f425";
+}
+.ion-md-eye-off:before {
+    content: "\f17a" !important;
 }
 .btn1{
 	width: 100%;

@@ -27,7 +27,7 @@
       <form #editprofile="ngForm" novalidate (submit)="edit(editprofile)">
 		<ion-list>
 		  <ion-item>
-		    <ion-input type="text" placeholder="name" [(ngModel)]="data.fullname" #fullname='ngModel'  name="fullname" required></ion-input>
+		    <ion-input type="text" placeholder="Name" [(ngModel)]="data.fullname" #fullname='ngModel'  name="fullname" required></ion-input>
       </ion-item>
       <div class="alert alert-danger red" color="danger">
           <div *ngIf="fullname.errors && (fullname.dirty || fullname.touched)">
@@ -37,7 +37,7 @@
           </div>
        </div>
 		  <ion-item>
-		    <ion-input type="email" placeholder="email"  [(ngModel)]="data.email" name="email" #email="ngModel" pattern="^[A-Za-z0-9._%+-]{3,}@[a-zA-Z]{3,}([.]{1}[a-zA-Z]{2,}|[.]{1}[a-zA-Z]{2,}[.]{1}[a-zA-Z]{1,63})$" readonly ></ion-input>
+		    <ion-input type="email" placeholder="Email"  [(ngModel)]="data.email" name="email" #email="ngModel" pattern="^[A-Za-z0-9._%+-]{3,}@[a-zA-Z]{3,}([.]{1}[a-zA-Z]{2,}|[.]{1}[a-zA-Z]{2,}[.]{1}[a-zA-Z]{1,63})$" readonly ></ion-input>
       </ion-item>
       <div class="alert alert-danger red" color="danger">
           <div *ngIf="email.errors && (email.dirty || email.touched)">
@@ -50,7 +50,7 @@
           </div>
        </div>
        <ion-item>
-		    <ion-input type="tel" placeholder="xxxxxxxxxx" [(ngModel)]="data.phone" name="phone" #phone="ngModel" pattern="^[0-9]+([0-9]+)+$" maxlength="10"  required></ion-input>
+		    <ion-input type="tel" placeholder="xxx-xxx-xxxx" [(ngModel)]="data.phone" name="phone" #phone="ngModel" pattern="^[0-9]+(-[0-9]+)+$" maxlength="12"   (input)="phonevalidation4(data.phone)" required></ion-input>
       </ion-item>
       <div class="alert alert-danger red" color="danger">
         <div *ngIf="phone.errors && (phone.dirty || phone.touched)">

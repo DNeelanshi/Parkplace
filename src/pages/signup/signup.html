@@ -33,7 +33,7 @@
             </div>
         </div>
 			  <ion-item>
-			    <ion-input type="text" placeholder="E-mail" [(ngModel)]="data.email" name="email" #email="ngModel" pattern="^[A-Za-z0-9._%+-]{3,}@[a-zA-Z]{3,}([.]{1}[a-zA-Z]{2,}|[.]{1}[a-zA-Z]{2,}[.]{1}[a-zA-Z]{1,63})$" required></ion-input>
+			    <ion-input type="text" placeholder="E-mail" autocapitalize=off [(ngModel)]="data.email" name="email" #email="ngModel" pattern="^[A-Za-z0-9._%+-]{3,}@[a-zA-Z]{3,}([.]{1}[a-zA-Z]{2,}|[.]{1}[a-zA-Z]{2,}[.]{1}[a-zA-Z]{1,63})$" required></ion-input>
 			  </ion-item>
         <div class="alert alert-danger red" color="danger">
             <div *ngIf="email.errors && (email.dirty || email.touched)">
@@ -46,7 +46,7 @@
             </div>
         </div>
 			  <ion-item>
-			    <ion-input placeholder="Phone(xxxxxxxxxx)"  type="tel" [(ngModel)]="data.phone" name="phone" #phone="ngModel" pattern="^[0-9]+([0-9]+)+$" maxlength="10" required ></ion-input>
+			    <ion-input placeholder="Phone(xxx-xxx-xxxx)"  type="tel" [(ngModel)]="data.phone" name="phone" #phone="ngModel" pattern="^[0-9]+(-[0-9]+)+$" maxlength="12" (input)="validationphone2(data.phone)" required ></ion-input>
 			  </ion-item>
         <div class="alert alert-danger red" color="danger">
             <div *ngIf="phone.errors && (phone.dirty || phone.touched)">
@@ -54,7 +54,7 @@
                     Phone number required
                 </div>
                 <div [hidden]="!phone.errors.pattern">
-                    Only number allowed
+                    Invalid input
                 </div>
             </div>
         </div>

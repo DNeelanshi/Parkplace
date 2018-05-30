@@ -43,12 +43,12 @@
            
             <ion-item>
                 <ion-label>Start Time</ion-label>
-                <ion-datetime  displayFormat="HH:mm A" pickerFormat="HH:mm A"  [(ngModel)]="data.start"  name="start" #start="ngModel" ></ion-datetime>
+                <ion-datetime  displayFormat="hh:mm A" pickerFormat="hh:mm A"  [(ngModel)]="data.start" name="start" (ngModelChange)="changestime()" #start="ngModel" ></ion-datetime>
         </ion-item>
 
             <ion-item>
                 <ion-label>End Time</ion-label>
-                <ion-datetime displayFormat="HH:mm A" pickerFormat="HH:mm A" [(ngModel)]="data.end" name="end" #end="ngModel" ></ion-datetime>
+                <ion-datetime displayFormat="hh:mm A" pickerFormat="hh:mm A" [(ngModel)]="data.end" name="end" #end="ngModel" ></ion-datetime>
             </ion-item>
         </ion-list>
         </div>

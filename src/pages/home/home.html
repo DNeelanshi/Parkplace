@@ -30,7 +30,7 @@
       <ion-list no-lines>
         <ion-item style="border-bottom: 1px solid #e5e5e5; padding-right: 40px;">
           <ion-label>City</ion-label>
-          <ion-select [(ngModel)]="data.city" name="city" #city="ngModel">
+          <ion-select [(ngModel)]="data.city" name="city" #city="ngModel" (ngModelChange)="citychange()">
             <ion-option value="San Deigo">San Deigo</ion-option>
 <!--            <ion-option value="n64">Nintendo64</ion-option>
             <ion-option value="ps">PlayStation</ion-option>
@@ -44,13 +44,13 @@
         <div class="time" style="border-right: 1px solid #e5e5e5;">
           <ion-item>
             <ion-label>Time</ion-label>
-            <ion-datetime displayFormat="h:mm A" pickerFormat="h mm A" [(ngModel)]="data.startime" name="startime" #startime="ngModel"></ion-datetime>
+            <ion-datetime displayFormat="hh:mm A" pickerFormat="hh mm A" placehoder="12:00" [(ngModel)]="data.startime" name="startime" #startime="ngModel" (ngModelChange)="changes()"></ion-datetime>
           </ion-item>
         </div>
         <div class="time">
           <ion-item>
             <ion-label>Date</ion-label>
-            <ion-datetime displayFormat="MM-DD-YYYY" pickerFormat="MM DD YYYY" [(ngModel)]="data.date" name="date" #date="ngModel" min="{{daate}}" max="2037"></ion-datetime>
+            <ion-datetime displayFormat="MM-DD-YYYY" pickerFormat="MM DD YYYY" placehoder="01-01-2018" [(ngModel)]="data.date" name="date" #date="ngModel" min="{{daate}}" max="2037"></ion-datetime>
           </ion-item>
         </div>
       </ion-list>
@@ -66,17 +66,18 @@
           <p>{{Userdata.street_address}},{{Userdata.city}}</p>
           <p>{{Userdata.state}},{{Userdata.zip_code}}</p>
           <button ion-button color="theme-header">Reserve</button>
-          <p><span class="rating">
+          <p *ngIf="totalreviews!=0"><span class="rating" *ngIf="totalreviews!=0">
             <ul>
-              <li><ion-icon name="star" color="yellow"></ion-icon></li>
-              <li><ion-icon name="star" color="yellow"></ion-icon></li>
-              <li><ion-icon name="star" color="yellow"></ion-icon></li>
-              <li><ion-icon name="star" color="gray"></ion-icon></li>
-              <li><ion-icon name="star" color="gray"></ion-icon></li>
+           <li><ion-icon name="{{starone}}" style="color:#ffba00;"></ion-icon></li>
+	   <li><ion-icon name="{{startwo}}" style="color:#ffba00;"></ion-icon></li>
+	   <li><ion-icon name="{{starthree}}" style="color:#ffba00;"></ion-icon></li>
+	   <li><ion-icon name="{{starfour}}" style="color:#ffba00;"></ion-icon></li>
+	   <li><ion-icon name="{{starfive}}" style="color:#ffba00;"></ion-icon></li>                             
             </ul>
           </span>
-          <span>125 Reviews</span>
-        </p>
+          <span>{{totalreviews}} Reviews</span>
+          </p>
+          
         </ion-item>
       </ion-list>
     </div>

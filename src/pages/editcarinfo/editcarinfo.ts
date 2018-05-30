@@ -3,7 +3,7 @@ import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import {Appsetting} from "../../providers/appsetting";
 import {HomePage} from '../home/home';
 import {Http, Headers, RequestOptions} from '@angular/http';
-import {ToastController, AlertController, LoadingController} from 'ionic-angular';
+import {ToastController, AlertController, LoadingController,MenuController} from 'ionic-angular';
 import {Facebook, FacebookLoginResponse} from '@ionic-native/facebook';
 import {MyApp} from '../../app/app.component';
 import {ActionSheetController} from 'ionic-angular';
@@ -35,8 +35,10 @@ public data: any = [];
         private camera: Camera,
         public http: Http,
         public alertCtrl: AlertController,
+            public menuCtrl: MenuController,
         public loadingCtrl: LoadingController,
         public appsetting: Appsetting) {
+          this.menuCtrl.swipeEnable(true);
         this.date = moment(new Date()).format('YYYY-MM-DD');
         console.log(this.date); 
         this.getdetail();
@@ -50,8 +52,9 @@ public data: any = [];
     console.log( this.cardata);
     this.data.carmake = this.cardata.car_maker;
     this.data.model = this.cardata.model;
-    this.data.license = this.cardata.licencse_plate;
-    this.data.year = this.cardata.year;
+    this.data.licence = this.cardata.licencse_plate;
+    this.data.year = JSON.stringify(this.cardata.year);
+    console.log(moment(this.cardata.year).format('YYYY'));
     this.carpic= this.cardata.car_images;
     this.carpicture = this.cardata.car_images;
     this.carid = this.cardata._id;
@@ -71,13 +74,14 @@ public data: any = [];
             car_maker: cardata.value.carmake,
             model: cardata.value.model,
             year: cardata.value.year,
-            licencse_plate: cardata.value.license,
+            licencse_plate: cardata.value.licence,
             user_id: userid,
             car_images: this.carpicture,
             car_id: this.carid
 
         };
 
+//        return false;
         var serialized = this.serializeObj(postdata);
         console.log(postdata);
 
@@ -154,8 +158,8 @@ public data: any = [];
         const options: CameraOptions = {
             quality: 10,
             sourceType: Type,
-           targetWidth: 767,
-            targetHeight: 100,
+           targetWidth: 600,
+            targetHeight: 600,
             correctOrientation: true,
             allowEdit: true,
             destinationType: this.camera.DestinationType.DATA_URL,

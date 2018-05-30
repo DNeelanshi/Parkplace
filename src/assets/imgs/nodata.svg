@@ -1,0 +1,84 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="-262 -65 128 128">
+  <defs>
+    <style>
+      .cls-1 {
+        clip-path: url(#clip-Nodata);
+      }
+
+      .cls-2, .cls-4, .cls-5 {
+        fill: #fff;
+      }
+
+      .cls-2, .cls-5 {
+        stroke: #707070;
+      }
+
+      .cls-2 {
+        stroke-width: 2px;
+      }
+
+      .cls-3 {
+        fill: #707070;
+      }
+
+      .cls-5 {
+        stroke-miterlimit: 10;
+      }
+
+      .cls-6 {
+        stroke: none;
+      }
+
+      .cls-7 {
+        fill: none;
+      }
+    </style>
+    <clipPath id="clip-Nodata">
+      <rect x="-262" y="-65" width="128" height="128"/>
+    </clipPath>
+  </defs>
+  <g id="Nodata" class="cls-1">
+    <rect class="cls-4" x="-262" y="-65" width="128" height="128"/>
+    <g id="Group_4" data-name="Group 4" transform="translate(-266 -70)">
+      <g id="Group_1" data-name="Group 1" transform="translate(25.031 12.549)">
+        <g id="Rectangle_1" data-name="Rectangle 1" class="cls-2">
+          <rect class="cls-6" width="90.744" height="117.967" rx="10"/>
+          <rect class="cls-7" x="1" y="1" width="88.744" height="115.967" rx="9"/>
+        </g>
+        <g id="Rectangle_2" data-name="Rectangle 2" class="cls-2" transform="translate(18.149 27.223)">
+          <rect class="cls-6" width="18.149" height="18.149"/>
+          <rect class="cls-7" x="1" y="1" width="16.149" height="16.149"/>
+        </g>
+        <g id="Rectangle_4" data-name="Rectangle 4" class="cls-2" transform="translate(18.149 54.446)">
+          <rect class="cls-6" width="18.149" height="18.149"/>
+          <rect class="cls-7" x="1" y="1" width="16.149" height="16.149"/>
+        </g>
+        <g id="Rectangle_6" data-name="Rectangle 6" class="cls-2" transform="translate(18.149 81.669)">
+          <rect class="cls-6" width="18.149" height="18.149"/>
+          <rect class="cls-7" x="1" y="1" width="16.149" height="16.149"/>
+        </g>
+        <rect id="Rectangle_3" data-name="Rectangle 3" class="cls-3" width="27.223" height="2.269" transform="translate(45.372 35.163)"/>
+        <rect id="Rectangle_5" data-name="Rectangle 5" class="cls-3" width="27.223" height="2.269" transform="translate(45.372 62.386)"/>
+        <rect id="Rectangle_7" data-name="Rectangle 7" class="cls-3" width="27.223" height="2.269" transform="translate(45.372 89.609)"/>
+      </g>
+      <g id="Group_3" data-name="Group 3" transform="translate(16.323 7.912)">
+        <g id="XMLID_330_" transform="translate(0 0)">
+          <circle id="XMLID_378_" class="cls-3" cx="16.016" cy="16.016" r="16.016"/>
+          <circle id="XMLID_377_" class="cls-4" cx="13.844" cy="13.844" r="13.844" transform="translate(2.13 2.172)"/>
+          <path id="XMLID_374_" class="cls-3" d="M67.5,69.9l.128,7.838s.6.767,1.022,0l-.17-7.71h-.043a.791.791,0,0,1-.554.085A.589.589,0,0,1,67.5,69.9Z" transform="translate(-52.037 -53.5)"/>
+          <path id="XMLID_371_" class="cls-3" d="M70.5,68.809l8.051-.043s.724-.341-.043-.767l-7.966.128a1.612,1.612,0,0,1,.043.341A1.241,1.241,0,0,1,70.5,68.809Z" transform="translate(-53.759 -52.41)"/>
+          <g id="XMLID_332_" transform="translate(10.734 10.649)">
+            <g id="XMLID_39_">
+              <g id="XMLID_42_" transform="translate(0.06 0.096)">
+                <rect id="XMLID_43_" class="cls-3" width="0.256" height="9.584" transform="translate(6.958 6.777) rotate(135)"/>
+              </g>
+              <circle id="XMLID_41_" class="cls-3" cx="0.213" cy="0.213" r="0.213" transform="translate(6.688 6.688)"/>
+              <circle id="XMLID_40_" class="cls-3" cx="0.256" cy="0.256" r="0.256"/>
+            </g>
+          </g>
+          <circle id="XMLID_331_" class="cls-5" cx="0.895" cy="0.895" r="0.895" transform="translate(15.122 15.122)"/>
+        </g>
+      </g>
+    </g>
+  </g>
+</svg>

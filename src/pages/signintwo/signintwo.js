@@ -14,7 +14,7 @@ import { HometwoPage } from '../hometwo/hometwo';
 import { ForgotpwdPage } from '../forgotpwd/forgotpwd';
 import { Appsetting } from "../../providers/appsetting";
 import { Http, Headers, RequestOptions } from '@angular/http';
-import { ToastController, AlertController, LoadingController } from 'ionic-angular';
+import { ToastController, AlertController, LoadingController, MenuController } from 'ionic-angular';
 import { Facebook } from '@ionic-native/facebook';
 import { ListingbeforeapprovalPage } from '../listingbeforeapproval/listingbeforeapproval';
 import { ListparkingspacePage } from '../listparkingspace/listparkingspace';
@@ -27,9 +27,10 @@ import { FCM } from '@ionic-native/fcm';
  * Ionic pages and navigation.
  */
 var SignintwoPage = /** @class */ (function () {
-    function SignintwoPage(navCtrl, navParams, events, http, toastCtrl, fb, fcm, appsetting, alertCtrl, loadingCtrl) {
+    function SignintwoPage(navCtrl, menuCtrl, navParams, events, http, toastCtrl, fb, fcm, appsetting, alertCtrl, loadingCtrl) {
         var _this = this;
         this.navCtrl = navCtrl;
+        this.menuCtrl = menuCtrl;
         this.navParams = navParams;
         this.events = events;
         this.http = http;
@@ -44,8 +45,10 @@ var SignintwoPage = /** @class */ (function () {
         this.ptype = 'password';
         this.iconname = 'eye';
         this.showpass = false;
+        this.menuCtrl.swipeEnable(false);
         fcm.getToken().then(function (token) {
             _this.devicetoken = token;
+            //     alert(this.devicetoken);
         });
         fcm.onNotification().subscribe(function (data) {
             if (data.wasTapped) {
@@ -105,6 +108,9 @@ var SignintwoPage = /** @class */ (function () {
                 if (response.status == true) {
                     localStorage.setItem('UserDetail', JSON.stringify(response.userinfo));
                     localStorage.setItem('UserDetailseller', JSON.stringify(response.userinfo));
+                    if (localStorage.getItem('UserDetailcustomer')) {
+                        localStorage.removeItem('UserDetailcustomer');
+                    }
                     Userdata = response.userinfo;
                     _this.appsetting.username = response.userinfo.name;
                     _this.appsetting.emailuser = response.userinfo.email;
@@ -117,7 +123,7 @@ var SignintwoPage = /** @class */ (function () {
                     }
                     else {
                         if (response.userinfo.parking_space.length > 0) {
-                            check = response.userinfo.parking_space[0].parking_status;
+                            check = response.userinfo.parking_space[0].status;
                             console.log(check);
                         }
                     }
@@ -236,6 +242,9 @@ var SignintwoPage = /** @class */ (function () {
                             if (response.status == true) {
                                 localStorage.setItem('UserDetail', JSON.stringify(response.data));
                                 localStorage.setItem('UserDetailseller', JSON.stringify(response.data));
+                                if (localStorage.getItem('UserDetailcustomer')) {
+                                    localStorage.removeItem('UserDetailcustomer');
+                                }
                                 _this.appsetting.username = response.data.name;
                                 _this.appsetting.emailuser = response.data.email;
                                 // this.appsetting.SrcImage = response.userinfo.profile_pic;s
@@ -246,7 +255,7 @@ var SignintwoPage = /** @class */ (function () {
                                 }
                                 else {
                                     if (response.data.parking_space.length > 0) {
-                                        check = response.data.parking_space[0].parking_status;
+                                        check = response.data.parking_space[0].status;
                                         console.log(check);
                                     }
                                 }
@@ -323,6 +332,7 @@ var SignintwoPage = /** @class */ (function () {
             templateUrl: 'signintwo.html',
         }),
         __metadata("design:paramtypes", [NavController,
+            MenuController,
             NavParams,
             Events,
             Http,

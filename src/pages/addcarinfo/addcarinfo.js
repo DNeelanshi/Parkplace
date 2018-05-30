@@ -12,7 +12,7 @@ import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { Appsetting } from "../../providers/appsetting";
 import { MikehousePage } from '../mikehouse/mikehouse';
 import { Http, Headers, RequestOptions } from '@angular/http';
-import { ToastController, AlertController, LoadingController } from 'ionic-angular';
+import { ToastController, AlertController, LoadingController, MenuController } from 'ionic-angular';
 import { ActionSheetController } from 'ionic-angular';
 import { Camera } from '@ionic-native/camera';
 import * as moment from 'moment';
@@ -23,7 +23,7 @@ import * as moment from 'moment';
  * Ionic pages and navigation.
  */
 var AddcarinfoPage = /** @class */ (function () {
-    function AddcarinfoPage(navCtrl, navParams, toastCtrl, actionSheetCtrl, camera, http, alertCtrl, loadingCtrl, appsetting) {
+    function AddcarinfoPage(navCtrl, navParams, toastCtrl, actionSheetCtrl, camera, http, alertCtrl, menuCtrl, loadingCtrl, appsetting) {
         this.navCtrl = navCtrl;
         this.navParams = navParams;
         this.toastCtrl = toastCtrl;
@@ -31,10 +31,12 @@ var AddcarinfoPage = /** @class */ (function () {
         this.camera = camera;
         this.http = http;
         this.alertCtrl = alertCtrl;
+        this.menuCtrl = menuCtrl;
         this.loadingCtrl = loadingCtrl;
         this.appsetting = appsetting;
         this.data = [];
         this.carpic = '';
+        this.menuCtrl.swipeEnable(true);
         this.pagenameprevious = this.navCtrl.last();
         //        console.log("VAL");
         console.log(this.pagenameprevious.component.name);
@@ -50,7 +52,7 @@ var AddcarinfoPage = /** @class */ (function () {
         var options = new RequestOptions({ headers: headers });
         var userid = JSON.parse(localStorage.getItem('UserDetailcustomer'))._id;
         if (this.carpicture == undefined) {
-            this.AlertMsg1('Car picture is required');
+            this.carpicture = "https://s.hswstatic.com/gif/hydrogen-vehicle-danger-1.jpg";
         }
         else {
             var postdata = {
@@ -60,7 +62,6 @@ var AddcarinfoPage = /** @class */ (function () {
                 licencse_plate: cardata.value.licence,
                 user_id: userid,
                 car_images: this.carpicture
-                //            car_images: "https://s.hswstatic.com/gif/hydrogen-vehicle-danger-1.jpg"
             };
             var serialized = this.serializeObj(postdata);
             console.log(postdata);
@@ -75,7 +76,7 @@ var AddcarinfoPage = /** @class */ (function () {
                     Loading.dismiss();
                     console.log(data);
                     if (data.status == true) {
-                        _this.AlertMsg1('Car information added succesfully');
+                        _this.AlertMsg1('Car information added successfully');
                         if (_this.pagenameprevious.component.name == 'MikehousePage') {
                             _this.navCtrl.push(MikehousePage);
                         }
@@ -141,8 +142,8 @@ var AddcarinfoPage = /** @class */ (function () {
         var options = {
             quality: 10,
             sourceType: Type,
-            targetWidth: 767,
-            targetHeight: 100,
+            targetWidth: 600,
+            targetHeight: 600,
             correctOrientation: true,
             allowEdit: true,
             destinationType: this.camera.DestinationType.DATA_URL,
@@ -206,6 +207,7 @@ var AddcarinfoPage = /** @class */ (function () {
             Camera,
             Http,
             AlertController,
+            MenuController,
             LoadingController,
             Appsetting])
     ], AddcarinfoPage);

@@ -5,7 +5,7 @@ import { Appsetting } from "../../providers/appsetting";
 import { HomePage } from '../home/home';
 import { Http, Headers, RequestOptions } from '@angular/http';
 import { ForgotpwdPage } from '../forgotpwd/forgotpwd';
-import { ToastController, AlertController, LoadingController} from 'ionic-angular';
+import { ToastController, AlertController, LoadingController,MenuController} from 'ionic-angular';
 import { Facebook, FacebookLoginResponse } from '@ionic-native/facebook';
 import { MyApp } from '../../app/app.component';
 import { HometwoPage } from '../../pages/hometwo/hometwo';
@@ -34,7 +34,9 @@ datauser:any=[];
   public events: Events,
   public appsetting: Appsetting,
   public alertCtrl: AlertController,
+  public menuCtrl: MenuController,
   public loadingCtrl: LoadingController) {
+   this.menuCtrl.swipeEnable(true);
     this.checkstatus()
 
   }
@@ -69,7 +71,7 @@ let headers = new Headers();
       if(data.data.parking_space.length == 0){
         this.blurri = 1;
       }else{
-        if(data.data.parking_space[0].parking_status == true){
+        if(data.data.parking_space[0].status == true){
           console.log('false');
           this.blurr = false;
        } else{

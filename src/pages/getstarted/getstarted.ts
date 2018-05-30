@@ -38,6 +38,7 @@ this.menuCtrl.swipeEnable(false);
   }
   customer(){
     if(localStorage.getItem('UserDetailcustomer')){
+         
         let headers = new Headers();
         headers.append('Content-Type', 'application/x-www-form-urlencoded;charset=utf-8');
         let options = new RequestOptions({ headers: headers });
@@ -61,6 +62,10 @@ this.menuCtrl.swipeEnable(false);
         this.http.post(this.appsetting.myGlobalVar +'users/userinfo', serialized, options).map(res => res.json()).subscribe(data => {
     Loading.dismiss();
           if(data.status == true){
+              if(localStorage.getItem('UserDetailseller')){
+          localStorage.removeItem('UserDetailseller');
+          localStorage.removeItem('Done')
+         }
           console.log(data.data);
           this.appsetting.username = data.data.name;
         this.appsetting.emailuser = data.data.email;
@@ -113,6 +118,10 @@ serializeObj(obj) {
     this.http.post(this.appsetting.myGlobalVar +'users/userinfo', serialized, options).map(res => res.json()).subscribe(data => {
      
       if(data.status == true){
+                 if(localStorage.getItem('UserDetailcustomer')){
+            localStorage.removeItem('UserDetailcustomer');
+        
+            }
       console.log(data.data);
       Userdata = data.data;
       if(localStorage.getItem('Done')){       
@@ -122,7 +131,7 @@ this.appsetting.haveparking = 1;
       }else{
 //      alert('here')
           if(Userdata.parking_space.length > 0){
-       check = Userdata.parking_space[0].parking_status;
+       check = Userdata.parking_space[0].status;
        console.log(check);
        }
           

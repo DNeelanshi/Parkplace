@@ -22,6 +22,7 @@ import {ToastController, AlertController, LoadingController, ActionSheetControll
 export class BillinginformationPage {
     public data: any = [];
     date: any;
+	blurr:Boolean=false;
     paymentdata:any=[];
     constructor(private stripe: Stripe, public navCtrl: NavController, public navParams: NavParams,
         public http: Http,
@@ -32,6 +33,7 @@ export class BillinginformationPage {
         public loadingCtrl: LoadingController,
         public appsetting: Appsetting,
         public actionSheetCtrl: ActionSheetController) {
+         this.menuCtrl.swipeEnable(true);
         this.date = moment(new Date()).format('YYYY-MM-DD');
         console.log(this.date);
         console.log(this.navParams.data);
@@ -42,6 +44,7 @@ export class BillinginformationPage {
 
     }
     Billing(databil) {
+		this.blurr = true;
         console.log(databil.value);
        var str =  databil.value.dateyear.split('-');
        var month = str[1];
@@ -67,8 +70,14 @@ export class BillinginformationPage {
                 console.log(token.id)
                 if(token.id){
                 this.payment(token.id);}
+            },(err)=>{
+                this.AlertMsg(err);
             })
-            .catch(error => console.error(error));
+            .catch((error) => {
+                console.error(error)
+                console.log(error);
+            this.AlertMsg(error);
+            });
     }
    payment(token){
         console.log(this.paymentdata);
@@ -117,7 +126,9 @@ spacenumber: this.paymentdata.spacenumber
           text: 'Done',
           handler: data => {
             console.log('Done clicked');
+			this.blurr = false;
             this.navCtrl.push(HomePage);
+			
           }
           }],
       cssClass: 'alertCustomCss',
@@ -127,11 +138,16 @@ spacenumber: this.paymentdata.spacenumber
          
          
       }else{
+      this.AlertMsg(data.message)
          console.log(data.message);
-          Loading.dismiss()
+          Loading.dismiss();
+          this.blurr = false;
       }
       },(err)=>{
+      this.AlertMsg(err)
           console.log(err);
+           Loading.dismiss();
+           this.blurr = false;
       })
       })
       }
@@ -142,7 +158,24 @@ spacenumber: this.paymentdata.spacenumber
 
     return result.join("&");
   }
- 
+ AlertMsg(msg){
+    let alert = this.alertCtrl.create({
+      title: 'Park  Place',
+      message: msg,
+      buttons: [
+
+        {
+          text: 'OK',
+          role: 'ok',
+          handler: () => {
+            console.log('OK clicked');
+           
+          }
+        }
+      ]
+    });
+    alert.present();
+  }
     ionViewDidLoad() {
         console.log('ionViewDidLoad BillinginformationPage');
     }

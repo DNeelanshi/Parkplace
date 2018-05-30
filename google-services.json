@@ -1,0 +1,42 @@
+{
+  "project_info": {
+    "project_number": "275107940705",
+    "firebase_url": "https://park-place-54bf3.firebaseio.com",
+    "project_id": "park-place-54bf3",
+    "storage_bucket": "park-place-54bf3.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:275107940705:android:c799dc52778944c6",
+        "android_client_info": {
+          "package_name": "io.ionic.parkplace"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "275107940705-hstqh3p80egfv3rv5gnnr2qcnnl03jej.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDKSVpveWvZDiOpmH6LLDzHQ4woHiAK1PA"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

@@ -40,6 +40,7 @@ var ChangepwdPage = /** @class */ (function () {
         this.ptype2 = 'password';
         this.iconname2 = 'eye';
         this.showpass2 = false;
+        this.menuCtrl.swipeEnable(true);
     }
     ChangepwdPage.prototype.changepassword = function (changepass1) {
         var _this = this;
@@ -71,7 +72,7 @@ var ChangepwdPage = /** @class */ (function () {
                         Loading.dismiss();
                         console.log(data);
                         if (data.status == true) {
-                            _this.AlertMsg('Password changed Succesfully.Login again!');
+                            _this.AlertMsg('Password changed successfully.Login again!');
                             localStorage.removeItem('UserDetailseller');
                             localStorage.removeItem('UserDetailcustomer');
                             _this.app.getRootNav().setRoot(GetstartedPage);

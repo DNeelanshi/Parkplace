@@ -9,10 +9,17 @@ page-addcarinfo {
         	width: 100%;
         	float: left;
         	position: relative;
+                height: 147px;
+                overflow: hidden;
 
         	img{
-        		width: 100%;
-        		float: left;
+                    width: 100%;
+                    position: absolute;
+                    top: 0;
+                    bottom: 0;
+                    margin: auto;
+                    left: 0;
+                    right: 0;
         	}
 
         	.button{
@@ -63,6 +70,10 @@ page-addcarinfo {
 							margin: 11px 0px;
 						}
 					}
+                                        ion-datetime{
+                                            padding-left: 0 !important;
+                                            @extend .inputsize;
+                                        }
 				}
 			}
 			.btn1{

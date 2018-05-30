@@ -14,9 +14,13 @@ import { HomePage } from '../pages/home/home';
 import { ListPage } from '../pages/list/list';
 import { GetstartedPage } from '../pages/getstarted/getstarted';
 import { SigninPage } from '../pages/signin/signin';
+import { TermsPage } from '../pages/terms/terms';
+import { Terms2Page } from '../pages/terms2/terms2';
 import { SignupPage } from '../pages/signup/signup';
 import { MikehousePage } from '../pages/mikehouse/mikehouse';
+import { RatingmodelPage } from '../pages/ratingmodel/ratingmodel';
 import { ReviewsPage } from '../pages/reviews/reviews';
+import { ViewreviewsPage } from '../pages/viewreviews/viewreviews';
 import { BillinginformationPage } from '../pages/billinginformation/billinginformation';
 import { ViewreservationPage } from '../pages/viewreservation/viewreservation';
 import { UpcomingreservationPage } from '../pages/upcomingreservation/upcomingreservation';
@@ -50,6 +54,7 @@ import { SplashScreen } from '@ionic-native/splash-screen';
 import { FCM } from '@ionic-native/fcm';
 import { Camera } from '@ionic-native/camera';
 import { Geolocation } from '@ionic-native/geolocation';
+import { Ionic2RatingModule } from 'ionic2-rating';
 // import { Device } from '@ionic-native/device';
 import { ListingbeforeapprovalPage } from '../pages/listingbeforeapproval/listingbeforeapproval';
 import { Stripe } from '@ionic-native/stripe';
@@ -66,8 +71,11 @@ var AppModule = /** @class */ (function () {
                 GetstartedPage,
                 SigninPage,
                 SignupPage,
+                ViewreviewsPage,
                 MikehousePage,
                 ReviewsPage,
+                TermsPage,
+                Terms2Page,
                 BillinginformationPage,
                 ViewreservationPage,
                 UpcomingreservationPage,
@@ -84,6 +92,7 @@ var AppModule = /** @class */ (function () {
                 SignuptwoPage,
                 ForgotpwdPage,
                 HometwoPage,
+                RatingmodelPage,
                 MyprofiletwoPage,
                 EditprofiletwoPage,
                 ViewreservationtwoPage,
@@ -91,6 +100,7 @@ var AppModule = /** @class */ (function () {
                 ListparkingspacePage,
                 AddpaymentPage,
                 EditpaymentPage,
+                ViewreviewsPage,
                 ParkinglistPage,
                 EditlistingPage,
                 CheckstatusPage,
@@ -100,6 +110,7 @@ var AppModule = /** @class */ (function () {
             imports: [
                 BrowserModule,
                 HttpModule,
+                Ionic2RatingModule,
                 IonicModule.forRoot(MyApp),
             ],
             bootstrap: [IonicApp],
@@ -111,9 +122,12 @@ var AppModule = /** @class */ (function () {
                 SigninPage,
                 DatetimemodalPage,
                 SignupPage,
+                TermsPage,
+                Terms2Page,
                 MikehousePage,
                 ReviewsPage,
                 CarlistPage,
+                ViewreviewsPage,
                 BillinginformationPage,
                 ViewreservationPage,
                 UpcomingreservationPage,
@@ -122,8 +136,10 @@ var AppModule = /** @class */ (function () {
                 AddcarinfoPage,
                 EditcarinfoPage,
                 ProfilePage,
+                RatingmodelPage,
                 EditprofilePage,
                 ChangepwdPage,
+                ViewreviewsPage,
                 DetailPage,
                 SignintwoPage,
                 SignuptwoPage,

@@ -43,6 +43,7 @@ public ptype = 'password';
   public menuCtrl: MenuController,
     public loadingCtrl: LoadingController,
     public appsetting: Appsetting) {
+     this.menuCtrl.swipeEnable(true);
   }
   changepassword(changepass1){
     console.log(changepass1);
@@ -75,7 +76,7 @@ public ptype = 'password';
     Loading.dismiss();
       console.log(data);
     if(data.status == true){
-this.AlertMsg('Password changed Succesfully.Login again!')
+this.AlertMsg('Password changed successfully.Login again!')
 localStorage.removeItem('UserDetailseller');
 localStorage.removeItem('UserDetailcustomer');
 this.app.getRootNav().setRoot(GetstartedPage);

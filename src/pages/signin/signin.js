@@ -14,7 +14,7 @@ import { Appsetting } from "../../providers/appsetting";
 import { HomePage } from '../home/home';
 import { Http, Headers, RequestOptions } from '@angular/http';
 import { ForgotpwdPage } from '../forgotpwd/forgotpwd';
-import { ToastController, AlertController, LoadingController } from 'ionic-angular';
+import { ToastController, AlertController, LoadingController, MenuController } from 'ionic-angular';
 import { Facebook } from '@ionic-native/facebook';
 import { GetstartedPage } from '../getstarted/getstarted';
 import { FCM } from '@ionic-native/fcm';
@@ -25,9 +25,10 @@ import { FCM } from '@ionic-native/fcm';
  * Ionic pages and navigation.
  */
 var SigninPage = /** @class */ (function () {
-    function SigninPage(navCtrl, navParams, events, http, toastCtrl, fb, fcm, appsetting, alertCtrl, loadingCtrl) {
+    function SigninPage(navCtrl, menuCtrl, navParams, events, http, toastCtrl, fb, fcm, appsetting, alertCtrl, loadingCtrl) {
         var _this = this;
         this.navCtrl = navCtrl;
+        this.menuCtrl = menuCtrl;
         this.navParams = navParams;
         this.events = events;
         this.http = http;
@@ -45,10 +46,12 @@ var SigninPage = /** @class */ (function () {
         this.ptype1 = 'password';
         this.iconname1 = 'eye';
         this.showpass1 = false;
-        fcm.getToken().then(function (token) {
+        this.menuCtrl.swipeEnable(false);
+        this.fcm.getToken().then(function (token) {
             _this.devicetoken = token;
+            //     alert(this.devicetoken)
         });
-        fcm.onNotification().subscribe(function (data) {
+        this.fcm.onNotification().subscribe(function (data) {
             if (data.wasTapped) {
                 console.log("Received in background");
             }
@@ -92,6 +95,10 @@ var SigninPage = /** @class */ (function () {
                     _this.appsetting.emailuser = response.userinfo.email;
                     localStorage.setItem('UserDetail', JSON.stringify(response.userinfo));
                     localStorage.setItem('UserDetailcustomer', JSON.stringify(response.userinfo));
+                    if (localStorage.getItem('UserDetailseller')) {
+                        localStorage.removeItem('UserDetailseller');
+                        localStorage.removeItem('Done');
+                    }
                     _this.events.publish('customer', 'customer');
                     _this.navCtrl.push(HomePage);
                 }
@@ -267,6 +274,7 @@ var SigninPage = /** @class */ (function () {
             templateUrl: 'signin.html',
         }),
         __metadata("design:paramtypes", [NavController,
+            MenuController,
             NavParams,
             Events,
             Http,

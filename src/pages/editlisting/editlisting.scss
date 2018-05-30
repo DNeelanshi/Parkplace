@@ -157,11 +157,13 @@ page-editlisting {
 		         width: 100%;
 		         float: left;
 		         position: relative;
+                         height: 120px;
 
 		         img{
 		         	width: 100%;
 		         	float: left;
 		         	border-radius: 5px;
+                                height: 100%;
 		         }
 
 		         .delete-img{
@@ -169,6 +171,7 @@ page-editlisting {
 			        right: 3px;
 			        top: 3px;
 			        width: 12px;
+                                height: 12px;
 			     }
 		     }
 	     }

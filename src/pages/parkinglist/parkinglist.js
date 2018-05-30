@@ -37,6 +37,7 @@ var ParkinglistPage = /** @class */ (function () {
         this.camera = camera;
         this.actionSheetCtrl = actionSheetCtrl;
         this.Userdata = [];
+        this.menuCtrl.swipeEnable(true);
         this.getinfo();
         //        alert('welcome');
     }
@@ -120,7 +121,7 @@ var ParkinglistPage = /** @class */ (function () {
                         _this.http.request(_this.appsetting.myGlobalVar + 'users/delete_parking', options).map(function (res) { return res.json(); }).subscribe(function (data) {
                             console.log(data);
                             if (data.status == true) {
-                                _this.AlertMsg('Deleted succesfully');
+                                _this.AlertMsg('Deleted successfully');
                                 _this.getinfo();
                             }
                         });

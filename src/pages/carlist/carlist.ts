@@ -30,6 +30,7 @@ import {GetstartedPage} from '../getstarted/getstarted';
 })
 export class CarlistPage {
 Userdata:any=[];
+show:number;
   constructor(public navCtrl: NavController, public navParams: NavParams,
     public http: Http,
     public toastCtrl: ToastController,
@@ -41,6 +42,7 @@ Userdata:any=[];
       public appsetting: Appsetting,
       public camera: Camera,
       public actionSheetCtrl:ActionSheetController) {
+       this.menuCtrl.swipeEnable(true);
       this.getinfo();
   }
 getinfo(){
@@ -61,7 +63,7 @@ getinfo(){
    var Loading = this.loadingCtrl.create({
          spinner: 'bubbles',
           cssClass: 'loader',
-          content: "Loading",
+//          content: "Loading",
   dismissOnPageChange:true
       });
       Loading.present().then(() => {
@@ -70,8 +72,13 @@ getinfo(){
   Loading.dismiss();
 console.log(data);
 if(data.status == true){
-    if(data.data.car_details){
+    if(data.data.car_details.length >0){
   this.Userdata = data.data.car_details;
+  this.show = 1;
+  }else{
+  console.log('no car');
+      this.show = 0;
+      console.log( this.show);
   }
 //  if (data.data.parking_space.length == 0){
 ////      alert('no data');
@@ -134,7 +141,7 @@ var body = {
 
 console.log(data);
 if(data.status == true){
-    this.AlertMsg('Deleted succesfully')
+    this.AlertMsg('Deleted successfully')
   this.getinfo();
 }
 

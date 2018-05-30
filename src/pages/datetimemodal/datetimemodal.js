@@ -31,16 +31,36 @@ var DatetimemodalPage = /** @class */ (function () {
         this.loadingCtrl = loadingCtrl;
         this.datetime = [];
         this.data = [];
+        this.flag = 0;
+        this.comparison = false;
         var temp = this;
         this.datetime = JSON.parse(localStorage.getItem('Parkdetail'));
         console.log(this.datetime);
         this.parkid = this.datetime._id;
         this.date = moment(new Date()).format('YYYY-MM-DD');
         console.log(this.date);
+        this.time = moment(new Date()).format('HH:mm').toString();
+        console.log(this.date);
     }
+    DatetimemodalPage.prototype.changestime = function () {
+        console.log(this.data.start);
+        var btime = this.data.start.split(":");
+        var curtime = this.time.split(":");
+        var beginningTime = moment({
+            h: btime[0],
+            s: btime[1]
+        });
+        var currentime = moment({
+            h: curtime[0],
+            s: curtime[1]
+        });
+        console.log(beginningTime);
+        console.log(currentime);
+        console.log(beginningTime.isBefore(currentime));
+        this.comparison = beginningTime.isBefore(currentime);
+    };
     DatetimemodalPage.prototype.changes = function () {
         var tem = this;
-        var flag = 0;
         var flag1 = 0;
         var a = [];
         a = moment(this.data.datee).format('LLLL');
@@ -50,13 +70,13 @@ var DatetimemodalPage = /** @class */ (function () {
             if (value.day == a[0]) {
                 tem.data.day = a[0];
                 console.log(a[0], value.day);
-                flag = 1;
+                tem.flag = 1;
             }
         });
-        if (flag == 1) {
+        if (this.flag == 1) {
         }
         else {
-            tem.AlertMsg1('Sorry no service available on this date. Please choose other');
+            this.AlertMsg1('Sorry no service available on this date. Please choose other');
         }
     };
     DatetimemodalPage.prototype.dismiss1 = function () {
@@ -78,15 +98,40 @@ var DatetimemodalPage = /** @class */ (function () {
                         var b = temp.data.end.split(':');
                         console.log(b[0], a[0], b[1], a[1]);
                         if (b[0] > a[0]) {
-                            temp.finalcheck(temp.data.day, temp.data.start, temp.data.end, temp.data.datee);
+                            console.log(parseInt(b[1]) + 30);
+                            console.log((moment(temp.date).isSame(moment(temp.data.datee))));
+                            console.log(temp.comparison);
+                            console.log(temp.flag);
+                            if ((moment(temp.date).isSame(moment(temp.data.datee)) == true) && (temp.comparison == true)) {
+                                temp.AlertMsg1('Time must be greater than current');
+                            }
+                            else {
+                                if (temp.flag == 1) {
+                                    temp.finalcheck(temp.data.day, temp.data.start, temp.data.end, temp.data.datee);
+                                }
+                                else {
+                                    temp.AlertMsg1('Sorry no service available on this date. Please choose other');
+                                }
+                            }
                         }
                         else if (b[0] == a[0]) {
                             console.log(parseInt(b[1]) + 30);
+                            console.log((moment(temp.date).isSame(moment(temp.data.datee))));
+                            console.log(temp.comparison);
+                            console.log(temp.flag);
                             if ((a[1] == b[1]) || (parseInt(b[1]) - parseInt(a[1]) < 30)) {
                                 temp.AlertMsg1('Minimum parking should be 30 minutes');
                             }
+                            else if ((moment(temp.date).isSame(moment(temp.data.datee)) == true) && (temp.comparison == true)) {
+                                temp.AlertMsg1('Time must be greater than current');
+                            }
                             else {
-                                temp.finalcheck(temp.data.day, temp.data.start, temp.data.end, temp.data.datee);
+                                if (temp.flag == 1) {
+                                    temp.finalcheck(temp.data.day, temp.data.start, temp.data.end, temp.data.datee);
+                                }
+                                else {
+                                    temp.AlertMsg1('Sorry no service available on this date. Please choose other');
+                                }
                             }
                         }
                         else {

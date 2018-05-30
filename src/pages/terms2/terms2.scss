@@ -1,0 +1,28 @@
+page-terms2 {
+
+    .content{
+		background-image: url("../assets/imgs/reviewbg.png");
+        background-size: cover;
+        background-position: top center;
+        background-repeat: no-repeat;
+
+        h2{
+            @extend .fontsize15px;
+            width: 100%;
+            float: left;
+            margin: 0 !important;
+
+        }
+        p{
+            @extend .fontsize13px;
+            white-space: normal;
+            width: 100%;
+            float: left;
+            margin-top: 5px;
+            letter-spacing: 0.5px;
+            line-height: 17px;
+        }
+    }
+
+
+}

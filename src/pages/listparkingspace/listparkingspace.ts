@@ -3,12 +3,13 @@ import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { Appsetting } from "../../providers/appsetting";
 import { HomePage } from '../home/home';
 import { Http, Headers, RequestOptions } from '@angular/http';
-import { ToastController, AlertController, LoadingController} from 'ionic-angular';
+import { ToastController, AlertController, LoadingController,MenuController} from 'ionic-angular';
 import { Facebook, FacebookLoginResponse } from '@ionic-native/facebook';
 import { MyApp } from '../../app/app.component';
 import { ActionSheetController } from 'ionic-angular';
 import { Camera, CameraOptions } from '@ionic-native/camera';
 declare var google;
+import * as moment from 'moment';
 /**
  * Generated class for the ListparkingspacePage page.
  *
@@ -35,6 +36,7 @@ senddays:any=[];
 sendopeningtime:any=[];
 sendclosingtime:any=[];
 daytime:any=[];
+daytime1:any=[];
 citytosend:any;
 streettosend:any;
 statetosend:any;
@@ -47,8 +49,10 @@ geocoder = new google.maps.Geocoder();
       private camera: Camera,
       public http: Http,
       public alertCtrl: AlertController,
+       public menuCtrl: MenuController,
         public loadingCtrl: LoadingController,
         public appsetting: Appsetting) {
+         this.menuCtrl.swipeEnable(true);
         this.getuserinfo();
   }
 getuserinfo(){
@@ -80,9 +84,7 @@ getuserinfo(){
               if(data.data.first_add == false){
                   this.userarray = data.data.parking_space[0];
                   this.data.streetaddress =  this.userarray.street_address;
-                  this.data.city = this.userarray.city;
-                  this.data.state = this.userarray.state;
-                  this.data.zip = this.userarray.zip_code;
+
                   this.parkid = this.userarray._id;
                   this.leasingpic = this.userarray.agreement_pic;
                   this.leasingpicture = this.userarray.agreement_pic;
@@ -119,24 +121,37 @@ closingtime(timedata) {
         console.log(timedata.value.day);
         console.log(timedata.value.startime);
         console.log(timedata.value.endtime);
+        var c = moment(timedata.value.startime,"h:mm: A").format("hh:mm A");
+        var z = moment(timedata.value.endtime,"h:mm: A").format("hh:mm A");
+        console.log(z);
+          console.log(c);
         if (timedata.value.day && timedata.value.startime && timedata.value.endtime) {
             var a = timedata.value.startime.split(':');
             var b = timedata.value.endtime.split(':');
             if(b[0]>a[0]){
             if (a[0] > 11) {
                 // console.log(timedata.value.openinghours.includes("PM"));
-                timedata.value.startime = timedata.value.startime + ' PM';
+//                timedata.value.startime = timedata.value.startime + ' PM';
+                timedata.value.startime = timedata.value.startime
             } else {
                 //console.log(timedata.value.openinghours.includes("AM"));
-                timedata.value.startime = timedata.value.startime + ' AM';
+//                timedata.value.startime = timedata.value.startime + ' AM';
+            timedata.value.startime = timedata.value.startime
             }
             console.log(timedata.value.openinghours);
             if (b[0] > 11) {
-                timedata.value.endtime = timedata.value.endtime + ' PM';
+//                timedata.value.endtime = timedata.value.endtime + ' PM';
+                timedata.value.endtime = timedata.value.endtime
             } else {
-                timedata.value.endtime = timedata.value.endtime + ' AM';
+//                timedata.value.endtime = timedata.value.endtime + ' AM';
+            timedata.value.endtime = timedata.value.endtime
             }
             console.log(timedata.value.endtime);
+            var dayOpeningClosing1 = {
+                day: timedata.value.day,
+                startime: c,
+                endtime: z
+            }
             var dayOpeningClosing = {
                 day: timedata.value.day,
                 startime: timedata.value.startime,
@@ -153,16 +168,17 @@ closingtime(timedata) {
             console.log(this.sendclosingtime.join(','));
 
             /**** array for display day,opeing time and closing time on html after selection **********/
-            this.daytime.push(dayOpeningClosing);
+            this.daytime.push(dayOpeningClosing1);
+//             this.daytime1.push(dayOpeningClosing);
             console.log(this.daytime);
             this.data.day = '';
             this.data.startime = '';
             this.data.endtime = '';
         } else {
-                this.AlertMsg1('Closing time must be greater than opening time!');
+                this.AlertMsg3('Closing time must be greater than opening time!');
         }
         } else {
-            this.AlertMsg1('Are you sure you selected day,opening and closing time?');
+            this.AlertMsg3('Are you sure you selected day,opening and closing time?');
         }
     }
       DeleteTimes(event, ind) {
@@ -172,12 +188,19 @@ closingtime(timedata) {
         /**** pop a value from array by index ************/
         console.log(temp.daytime);
         temp.daytime.splice(ind, 1);
+//        temp.daytime1.splice(ind, 1);
         console.log(this.daytime.length);
+//          console.log(this.daytime1.length);
         if (this.daytime.length == 0) {
             this.data.day = '';
             this.data.startime = '';
             this.data.endtime = '';
         }
+//         if (this.daytime1.length == 0) {
+//            this.data.day = '';
+//            this.data.startime = '';
+//            this.data.endtime = '';
+//        }
     }
 CameraAction(){
 
@@ -237,7 +260,7 @@ public chooseImage1(Type) {
       this.bit = this.bit + 1;
       //alert(this.bit);
       if (this.bit > 3) {
-          this.AlertMsg1('You cannot upload more than 3 images');
+          this.AlertMsg3('You cannot upload more than 3 images');
       } else {
            this.arr.push('data:image/jpeg;base64,' + imageData);
           this.imgarr.push(imageData);
@@ -302,7 +325,7 @@ Loading.present().then(() => {
       }
 //      alert(this.srcImage+''+this.srcImage1+''+this.srcImage2);
       }else{
-        this.AlertMsg1('Image cannot be uploaded.Please try again later')
+        this.AlertMsg3('Image cannot be uploaded.Please try again later')
       }
   })
   },(err)=>{
@@ -310,7 +333,7 @@ Loading.present().then(() => {
     alert(JSON.stringify(err))
   })
 }
-AlertMsg1(msg){
+AlertMsg3(msg){
   let alert = this.alertCtrl.create({
     title: 'Park Place',
     message: msg,
@@ -397,7 +420,7 @@ dismissOnPageChange:true
           if(data.status == true){
           this.leasingpicture = data.data;
         }else{
-            this.AlertMsg1('Image cannot be uploaded.Please try again later')
+            this.AlertMsg3('Image cannot be uploaded.Please try again later')
           }
 
 
@@ -453,26 +476,48 @@ Addparking(parkingdata){
       console.log(this.streettosend,this.statetosend,this.citytosend,this.ziptosend);
 //      alert(this.streettosend+','+this.statetosend+','+this.citytosend+','+this.ziptosend+','+this.lat+','+this.long);
       setTimeout (() => {
-        temp.finalladd(parkingdata,this.streettosend,this.statetosend,this.citytosend,this.ziptosend,this.lat,this.long);
-      }, 500)
+//        temp.finalladd(parkingdata,this.streettosend,this.statetosend,this.citytosend,this.ziptosend,this.lat,this.long);
+     temp.finalladd(parkingdata,parkingdata.value.streetaddress,parkingdata.value.state,parkingdata.value.city,parkingdata.value.zip,this.lat,this.long);
+       }, 500)
 
     }else{
-      this.AlertMsg1('There is some error in getting location.');
+      temp.AlertMsg3('There is some error in getting location.');
     }
 });
 
 }
 finalladd(formdetail,streettosend,statetosend,citytosend,ziptosend,lat,long){
   console.log(formdetail);
+  var temp=this;
   let headers = new Headers();
   headers.append('Content-Type', 'application/x-www-form-urlencoded;charset=utf-8');
   let options = new RequestOptions({ headers: headers });
   var userid = JSON.parse(localStorage.getItem('UserDetailseller'))._id;
    console.log(this.daytime);
+  
   if((streettosend == undefined)||(statetosend == undefined)||(citytosend == undefined)||(ziptosend == undefined)||(lat == undefined)){
       this.AlertMsg2('Please enter specific location');
   }else{
         if (this.daytime.length > 0) {
+             console.log(this.daytime);
+               
+        this.senddays=[]
+        this.sendopeningtime=[]
+        this.sendclosingtime=[]
+        this.daytime.forEach(function(value,key){
+            console.log(value)
+            value.startime = moment( value.startime,["hh:mm A"]).format("HH:mm");
+            value.endtime = moment( value.endtime,["hh:mm A"]).format("HH:mm");
+              console.log(value)
+             temp.senddays.push(value.day);
+            var ot = value.startime.split(' ');
+            var ct = value.endtime.split(' ');
+            temp.sendopeningtime.push(ot[0]);
+            temp.sendclosingtime.push(ct[0]);
+        })
+        console.log(this.senddays)
+        console.log(this.sendopeningtime)
+        console.log(this.sendclosingtime)
             console.log(this.leasingpicture);
              console.log(this.srcImage,this.srcImage1,this.srcImage2);
 if((this.leasingpicture == undefined)||(this.leasingpicture == "")){
@@ -568,17 +613,17 @@ closing_time:this.sendclosingtime.join(','),
   Loading.dismiss();
     console.log(data);
     if(data.status == true){
-      this.AlertMsg1('Added succesfully');
+      this.AlertMsg3('Added successfully');
       localStorage.setItem('UserDetailseller',JSON.stringify(data.data[0]));
      this.navCtrl.push(ListparkingspacePage);
     }else{
-      this.AlertMsg1(data.message);
+      this.AlertMsg3(data.message);
       }
   })
     })
   } 
   }else{
-            this.AlertMsg1('Please mention Space availability')
+            this.AlertMsg3('Please mention Space availability')
         }
   }
 }

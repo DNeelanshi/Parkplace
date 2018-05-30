@@ -7,7 +7,7 @@ import {ForgotpwdPage} from '../forgotpwd/forgotpwd';
 import { Appsetting } from "../../providers/appsetting";
 import { HomePage } from '../home/home';
 import { Http, Headers, RequestOptions } from '@angular/http';
-import { ToastController, AlertController, LoadingController} from 'ionic-angular';
+import { ToastController, AlertController, LoadingController,MenuController} from 'ionic-angular';
 import { Facebook, FacebookLoginResponse } from '@ionic-native/facebook';
 import { FCM } from '@ionic-native/fcm';
 import 'rxjs/add/operator/map';
@@ -25,7 +25,7 @@ import{ListingbeforeapprovalPage} from '../listingbeforeapproval/listingbeforeap
   templateUrl: 'signuptwo.html',
 })
 export class SignuptwoPage {
-public data:any='';
+public data:any=[];
 userData:any={};
 devicetoken:any;
 public ptype = 'password';
@@ -36,6 +36,7 @@ public ptype = 'password';
   public showpass1:boolean = false;
   constructor(
     public navCtrl: NavController,
+     public menuCtrl: MenuController,
     public navParams: NavParams,
     public events: Events,
     public http: Http,
@@ -47,9 +48,19 @@ public ptype = 'password';
     public appsetting: Appsetting
 
       ) {
-//        alert('hello park');
-         
+        this.menuCtrl.swipeEnable(false);
+  fcm.getToken().then(token=>{
+     this.devicetoken = token;
+     })
+     fcm.onNotification().subscribe(data=>{
+  if(data.wasTapped){
+    console.log("Received in background");
+  } else {
+    console.log("Received in foreground");
+  };
+})     
   }
+  
   showPassword() {
     // alert('hjj')
     console.log('showpassword');
@@ -87,7 +98,16 @@ public ptype = 'password';
           toast.present();
         }
   }
+ validationphone1(phnn){
+        console.log(phnn);
+  console.log(phnn.length);
+if(phnn.length==3){
+  this.data.phone= this.data.phone +'-';
+} else if(phnn.length==7){
+ this.data.phone=this.data.phone+'-';
+}
 
+}
   Facebooklogin() {
     this.fb.login(['public_profile', 'user_friends', 'email'])
         .then((res: FacebookLoginResponse) => {
@@ -188,6 +208,9 @@ public ptype = 'password';
     if(register.value.password != register.value.cpassword){
     this.AlertMsg('Passwords must match')
     }else{
+    if(register.value.phone){
+  register.value.phone= register.value.phone.replace(/-/g,"");
+  }
     var postdata = {
       name: register.value.firstname,
       email: register.value.email,
@@ -217,7 +240,11 @@ public ptype = 'password';
           this.appsetting.emailuser = response.data.email;
               localStorage.setItem('UserDetail',JSON.stringify(response.data));
               localStorage.setItem('UserDetailseller',JSON.stringify(response.data));
-              if(response.data.status == true ){
+                                if(localStorage.getItem('UserDetailcustomer')){
+            localStorage.removeItem('UserDetailcustomer');
+     
+            }
+                 if(response.data.status == true ){
 //                alert('sign up se small menu');
                 this.appsetting.haveparking = 0 ;
                 this.events.publish('seller', 'seller');

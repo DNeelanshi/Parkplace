@@ -8,7 +8,7 @@ import {ForgotpwdPage} from '../forgotpwd/forgotpwd';
 import { Appsetting } from "../../providers/appsetting";
 import { HomePage } from '../home/home';
 import { Http, Headers, RequestOptions } from '@angular/http';
-import { ToastController, AlertController, LoadingController,ActionSheetController,Events} from 'ionic-angular';
+import { ToastController, AlertController, LoadingController,ActionSheetController,MenuController,Events} from 'ionic-angular';
 import 'rxjs/add/operator/map';
 import {MyprofiletwoPage} from '../myprofiletwo/myprofiletwo';
 import { Camera, CameraOptions } from '@ionic-native/camera';
@@ -26,7 +26,7 @@ import { Camera, CameraOptions } from '@ionic-native/camera';
   templateUrl: 'editprofiletwo.html',
 })
 export class EditprofiletwoPage {
-public data:any= { };
+public data:any= [];
 srcImage:any;
 public profileinfo:any=[];
 userid:any;
@@ -34,11 +34,13 @@ userid:any;
     public http: Http,
     public toastCtrl: ToastController,
     public alertCtrl: AlertController,
+    public menuCtrl: MenuController,
       public loadingCtrl: LoadingController,
       public appsetting: Appsetting,
       public camera: Camera,
       public events: Events,
       public actionSheetCtrl:ActionSheetController,) {
+       this.menuCtrl.swipeEnable(true);
 this.getuserdetail();
   }
   getpicture(){
@@ -196,7 +198,18 @@ getuserdetail(){
       this.userid =  this.profileinfo._id;
       this.data.fullname =  this.profileinfo.name;
       this.data.email = this.profileinfo.email;
-      this.data.phone = this.profileinfo.phone_number;
+      if(this.profileinfo.phone_number){
+ console.log(this.profileinfo.phone_number.length);
+
+    var str = this.profileinfo.phone_number;
+    var res = str.substring(0, 3);
+     var res1 = str.substring(3, 6);
+      var res2 = str.substring(6,10);
+       console.log(res+'-'+res1+'-'+res2);
+        // var res2 = str.substring(12,9);
+    this.data.phone=res+'-'+res1+'-'+res2;
+   }
+//      this.data.phone = this.profileinfo.phone_number;
       this.srcImage = data.data.profile_pic;
       console.log(data.data.profile_pic);
 
@@ -212,7 +225,13 @@ getuserdetail(){
 
     return result.join("&");
   }
-
+ phonevalidation4(phn){
+if(phn.length==3){
+  this.data.phone= this.data.phone +'-';
+} else if(phn.length==7){
+ this.data.phone=this.data.phone+'-';
+}
+ }
   ionViewDidLoad() {
     console.log('ionViewDidLoad EditprofiletwoPage');
   }
@@ -221,6 +240,9 @@ console.log(editprofile.value);
 let headers = new Headers();
 headers.append('Content-Type', 'application/x-www-form-urlencoded;charset=utf-8');
 let options = new RequestOptions({ headers: headers });
+if(editprofile.value.phone){
+  editprofile.value.phone= editprofile.value.phone.replace(/-/g,"");
+  }
 var postdata = {
   user_id: this.userid,
   name :editprofile.value.fullname,
@@ -241,7 +263,7 @@ this.http.post(this.appsetting.myGlobalVar +'users/profileupdate', serialized, o
 Loading.dismiss();
   console.log(data);
   if(data.status == true){
-    this.AlertMsg('Profile updated Succesfully');
+    this.AlertMsg('Profile updated successfully');
     localStorage.setItem('UserDetailseller',JSON.stringify(data.data));
     console.log(data.data);
     this.profileinfo=data.data;

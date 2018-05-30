@@ -36,6 +36,7 @@ var BillinginformationPage = /** @class */ (function () {
         this.actionSheetCtrl = actionSheetCtrl;
         this.data = [];
         this.paymentdata = [];
+        this.menuCtrl.swipeEnable(true);
         this.date = moment(new Date()).format('YYYY-MM-DD');
         console.log(this.date);
         console.log(this.navParams.data);
@@ -70,8 +71,14 @@ var BillinginformationPage = /** @class */ (function () {
             if (token.id) {
                 _this.payment(token.id);
             }
+        }, function (err) {
+            _this.AlertMsg(err);
         })
-            .catch(function (error) { return console.error(error); });
+            .catch(function (error) {
+            console.error(error);
+            console.log(error);
+            _this.AlertMsg(error);
+        });
     };
     BillinginformationPage.prototype.payment = function (token) {
         var _this = this;
@@ -125,11 +132,14 @@ var BillinginformationPage = /** @class */ (function () {
                     alert_1.present();
                 }
                 else {
+                    _this.AlertMsg(data.message);
                     console.log(data.message);
                     Loading.dismiss();
                 }
             }, function (err) {
+                _this.AlertMsg(err);
                 console.log(err);
+                Loading.dismiss();
             });
         });
     };
@@ -138,6 +148,22 @@ var BillinginformationPage = /** @class */ (function () {
         for (var property in obj)
             result.push(encodeURIComponent(property) + "=" + encodeURIComponent(obj[property]));
         return result.join("&");
+    };
+    BillinginformationPage.prototype.AlertMsg = function (msg) {
+        var alert = this.alertCtrl.create({
+            title: 'Park  Place',
+            message: msg,
+            buttons: [
+                {
+                    text: 'OK',
+                    role: 'ok',
+                    handler: function () {
+                        console.log('OK clicked');
+                    }
+                }
+            ]
+        });
+        alert.present();
     };
     BillinginformationPage.prototype.ionViewDidLoad = function () {
         console.log('ionViewDidLoad BillinginformationPage');

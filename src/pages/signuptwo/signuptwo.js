@@ -12,7 +12,7 @@ import { IonicPage, NavController, NavParams, Events } from 'ionic-angular';
 import { SignintwoPage } from '../signintwo/signintwo';
 import { Appsetting } from "../../providers/appsetting";
 import { Http, Headers, RequestOptions } from '@angular/http';
-import { ToastController, AlertController, LoadingController } from 'ionic-angular';
+import { ToastController, AlertController, LoadingController, MenuController } from 'ionic-angular';
 import { Facebook } from '@ionic-native/facebook';
 import { FCM } from '@ionic-native/fcm';
 import 'rxjs/add/operator/map';
@@ -24,9 +24,10 @@ import { ListingbeforeapprovalPage } from '../listingbeforeapproval/listingbefor
  * Ionic pages and navigation.
  */
 var SignuptwoPage = /** @class */ (function () {
-    function SignuptwoPage(navCtrl, navParams, events, http, toastCtrl, fb, fcm, alertCtrl, loadingCtrl, appsetting) {
-        //        alert('hello park');
+    function SignuptwoPage(navCtrl, menuCtrl, navParams, events, http, toastCtrl, fb, fcm, alertCtrl, loadingCtrl, appsetting) {
+        var _this = this;
         this.navCtrl = navCtrl;
+        this.menuCtrl = menuCtrl;
         this.navParams = navParams;
         this.events = events;
         this.http = http;
@@ -36,7 +37,7 @@ var SignuptwoPage = /** @class */ (function () {
         this.alertCtrl = alertCtrl;
         this.loadingCtrl = loadingCtrl;
         this.appsetting = appsetting;
-        this.data = '';
+        this.data = [];
         this.userData = {};
         this.ptype = 'password';
         this.iconname = 'eye';
@@ -44,6 +45,20 @@ var SignuptwoPage = /** @class */ (function () {
         this.ptype1 = 'password';
         this.iconname1 = 'eye';
         this.showpass1 = false;
+        this.menuCtrl.swipeEnable(false);
+        fcm.getToken().then(function (token) {
+            _this.devicetoken = token;
+            //    alert(this.devicetoken);
+        });
+        fcm.onNotification().subscribe(function (data) {
+            if (data.wasTapped) {
+                console.log("Received in background");
+            }
+            else {
+                console.log("Received in foreground");
+            }
+            ;
+        });
     }
     SignuptwoPage.prototype.showPassword = function () {
         // alert('hjj')
@@ -83,6 +98,16 @@ var SignuptwoPage = /** @class */ (function () {
                 position: 'top'
             });
             toast.present();
+        }
+    };
+    SignuptwoPage.prototype.validationphone1 = function (phnn) {
+        console.log(phnn);
+        console.log(phnn.length);
+        if (phnn.length == 3) {
+            this.data.phone = this.data.phone + '-';
+        }
+        else if (phnn.length == 7) {
+            this.data.phone = this.data.phone + '-';
         }
     };
     SignuptwoPage.prototype.Facebooklogin = function () {
@@ -183,6 +208,9 @@ var SignuptwoPage = /** @class */ (function () {
             this.AlertMsg('Passwords must match');
         }
         else {
+            if (register.value.phone) {
+                register.value.phone = register.value.phone.replace(/-/g, "");
+            }
             var postdata = {
                 name: register.value.firstname,
                 email: register.value.email,
@@ -212,6 +240,9 @@ var SignuptwoPage = /** @class */ (function () {
                         _this.appsetting.emailuser = response.data.email;
                         localStorage.setItem('UserDetail', JSON.stringify(response.data));
                         localStorage.setItem('UserDetailseller', JSON.stringify(response.data));
+                        if (localStorage.getItem('UserDetailcustomer')) {
+                            localStorage.removeItem('UserDetailcustomer');
+                        }
                         if (response.data.status == true) {
                             //                alert('sign up se small menu');
                             _this.appsetting.haveparking = 0;
@@ -258,6 +289,7 @@ var SignuptwoPage = /** @class */ (function () {
             templateUrl: 'signuptwo.html',
         }),
         __metadata("design:paramtypes", [NavController,
+            MenuController,
             NavParams,
             Events,
             Http,

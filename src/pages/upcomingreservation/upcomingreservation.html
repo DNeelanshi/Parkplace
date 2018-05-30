@@ -25,7 +25,7 @@
       refreshingText="Refreshing..."></ion-refresher-content>
   </ion-refresher>
 	<ion-list no-lines *ngFor="let dat of Reservationdata">
-	<ion-item >
+	<ion-item *ngIf='dat.parkingaddress'>
 	    <ion-thumbnail item-start (click)="detail(dat)">
               <img *ngIf='dat.imagespark.length >0' [src]="dat.imagespark[0]">
 	      <img *ngIf='dat.imagespark.length == 0' src="assets/imgs/car.png">
@@ -35,15 +35,14 @@
 	    <p><span class="left">Time: </span> <span class="right">{{dat.parking_start_time}} to {{dat.parking_end_time}}</span></p>
 	    <p><span class="left">Address: </span> <span class="right">{{dat.parkingaddress}}</span></p>
 	    <p><span class="left">Amount Paid: </span> <span class="right">${{dat.total_amount}}</span></p>    
-               <button *ngIf="dat.checkin_status == 1" ion-button class="checkin" (click)="changestatus(dat)">Checkout</button>
+               <button *ngIf="dat.checkin_status == 0" ion-button class="checkin" (click)="changestatus(dat)">Checkout</button>
               </ion-item>                   
     
 	</ion-list>
-    <p class="nodata" *ngIf="show == 0"><img src="assets/imgs/nodata.png"><span>No Reservations found</span></p>
+    
+    <p class="nodata" *ngIf="show == 0"><img src="assets/imgs/nodata.png"><span>No reservation found</span></p>
   <ion-infinite-scroll (ionInfinite)="doInfinite($event)" style="position: fixed;  bottom: 0;">
-    <ion-infinite-scroll-content
-      loadingSpinner="bubbles"
-      loadingText="Loading more data...">
+    <ion-infinite-scroll-content>
     </ion-infinite-scroll-content>
   </ion-infinite-scroll>
 </ion-content>

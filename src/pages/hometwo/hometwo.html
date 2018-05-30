@@ -28,17 +28,20 @@
           <h2>{{Userdata.parking_name}}</h2>
           <p>{{Userdata.street_address}},{{Userdata.city}}</p>
           <p>{{Userdata.state}},{{Userdata.zip_code}}</p>
-          <p><span class="rating">
+      
+            <p (click)="viewreviews(Userdata)"  *ngIf="totalreviews!=0">
+                <span class="rating" *ngIf="totalreviews!=0">
             <ul>
-              <li><ion-icon name="star" color="yellow"></ion-icon></li>
-              <li><ion-icon name="star" color="yellow"></ion-icon></li>
-              <li><ion-icon name="star" color="yellow"></ion-icon></li>
-              <li><ion-icon name="star" color="gray"></ion-icon></li>
-              <li><ion-icon name="star" color="gray"></ion-icon></li>
+           <li><ion-icon name="{{starone}}" style="color:#ffba00;"></ion-icon></li>
+	   <li><ion-icon name="{{startwo}}" style="color:#ffba00;"></ion-icon></li>
+	   <li><ion-icon name="{{starthree}}" style="color:#ffba00;"></ion-icon></li>
+	   <li><ion-icon name="{{starfour}}" style="color:#ffba00;"></ion-icon></li>
+	   <li><ion-icon name="{{starfive}}" style="color:#ffba00;"></ion-icon></li>                             
             </ul>
           </span>
-          <span>125 Reviews</span>
-        </p>
+          <span>{{totalreviews}} Reviews</span>
+          </p>
+ 
            </ion-item>
 
         

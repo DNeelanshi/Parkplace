@@ -1,4 +1,14 @@
 page-mikehouse {
+    .back-button{
+        display: none !important;
+    }
+    .custome-backbtn{
+        font-size: 1.7rem;
+        .icon{
+            font-size: 3.4rem;
+            float: left;
+        }
+    }
 	.content{
 		background-image: url("../assets/imgs/mikebg.png");
 		background-size: cover;

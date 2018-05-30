@@ -32,20 +32,19 @@
 		    </ion-avatar>
 		    <h2>{{dat.customername}}</h2>
 		    <p>{{dat.parking_date|date}}</p>
+                     <p><span class="left">Parking name: </span> <span class="right">{{dat.parkingname}}</span></p>
 		    <p><span class="left">Space Number: </span> <span class="right">{{dat.spacenumber}}</span></p>
 		    <p><span class="left">Booking Time: </span> <span class="right">{{dat.parking_start_time}} To {{dat.parking_end_time}}</span></p>
 		    <p><span class="left">Address: </span> <span class="right">{{dat.address}}</span></p>
-		    <p><span class="left">Amount Paid: </span> <span class="right">${{dat.amount_to_parking_provider}}.00</span></p>
+		    <p><span class="left">Amount Received: </span> <span class="right">${{dat.amount_to_parking_provider}}.00</span></p>
 		 </ion-item>
 
 
 
 	</ion-list>
-   <p class="nodata" *ngIf="show == 0"><img src="assets/imgs/nodata.png"><span>No Reservations found</span></p>
+   <p class="nodata" *ngIf="show == 0"><img src="assets/imgs/nodata.png"><span>No reservation found</span></p>
       <ion-infinite-scroll (ionInfinite)="doInfinite($event)" style="position: fixed;  bottom: 0;">
-    <ion-infinite-scroll-content
-      loadingSpinner="bubbles"
-      loadingText="Loading more data...">
+    <ion-infinite-scroll-content>
     </ion-infinite-scroll-content>
   </ion-infinite-scroll>
 </ion-content>

@@ -1,10 +1,12 @@
 import {Component, ViewChild} from '@angular/core';
 import {Nav, Platform, Events, MenuController,LoadingController} from 'ionic-angular';
-import {StatusBar} from '@ionic-native/status-bar';
+import { StatusBar } from '@ionic-native/status-bar';
 import {SplashScreen} from '@ionic-native/splash-screen';
 import {HomePage} from '../pages/home/home';
 import { CarlistPage } from '../pages/carlist/carlist';
 import {ListPage} from '../pages/list/list';
+import {TermsPage} from '../pages/terms/terms';
+import {Terms2Page} from '../pages/terms2/terms2';
 import {GetstartedPage} from '../pages/getstarted/getstarted';
 import {BillinginformationPage} from '../pages/billinginformation/billinginformation';
 import {ViewreservationPage} from '../pages/viewreservation/viewreservation';
@@ -50,16 +52,20 @@ export class MyApp {
         public appsetting: Appsetting,
         public loadingCtrl: LoadingController,
     ) {
-    alert('Welcome to Park Place app');
-    console.log('Welcome to park place');
+    
+    alert('Welcome user');
+    console.log('Welcome.');
         this.initializeApp();
-        this.menuCtrl.swipeEnable(false);
+   
         // used for an example of ngFor and navigation
+  
         this.events.subscribe('seller', (seller) => {
             console.log(seller);
+            
 
             console.log('seller');
         if(localStorage.getItem('UserDetailseller')){
+             
           let headers = new Headers();
           headers.append('Content-Type', 'application/x-www-form-urlencoded;charset=utf-8');
           let options = new RequestOptions({ headers: headers });
@@ -82,11 +88,12 @@ export class MyApp {
           if(data.data.profile_pic){ this.appsetting.SrcImage = data.data.profile_pic;}
           if(data.data.parking_space[0]){
                if(data.data.parking_space[0].length > 0){
-         if(data.data.parking_space[0].parking_status == true){
+         if(data.data.parking_space[0].status == true){
              this.appsetting.haveparking = 1;
          }else{this.appsetting.haveparking =0;}
         }}
           console.log(this.appsetting.haveparking)
+         
         }
       })
     }
@@ -128,25 +135,26 @@ export class MyApp {
                 //                {title: 'Historical Reservation', component: HistoricalreservationPage, icon: 'assets/imgs/historicalreservationsicon.png'},
 
                 {title: 'My Profile', component: MyprofiletwoPage, icon: 'assets/imgs/s-myprofile.png', subItems: []},
-                {
-                    title: 'Payment Info', component: '', icon: 'assets/imgs/billingicon.png', subItems: [
-                        {
-                            icon: 'assets/imgs/s-addpaymentinfo.png',
-                            displayName: `Add Payment Info.`,
-                            component: AddpaymentPage,
-
-                        },
-                        {
-                            icon: 'assets/imgs/s-editpaymentinfo.png',
-                            displayName: `Edit Payment Info.`,
-                            component: EditpaymentPage,
-
-                        }
-                    ]
-                },
+//                {
+//                    title: 'Payment Info', component: '', icon: 'assets/imgs/billingicon.png', subItems: [
+//                        {
+//                            icon: 'assets/imgs/s-addpaymentinfo.png',
+//                            displayName: `Add Payment Info.`,
+//                            component: AddpaymentPage,
+//
+//                        },
+//                        {
+//                            icon: 'assets/imgs/s-editpaymentinfo.png',
+//                            displayName: `Edit Payment Info.`,
+//                            component: EditpaymentPage,
+//
+//                        }
+//                    ]
+//                },
                 //                {title: 'Add Payment Info', component: AddpaymentPage, icon: 'assets/imgs/s-addpaymentinfo.png',subItems: []},
                 //                {title: 'Edit Payment Info', component: EditpaymentPage, icon: 'assets/imgs/s-editpaymentinfo.png',subItems: []},
                 {title: 'Edit Listing', component: ParkinglistPage, icon: 'assets/imgs/s-editlisting.png', subItems: []},
+                {title: 'Terms and conditions', component: TermsPage, icon: 'assets/imgs/s-editlisting.png', subItems: []},
 
                 //      { title: 'Edit Profile', component: ProfilePage,icon: 'assets/imgs/editprofileicon.png' },
                 //      { title: 'Billing Information', component: BillinginformationPage,icon: 'assets/imgs/billingicon.png' },
@@ -167,10 +175,12 @@ export class MyApp {
           }
             console.log(this.pages);
         })
-
+        
+   
         this.events.subscribe('customer', (customer) => {
             console.log(customer);
             if(localStorage.getItem('UserDetailcustomer')){
+                  
           let headers = new Headers();
           headers.append('Content-Type', 'application/x-www-form-urlencoded;charset=utf-8');
           let options = new RequestOptions({ headers: headers });
@@ -236,6 +246,7 @@ export class MyApp {
                         }
                     ]
                 },
+                {title: 'Terms and conditions', component: Terms2Page, icon: 'assets/imgs/s-editlisting.png', subItems: []},
                 //                {title: 'Add Car Information', component: AddcarinfoPage, icon: 'assets/imgs/addcarinformationicon.png'},
                 //                {title: 'Edit Car Information', component: EditcarinfoPage, icon: 'assets/imgs/editcarinformationicon.png'},
 
@@ -253,9 +264,10 @@ export class MyApp {
             ];
 
         })
-
+        }
+       
       // this.getuserdetail();
-    }
+
     getuserdetail(){
       let headers = new Headers();
       headers.append('Content-Type', 'application/x-www-form-urlencoded;charset=utf-8');
@@ -316,6 +328,10 @@ export class MyApp {
     }
     initializeApp() {
         this.platform.ready().then(() => {
+  
+   this.statusBar.overlaysWebView(true);
+      this.statusBar.hide();
+      this.splashScreen.hide();
             // Okay, so the platform is ready and our plugins are available.
             // Here you can do any higher level native things you might need.
             this.statusBar.styleDefault();
@@ -349,7 +365,12 @@ export class MyApp {
         //alert('toggleSection');
         console.log(page);
         console.log(i);
-
+           if(localStorage.getItem('UserDetailcustomer')){
+        
+             this.events.publish('customer', 'customer');
+        }else if(localStorage.getItem('UserDetailseller')){
+               this.events.publish('seller', 'seller');
+        }
         this.pages[i].open = !this.pages[i].open;
         if ((page.title == "Reservation") || (page.title == "Payment Info") || (page.title == "View Reservation") || (page.title == "Car Information")) {
 

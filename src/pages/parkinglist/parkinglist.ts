@@ -40,6 +40,7 @@ export class ParkinglistPage {
       public appsetting: Appsetting,
       public camera: Camera,
       public actionSheetCtrl:ActionSheetController) {
+        this.menuCtrl.swipeEnable(true);
         this.getinfo();
 //        alert('welcome');
   }
@@ -132,7 +133,7 @@ var body = {
 
 console.log(data);
 if(data.status == true){
-    this.AlertMsg('Deleted succesfully')
+    this.AlertMsg('Deleted successfully')
   this.getinfo();
 }
 

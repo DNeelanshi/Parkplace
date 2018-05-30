@@ -122,12 +122,12 @@
 		      <ion-row>
 		        <ion-col col-5 class="padding-left">
 		          <ion-item>
-		            <ion-datetime placeholder="Start Time" displayFormat="HH:MM A" pickerFormat ="HH:MM A" [(ngModel)]="data.startime" name="startime" #startime="ngModel" ></ion-datetime>
+		            <ion-datetime placeholder="Start Time" displayFormat="hh:mm A" pickerFormat ="hh:mm A" [(ngModel)]="data.startime" name="startime" #startime="ngModel" ></ion-datetime>
 		          </ion-item>
 		        </ion-col>
 		        <ion-col col-5 class="paddingtopbtm">
 		          <ion-item>
-		            <ion-datetime placeholder="End Time" displayFormat="HH:MM A" pickerFormat ="HH:MM A" [(ngModel)]="data.endtime" name="endtime" #endtime="ngModel" ></ion-datetime>
+		            <ion-datetime placeholder="End Time" displayFormat="hh:mm A" pickerFormat ="hh:mm A" [(ngModel)]="data.endtime" name="endtime" #endtime="ngModel" ></ion-datetime>
 		          </ion-item>
 		        </ion-col> 
 		        <ion-col col-2 class="padding-right">
@@ -174,7 +174,7 @@
                                     </div>
                                 </div>
 		  <ion-item>
-		    <ion-input type="tel" placeholder="Hourly Rate" [(ngModel)]="data.rate" name="rate" #rate="ngModel" required></ion-input>
+		    <ion-input type="tel" placeholder="Hourly Rate" [(ngModel)]="data.rate" name="rate" maxlength="8" #rate="ngModel" required></ion-input>
 		  </ion-item>
 	   <div class="alert alert-danger red" color="danger">
                                     <div *ngIf="rate.errors && (rate.dirty || rate.touched)">

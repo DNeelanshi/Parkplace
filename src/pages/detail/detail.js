@@ -11,7 +11,7 @@ import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { Appsetting } from "../../providers/appsetting";
 import { Http } from '@angular/http';
-import { ToastController, AlertController, LoadingController } from 'ionic-angular';
+import { ToastController, AlertController, LoadingController, MenuController } from 'ionic-angular';
 /**
  * Generated class for the DetailPage page.
  *
@@ -19,14 +19,16 @@ import { ToastController, AlertController, LoadingController } from 'ionic-angul
  * Ionic pages and navigation.
  */
 var DetailPage = /** @class */ (function () {
-    function DetailPage(navCtrl, navParams, http, toastCtrl, alertCtrl, loadingCtrl, appsetting) {
+    function DetailPage(navCtrl, navParams, http, toastCtrl, alertCtrl, menuCtrl, loadingCtrl, appsetting) {
         this.navCtrl = navCtrl;
         this.navParams = navParams;
         this.http = http;
         this.toastCtrl = toastCtrl;
         this.alertCtrl = alertCtrl;
+        this.menuCtrl = menuCtrl;
         this.loadingCtrl = loadingCtrl;
         this.appsetting = appsetting;
+        this.menuCtrl.swipeEnable(true);
         console.log(this.navParams.data);
         this.details = this.navParams.data;
         var str = this.details.parkingaddress.split(',');
@@ -34,6 +36,17 @@ var DetailPage = /** @class */ (function () {
         this.addr2 = this.details.parkingaddress.substr(this.addr1.length + 1);
         console.log(this.addr1);
         console.log(this.addr2);
+        if (this.details.phonenumber) {
+            console.log(this.details.phonenumber.length);
+            var str = this.details.phonenumber;
+            var res = str.substring(0, 3);
+            var res1 = str.substring(3, 6);
+            var res2 = str.substring(6, 10);
+            console.log(res + '-' + res1 + '-' + res2);
+            // var res2 = str.substring(12,9);
+            this.Phonenumber = res + '-' + res1 + '-' + res2;
+            console.log(this.Phonenumber);
+        }
     }
     DetailPage.prototype.ionViewDidLoad = function () {
         console.log('ionViewDidLoad DetailPage');
@@ -48,6 +61,7 @@ var DetailPage = /** @class */ (function () {
             Http,
             ToastController,
             AlertController,
+            MenuController,
             LoadingController,
             Appsetting])
     ], DetailPage);

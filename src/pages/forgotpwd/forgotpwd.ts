@@ -6,7 +6,7 @@ import { SignupPage } from '../signup/signup';
 import { Appsetting } from "../../providers/appsetting";
 import { HomePage } from '../home/home';
 import { Http, Headers, RequestOptions } from '@angular/http';
-import { ToastController, AlertController, LoadingController} from 'ionic-angular';
+import { ToastController, AlertController, LoadingController,MenuController} from 'ionic-angular';
 /**
  * Generated class for the ForgotpwdPage page.
  *
@@ -23,12 +23,14 @@ export class ForgotpwdPage {
 public daa:any = '' ;
 
   constructor(public navCtrl: NavController,
+  public menuCtrl: MenuController,
     public navParams: NavParams,
   public toastCtrl: ToastController,
   public http: Http,
   public alertCtrl: AlertController,
     public loadingCtrl: LoadingController,
     public appsetting: Appsetting) {
+     this.menuCtrl.swipeEnable(false);
   }
   forgot(frdata){
     let headers = new Headers();

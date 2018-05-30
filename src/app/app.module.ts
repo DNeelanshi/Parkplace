@@ -8,9 +8,13 @@ import { HomePage } from '../pages/home/home';
 import { ListPage } from '../pages/list/list';
 import { GetstartedPage } from '../pages/getstarted/getstarted';
 import { SigninPage } from '../pages/signin/signin';
+import {TermsPage} from '../pages/terms/terms';
+import {Terms2Page} from '../pages/terms2/terms2';
 import { SignupPage } from '../pages/signup/signup';
 import { MikehousePage } from '../pages/mikehouse/mikehouse';
+import { RatingmodelPage } from '../pages/ratingmodel/ratingmodel';
 import { ReviewsPage } from '../pages/reviews/reviews';
+import { ViewreviewsPage } from '../pages/viewreviews/viewreviews';
 import { BillinginformationPage } from '../pages/billinginformation/billinginformation';
 import { ViewreservationPage } from '../pages/viewreservation/viewreservation';
 import { UpcomingreservationPage } from '../pages/upcomingreservation/upcomingreservation';
@@ -44,6 +48,7 @@ import { SplashScreen } from '@ionic-native/splash-screen';
 import { FCM } from '@ionic-native/fcm';
 import { Camera, CameraOptions } from '@ionic-native/camera';
 import { Geolocation } from '@ionic-native/geolocation';
+import { Ionic2RatingModule } from 'ionic2-rating';
 import * as moment from 'moment';
 // import { Device } from '@ionic-native/device';
 import{ListingbeforeapprovalPage} from '../pages/listingbeforeapproval/listingbeforeapproval';
@@ -58,8 +63,11 @@ import { InAppBrowser } from '@ionic-native/in-app-browser';
     GetstartedPage,
     SigninPage,
     SignupPage,
+    ViewreviewsPage,
     MikehousePage,
     ReviewsPage,
+    TermsPage,
+    Terms2Page,
     BillinginformationPage,
     ViewreservationPage,
     UpcomingreservationPage,
@@ -76,6 +84,7 @@ import { InAppBrowser } from '@ionic-native/in-app-browser';
     SignuptwoPage,
     ForgotpwdPage,
     HometwoPage,
+    RatingmodelPage,
     MyprofiletwoPage,
     EditprofiletwoPage,
     ViewreservationtwoPage,
@@ -83,6 +92,7 @@ import { InAppBrowser } from '@ionic-native/in-app-browser';
     ListparkingspacePage,
     AddpaymentPage,
     EditpaymentPage,
+    ViewreviewsPage,
     ParkinglistPage,
     EditlistingPage,
     CheckstatusPage,
@@ -91,8 +101,10 @@ import { InAppBrowser } from '@ionic-native/in-app-browser';
     ListingbeforeapprovalPage
   ],
   imports: [
+  
     BrowserModule,
     HttpModule,
+   Ionic2RatingModule,
     IonicModule.forRoot(MyApp),
   ],
   bootstrap: [IonicApp],
@@ -104,10 +116,12 @@ import { InAppBrowser } from '@ionic-native/in-app-browser';
     SigninPage,
     DatetimemodalPage,
     SignupPage,
-   
+     TermsPage,
+   Terms2Page,
     MikehousePage,
     ReviewsPage,
     CarlistPage,
+    ViewreviewsPage,
     BillinginformationPage,
     ViewreservationPage,
     UpcomingreservationPage,
@@ -116,8 +130,10 @@ import { InAppBrowser } from '@ionic-native/in-app-browser';
     AddcarinfoPage,
     EditcarinfoPage,
     ProfilePage,
+    RatingmodelPage,
     EditprofilePage,
     ChangepwdPage,
+    ViewreviewsPage,
     DetailPage,
     SignintwoPage,
     SignuptwoPage,

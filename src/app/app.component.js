@@ -13,6 +13,8 @@ import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
 import { HomePage } from '../pages/home/home';
 import { CarlistPage } from '../pages/carlist/carlist';
+import { TermsPage } from '../pages/terms/terms';
+import { Terms2Page } from '../pages/terms2/terms2';
 import { GetstartedPage } from '../pages/getstarted/getstarted';
 import { UpcomingreservationPage } from '../pages/upcomingreservation/upcomingreservation';
 import { HistoricalreservationPage } from '../pages/historicalreservation/historicalreservation';
@@ -22,8 +24,6 @@ import { HistoricalreservationtwoPage } from '../pages/historicalreservationtwo/
 import { ViewreservationtwoPage } from '../pages/viewreservationtwo/viewreservationtwo';
 import { ListparkingspacePage } from '../pages/listparkingspace/listparkingspace';
 import { HometwoPage } from '../pages/hometwo/hometwo';
-import { AddpaymentPage } from '../pages/addpayment/addpayment';
-import { EditpaymentPage } from '../pages/editpayment/editpayment';
 import { ParkinglistPage } from '../pages/parkinglist/parkinglist';
 import { CheckstatusPage } from '../pages/checkstatus/checkstatus';
 import { EditprofilePage } from '../pages/editprofile/editprofile';
@@ -43,10 +43,9 @@ var MyApp = /** @class */ (function () {
         this.loadingCtrl = loadingCtrl;
         this.showSubmenu = false;
         this.rootPage = GetstartedPage;
-        alert('Welcome to Park Place app');
+        alert('Welcome To Park Place New');
         console.log('Welcome to park place');
         this.initializeApp();
-        this.menuCtrl.swipeEnable(false);
         // used for an example of ngFor and navigation
         this.events.subscribe('seller', function (seller) {
             console.log(seller);
@@ -72,7 +71,7 @@ var MyApp = /** @class */ (function () {
                         }
                         if (data.data.parking_space[0]) {
                             if (data.data.parking_space[0].length > 0) {
-                                if (data.data.parking_space[0].parking_status == true) {
+                                if (data.data.parking_space[0].status == true) {
                                     _this.appsetting.haveparking = 1;
                                 }
                                 else {
@@ -114,23 +113,26 @@ var MyApp = /** @class */ (function () {
                     //                {title: 'View Reservation', component: ViewreservationPage, icon: 'assets/imgs/viewreservationsicon.png'},
                     //                {title: 'Historical Reservation', component: HistoricalreservationPage, icon: 'assets/imgs/historicalreservationsicon.png'},
                     { title: 'My Profile', component: MyprofiletwoPage, icon: 'assets/imgs/s-myprofile.png', subItems: [] },
-                    {
-                        title: 'Payment Info', component: '', icon: 'assets/imgs/billingicon.png', subItems: [
-                            {
-                                icon: 'assets/imgs/s-addpaymentinfo.png',
-                                displayName: "Add Payment Info.",
-                                component: AddpaymentPage,
-                            },
-                            {
-                                icon: 'assets/imgs/s-editpaymentinfo.png',
-                                displayName: "Edit Payment Info.",
-                                component: EditpaymentPage,
-                            }
-                        ]
-                    },
+                    //                {
+                    //                    title: 'Payment Info', component: '', icon: 'assets/imgs/billingicon.png', subItems: [
+                    //                        {
+                    //                            icon: 'assets/imgs/s-addpaymentinfo.png',
+                    //                            displayName: `Add Payment Info.`,
+                    //                            component: AddpaymentPage,
+                    //
+                    //                        },
+                    //                        {
+                    //                            icon: 'assets/imgs/s-editpaymentinfo.png',
+                    //                            displayName: `Edit Payment Info.`,
+                    //                            component: EditpaymentPage,
+                    //
+                    //                        }
+                    //                    ]
+                    //                },
                     //                {title: 'Add Payment Info', component: AddpaymentPage, icon: 'assets/imgs/s-addpaymentinfo.png',subItems: []},
                     //                {title: 'Edit Payment Info', component: EditpaymentPage, icon: 'assets/imgs/s-editpaymentinfo.png',subItems: []},
                     { title: 'Edit Listing', component: ParkinglistPage, icon: 'assets/imgs/s-editlisting.png', subItems: [] },
+                    { title: 'Terms and conditions', component: TermsPage, icon: 'assets/imgs/s-editlisting.png', subItems: [] },
                 ];
             }
             console.log(_this.pages);
@@ -196,10 +198,11 @@ var MyApp = /** @class */ (function () {
                         }
                     ]
                 },
+                { title: 'Terms and conditions', component: Terms2Page, icon: 'assets/imgs/s-editlisting.png', subItems: [] },
             ];
         });
-        // this.getuserdetail();
     }
+    // this.getuserdetail();
     MyApp.prototype.getuserdetail = function () {
         var _this = this;
         var headers = new Headers();
@@ -290,6 +293,12 @@ var MyApp = /** @class */ (function () {
         //alert('toggleSection');
         console.log(page);
         console.log(i);
+        if (localStorage.getItem('UserDetailcustomer')) {
+            this.events.publish('customer', 'customer');
+        }
+        else if (localStorage.getItem('UserDetailseller')) {
+            this.events.publish('seller', 'seller');
+        }
         this.pages[i].open = !this.pages[i].open;
         if ((page.title == "Reservation") || (page.title == "Payment Info") || (page.title == "View Reservation") || (page.title == "Car Information")) {
             console.log(page.title);

@@ -11,7 +11,7 @@ import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams, Events } from 'ionic-angular';
 import { Appsetting } from "../../providers/appsetting";
 import { Http, Headers, RequestOptions } from '@angular/http';
-import { ToastController, AlertController, LoadingController } from 'ionic-angular';
+import { ToastController, AlertController, LoadingController, MenuController } from 'ionic-angular';
 import { Facebook } from '@ionic-native/facebook';
 import { ListparkingspacePage } from '../../pages/listparkingspace/listparkingspace';
 /**
@@ -21,7 +21,7 @@ import { ListparkingspacePage } from '../../pages/listparkingspace/listparkingsp
  * Ionic pages and navigation.
  */
 var CheckstatusPage = /** @class */ (function () {
-    function CheckstatusPage(navCtrl, navParams, http, toastCtrl, fb, events, appsetting, alertCtrl, loadingCtrl) {
+    function CheckstatusPage(navCtrl, navParams, http, toastCtrl, fb, events, appsetting, alertCtrl, menuCtrl, loadingCtrl) {
         this.navCtrl = navCtrl;
         this.navParams = navParams;
         this.http = http;
@@ -30,9 +30,11 @@ var CheckstatusPage = /** @class */ (function () {
         this.events = events;
         this.appsetting = appsetting;
         this.alertCtrl = alertCtrl;
+        this.menuCtrl = menuCtrl;
         this.loadingCtrl = loadingCtrl;
         this.blurri = 0;
         this.datauser = [];
+        this.menuCtrl.swipeEnable(true);
         this.checkstatus();
     }
     CheckstatusPage.prototype.checkstatus = function () {
@@ -65,7 +67,7 @@ var CheckstatusPage = /** @class */ (function () {
                             _this.blurri = 1;
                         }
                         else {
-                            if (data.data.parking_space[0].parking_status == true) {
+                            if (data.data.parking_space[0].status == true) {
                                 console.log('false');
                                 _this.blurr = false;
                             }
@@ -114,6 +116,7 @@ var CheckstatusPage = /** @class */ (function () {
             Events,
             Appsetting,
             AlertController,
+            MenuController,
             LoadingController])
     ], CheckstatusPage);
     return CheckstatusPage;

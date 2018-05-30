@@ -4,7 +4,7 @@ import {HometwoPage} from '../hometwo/hometwo';
 import {Appsetting} from "../../providers/appsetting";
 import {HomePage} from '../home/home';
 import {Http, Headers, RequestOptions, RequestMethod, RequestOptionsArgs} from '@angular/http';
-import {ToastController, AlertController, LoadingController} from 'ionic-angular';
+import {ToastController, AlertController, LoadingController,MenuController} from 'ionic-angular';
 import {Facebook, FacebookLoginResponse} from '@ionic-native/facebook';
 import {MyApp} from '../../app/app.component';
 import {ActionSheetController} from 'ionic-angular';
@@ -55,9 +55,11 @@ export class ListingbeforeapprovalPage {
         private camera: Camera,
         public http: Http,
         public alertCtrl: AlertController,
+           public menuCtrl: MenuController,
         public iab: InAppBrowser,
         public loadingCtrl: LoadingController,
         public appsetting: Appsetting) {
+           this.menuCtrl.swipeEnable(true);
 //        alert('latestbuildneww');
         //                  url: "http://parkpalce-env.brwtkwbdhh.us-west-1.elasticbeanstalk.com/?state=state&scope=read_write&code=ac_Cnb4QYIhr01Uouum97SIdGTWfXkvZidQ#/"
 
@@ -154,7 +156,7 @@ export class ListingbeforeapprovalPage {
                             console.log('next false');
 
                         } else {
-                            if (data.data.parking_space[0].parking_status == true) {
+                            if (data.data.parking_space[0].status == true) {
                                 console.log('true');
                                 this.blurr = true;
                             } else {
@@ -619,7 +621,8 @@ export class ListingbeforeapprovalPage {
                 //      alert(this.streettosend+','+this.statetosend+','+this.citytosend+','+this.ziptosend+','+this.lat+','+this.long);
                 setTimeout(() => {
                     temp.finalladd(formdetail, this.streettosend, this.statetosend, this.citytosend, this.ziptosend, this.lat, this.long);
-                }, 500)
+//               temp.finalladd(parkingdata,parkingdata.value.streetaddress,parkingdata.value.state,parkingdata.value.city,parkingdata.value.zip,this.lat,this.long);
+                 }, 500)
 
             } else {
                 this.AlertMsg1('There is some error in getting location.');
@@ -709,7 +712,7 @@ export class ListingbeforeapprovalPage {
                         Loading.dismiss();
                         console.log(data);
                         if (data.status == true) {
-                            this.AlertMsg1('Added succesfully');
+                            this.AlertMsg1('Added successfully');
                             this.blurr = true;
                             this.navCtrl.push(ListingbeforeapprovalPage);
                             // localStorage.setItem('blurr',JSON.stringify(data));

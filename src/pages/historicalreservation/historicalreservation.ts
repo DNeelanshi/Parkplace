@@ -9,10 +9,11 @@ import {ForgotpwdPage} from '../forgotpwd/forgotpwd';
 import { Appsetting } from "../../providers/appsetting";
 import { HomePage } from '../home/home';
 import { Http, Headers, RequestOptions } from '@angular/http';
-import { ToastController, AlertController, LoadingController,ActionSheetController} from 'ionic-angular';
+import { ToastController, AlertController, LoadingController,ActionSheetController,MenuController} from 'ionic-angular';
 import 'rxjs/add/operator/map';
 import {MyprofiletwoPage} from '../myprofiletwo/myprofiletwo';
 import { Camera, CameraOptions } from '@ionic-native/camera';
+import * as moment from 'moment';
 /**
  * Generated class for the HistoricalreservationPage page.
  *
@@ -38,8 +39,10 @@ Reservationdata1:any=[];
     public http: Http,
     public toastCtrl: ToastController,
     public alertCtrl: AlertController,
+       public menuCtrl: MenuController,
       public loadingCtrl: LoadingController,
       public appsetting: Appsetting) {
+       this.menuCtrl.swipeEnable(true);
       this.getreservations(1);
       this.Reservationdata=[];
   }
@@ -83,6 +86,8 @@ Reservationdata1:any=[];
           this.Reservationdata1.forEach(function(value,key){
               value.reservation_data.forEach(function(value1,key1){
                   value1.parking_space.forEach(function(value2,key2){
+                       value.parking_start_time = moment(value.parking_start_time,"h:mm: A").format("hh:mm A");
+                                     value.parking_end_time = moment(value.parking_end_time,"h:mm: A").format("hh:mm A");
                       if(value.parking_id == value2._id){
                           imagearray=[];
                           for(var i = 0 ; i< value2.parking_images.length;i++)

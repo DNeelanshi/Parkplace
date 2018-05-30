@@ -24,7 +24,7 @@
 
 <ion-content padding>
 	<ion-list no-lines *ngFor="let data of Userdata">
-	  <ion-item>
+	  <ion-item *ngIf="show == 1">
 	    <ion-thumbnail item-start>
 	        <img [src]="data.car_images">
 	    </ion-thumbnail>
@@ -81,5 +81,6 @@
 	  </ion-item> -->
 
 	</ion-list>
+    <p *ngIf="show == 0">No cars found</p>
 </ion-content>
 

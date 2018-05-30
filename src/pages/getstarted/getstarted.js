@@ -62,6 +62,10 @@ var GetstartedPage = /** @class */ (function () {
                 _this.http.post(_this.appsetting.myGlobalVar + 'users/userinfo', serialized, options_1).map(function (res) { return res.json(); }).subscribe(function (data) {
                     Loading.dismiss();
                     if (data.status == true) {
+                        if (localStorage.getItem('UserDetailseller')) {
+                            localStorage.removeItem('UserDetailseller');
+                            localStorage.removeItem('Done');
+                        }
                         console.log(data.data);
                         _this.appsetting.username = data.data.name;
                         _this.appsetting.emailuser = data.data.email;
@@ -108,6 +112,9 @@ var GetstartedPage = /** @class */ (function () {
             Loading.present().then(function () {
                 _this.http.post(_this.appsetting.myGlobalVar + 'users/userinfo', serialized, options_2).map(function (res) { return res.json(); }).subscribe(function (data) {
                     if (data.status == true) {
+                        if (localStorage.getItem('UserDetailcustomer')) {
+                            localStorage.removeItem('UserDetailcustomer');
+                        }
                         console.log(data.data);
                         Userdata = data.data;
                         if (localStorage.getItem('Done')) {
@@ -118,7 +125,7 @@ var GetstartedPage = /** @class */ (function () {
                         else {
                             //      alert('here')
                             if (Userdata.parking_space.length > 0) {
-                                check = Userdata.parking_space[0].parking_status;
+                                check = Userdata.parking_space[0].status;
                                 console.log(check);
                             }
                         }

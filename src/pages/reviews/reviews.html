@@ -6,108 +6,104 @@
 -->
 <ion-header>
 
-  <ion-navbar color="theme-header">
-    <ion-title>reviews</ion-title>
-  </ion-navbar>
+<ion-navbar color="theme-header">
+        <ion-buttons left>
+            <button ion-button clear class="custome-backbtn" (click)="gotomike()">
+                 <ion-icon name="arrow-back"></ion-icon>
+            </button>
+        </ion-buttons>
+        <ion-title>reviews</ion-title>
+    </ion-navbar>
+
 
 </ion-header>
-
 
 <ion-content padding>
 	<div class="top-sec">
 		<ion-list style="margin: 0;">
 		  <ion-item>
 		    <ion-thumbnail item-start>
-		      <img src="assets/imgs/car.png">
+                         <img *ngIf="image" [src]="image">
+		      <img  *ngIf="!image" src="assets/imgs/car.png">
+                      
 		    </ion-thumbnail>
-		    <h2>Mike’s House</h2>
-		    <address>600 Mission Blvd<br>San Diego,<br>CA 92109</address>
+		    <h2>{{parkingdata.parking_name}}</h2>
+		    <address>{{parkingdata.street_address}}<br>{{parkingdata.city}},<br>{{parkingdata.state}},{{parkingdata.zip_code}}</address>
 		    <div class="right-sec">
 			    <ul>
-	  			  <li><ion-icon name="star" color="yellow"></ion-icon></li>
-	              <li><ion-icon name="star" color="yellow"></ion-icon></li>
-	              <li><ion-icon name="star" color="yellow"></ion-icon></li>
-	              <li><ion-icon name="star" color="gray"></ion-icon></li>
-	              <li><ion-icon name="star" color="gray"></ion-icon></li>
+	  			  	<li><ion-icon name="{{starone}}" style="color:#ffba00;"></ion-icon></li>
+				     	<li><ion-icon name="{{startwo}}" style="color:#ffba00;"></ion-icon></li>
+				     	<li><ion-icon name="{{starthree}}" style="color:#ffba00;"></ion-icon></li>
+				     	<li><ion-icon name="{{starfour}}" style="color:#ffba00;"></ion-icon></li>
+				     	<li><ion-icon name="{{starfive}}" style="color:#ffba00;"></ion-icon></li>
 	  			</ul>
-	  			<p>2 Reviews</p>
+	  			<p>{{totalreviews}} Reviews</p>
 		    </div>
 		  </ion-item>
 		</ion-list>
 	</div>
 	<div class="content-sec">
-		<ion-list>
+		<ion-list *ngFor="let dat of paginatearray">
 		  <ion-item>
 		    <ion-avatar item-start>
-		      <img src="assets/imgs/user.png">
+                         <img *ngIf="dat.reviewer_image" [src]="dat.reviewer_image">
+		      <img *ngIf="!dat.reviewer_image" src="assets/imgs/user.png">
 		    </ion-avatar>
-		    <h2>Username</h2>
+                      <h2><span>{{dat.reviewer_name}} </span>  
+                  <ion-icon name="create" style="padding-right: 25px;" *ngIf="dat?.user_id == userid1" (click)="editit(dat)">
+                      </ion-icon>
+                  <ion-icon name="trash" *ngIf="dat?.user_id == userid1" (click)="delete(dat)"></ion-icon></h2>
 		    <ul>
-  			  <li><ion-icon name="star" color="yellow"></ion-icon></li>
-              <li><ion-icon name="star" color="yellow"></ion-icon></li>
-              <li><ion-icon name="star" color="yellow"></ion-icon></li>
-              <li><ion-icon name="star" color="gray"></ion-icon></li>
-              <li><ion-icon name="star" color="gray"></ion-icon></li>
+				     	<li><ion-icon name="{{dat?.starrone}}" style="color:#ffba00;"></ion-icon></li>
+				     	<li><ion-icon name="{{dat?.starrtwo}}" style="color:#ffba00;"></ion-icon></li>
+				     	<li><ion-icon name="{{dat?.starrthree}}" style="color:#ffba00;"></ion-icon></li>
+				     	<li><ion-icon name="{{dat?.starrfour}}" style="color:#ffba00;"></ion-icon></li>
+				     	<li><ion-icon name="{{dat?.starrfive}}" style="color:#ffba00;"></ion-icon></li>
   			</ul>
-		    <p>The standard chunk of Lorem Ipsum used since the 1500s is reproduced below for those interested.</p>
+		    <p>{{dat.review}}</p>
 		  </ion-item>
-		  <ion-item>
-		    <ion-avatar item-start>
-		      <img src="assets/imgs/user.png">
-		    </ion-avatar>
-		    <h2>Username</h2>
-		    <ul>
-  			  <li><ion-icon name="star" color="yellow"></ion-icon></li>
-              <li><ion-icon name="star" color="yellow"></ion-icon></li>
-              <li><ion-icon name="star" color="yellow"></ion-icon></li>
-              <li><ion-icon name="star" color="gray"></ion-icon></li>
-              <li><ion-icon name="star" color="gray"></ion-icon></li>
-  			</ul>
-		    <p>The standard chunk of Lorem Ipsum used since the 1500s is reproduced below for those interested.</p>
-		  </ion-item>
-		  <ion-item>
-		    <ion-avatar item-start>
-		      <img src="assets/imgs/user.png">
-		    </ion-avatar>
-		    <h2>Username</h2>
-		    <ul>
-  			  <li><ion-icon name="star" color="yellow"></ion-icon></li>
-              <li><ion-icon name="star" color="yellow"></ion-icon></li>
-              <li><ion-icon name="star" color="yellow"></ion-icon></li>
-              <li><ion-icon name="star" color="gray"></ion-icon></li>
-              <li><ion-icon name="star" color="gray"></ion-icon></li>
-  			</ul>
-		    <p>The standard chunk of Lorem Ipsum used since the 1500s is reproduced below for those interested.</p>
-		  </ion-item>
-		  <ion-item>
-		    <ion-avatar item-start>
-		      <img src="assets/imgs/user.png">
-		    </ion-avatar>
-		    <h2>Username</h2>
-		    <ul>
-  			  <li><ion-icon name="star" color="yellow"></ion-icon></li>
-              <li><ion-icon name="star" color="yellow"></ion-icon></li>
-              <li><ion-icon name="star" color="yellow"></ion-icon></li>
-              <li><ion-icon name="star" color="gray"></ion-icon></li>
-              <li><ion-icon name="star" color="gray"></ion-icon></li>
-  			</ul>
-		    <p>The standard chunk of Lorem Ipsum used since the 1500s is reproduced below for those interested.</p>
-		  </ion-item>
+
 		</ion-list>
+              <p *ngIf="reviewarry.length == 0 ">No reviews</p>
 	</div>
-	<div class="bottom-sec">
+	<div class="bottom-sec" >
 		<h2>Add Rating</h2>
-		 <ul>
+<!-- <rating class="star" 
+           
+            [(ngModel)]="rate" 
+        readOnly="false" 
+        max="5" 
+        min='0'
+        emptyStarIconName="star-outline" 
+        halfStarIconName="star-half"
+        starIconName="star"
+        nullable="false"
+        (ngModelChange)="onModelChange($event)"> 
+</rating>-->
+  <rating  class="bottomicon"
+        readOnly="false" 
+        max="5" 
+        emptyStarIconName="star-outline" 
+        halfStarIconName="star-half" 
+        starIconName="star" 
+        nullable="false"
+        [(ngModel)]="data.starr" name="starr" #starr="ngModel"
+        (ngModelChange)="onModelChange($event)"></rating>
+<!--		 <ul>
 		  <li><ion-icon name="star" color="yellow"></ion-icon></li>
           <li><ion-icon name="star" color="yellow"></ion-icon></li>
           <li><ion-icon name="star" color="yellow"></ion-icon></li>
           <li><ion-icon name="star" color="gray"></ion-icon></li>
           <li><ion-icon name="star" color="gray"></ion-icon></li>
-		</ul>
+		</ul>-->
 		 <ion-item>
-		    <ion-textarea placeholder="Add Comment"></ion-textarea>
+		    <ion-textarea placeholder="Add Comment" [(ngModel)]="data.comment" name="comment" #comment="ngModel"></ion-textarea>
 		 </ion-item>
  		
- 		<button ion-button color="theme-header">POST</button>
+ 		<button *ngIf="postshow == false" ion-button color="theme-header" (click)="postdata()">POST</button>
+                <button  *ngIf="postshow == true" ion-button color="theme-header" (click)="editpostdata()">Edit Post</button>
 	</div>
+      <!--<ion-infinite-scroll (ionInfinite)="doInfinite($event)" style="position: fixed;  bottom: 0;">-->
+    
+  <!--</ion-infinite-scroll>-->
 </ion-content>

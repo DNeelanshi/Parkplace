@@ -1,0 +1,136 @@
+page-ratingmodel {
+    .show-page{
+		padding: 50px !important;
+	}
+
+	.content{
+	    background-color: rgba(0,0,0,0.1);
+            padding: 0;
+	}
+        .scroll-content {
+            padding: 0px !important;
+        }
+	.centerbox {
+	    width: 80%;
+	    height: 225px;
+	    background: #fff;
+	    margin: auto;
+	    top: 0;
+	    bottom: 0;
+	    left: 0;
+	    right: 0;
+	    position: absolute;
+	    border-radius: 8px;
+	    box-shadow: 0 0 18px rgba(0,0,0,0.2);
+	    overflow: hidden;
+            
+            .btn-sec{
+                width: 100%;
+                float: left;
+                display: flex;
+                border-top: 1px solid #ccc;
+                margin-top: 4px;
+                position: absolute;
+                bottom: 0;
+                
+                
+                .button{
+                    width: 100%;
+                    padding: 0;
+                    margin: 0;
+                    color: #484848;  
+                    border-radius: 0;
+                }
+            }
+            .bottomicon ul li .icon {
+        font-size: 22px;
+        font-weight: 500;
+     }
+     .bottomicon ul {
+       width: 100%;
+       float: left;
+       padding-bottom: 7px !important;
+       color: #ffcb29;     
+     }
+      .bottomicon ul ion-icon.icon.icon-ios.ion-ios-star-outline{
+            color: #000 !important;
+       }
+       .bottomicon ul icon icon-md ion-md-star-outline{
+            color: #000 !important;
+       }
+        .bottom-sec{
+			width:100%;
+            padding: 10px;
+            float: left;
+            text-align: center;
+			
+			h2{
+				@extend .fontsize15px;
+                margin: 10px 0 2px 0;
+                width: 100%;
+                float: left;
+			}
+			ul{
+				padding: 5px 0 10px 0;
+				margin: 0;
+				width: 100%;
+				float: left;
+				text-align: center;
+
+				li{
+					display: inline-block;
+				}
+			}
+			.item{
+				border: none !important;
+				padding: 0;
+			    background-color: #fff;
+			    border-radius: 5px;
+
+				.item-inner{
+					padding-right: 0;
+                    border-bottom: none !important;
+
+					ion-textarea{
+						
+					    min-height: 90px;
+                        border: 1px solid #ccc;
+                        border-radius: 5px;
+
+					    .text-input{
+					    	margin: 0;
+						    @extend .fontsize13px;
+						    width: 100%;
+						    float: left;
+						    padding: 10px 16px;
+						    height: 100%;
+					    }
+					}
+				}
+			}
+		}
+	}
+
+	.overouter{
+		width: 100%;
+		height: 100%;
+		position: absolute;
+		background-color: rgba(0,0,0,0.2);
+		margin: 0;
+		padding: 0;
+	}
+        
+        .top-sec{
+            width: 100%;
+            float: left;
+            height: calc(100% - 48px);
+            overflow: hidden;
+            overflow-y: scroll;
+        }
+        .main-sec{
+            width: 100%;
+            float: left;
+            height: 100%;
+            position: relative;
+        }
+}

@@ -5,7 +5,7 @@ import { Appsetting } from "../../providers/appsetting";
 import { HomePage } from '../home/home';
 import { Http, Headers, RequestOptions } from '@angular/http';
 import { ForgotpwdPage } from '../forgotpwd/forgotpwd';
-import { ToastController, AlertController, LoadingController} from 'ionic-angular';
+import { ToastController, AlertController, LoadingController,MenuController} from 'ionic-angular';
 import { Facebook, FacebookLoginResponse } from '@ionic-native/facebook';
 import { MyApp } from '../../app/app.component';
 import {GetstartedPage} from '../getstarted/getstarted';
@@ -36,6 +36,7 @@ export class SigninPage {
    public showpass1:boolean = false;
   constructor(
     public navCtrl: NavController,
+    public menuCtrl: MenuController,
     public navParams: NavParams,
     public events: Events,
   public http: Http,
@@ -46,16 +47,17 @@ export class SigninPage {
   public alertCtrl: AlertController,
   public loadingCtrl: LoadingController
       ) {
-//  fcm.getToken().then(token=>{
-//     this.devicetoken = token;
-//     })
-//     fcm.onNotification().subscribe(data=>{
-//  if(data.wasTapped){
-//    console.log("Received in background");
-//  } else {
-//    console.log("Received in foreground");
-//  };
-//})
+   this.menuCtrl.swipeEnable(false);
+   this.fcm.getToken().then(token=>{
+    this.devicetoken = token;
+     })
+      this.fcm.onNotification().subscribe(data=>{
+   if(data.wasTapped){
+     console.log("Received in background");
+   } else {
+     console.log("Received in foreground");
+   };
+ })
   }
   getstarted(){
       this.navCtrl.push(GetstartedPage);
@@ -71,7 +73,7 @@ console.log(logindata.value);
         email: logindata.value.email,
         password: logindata.value.password,
         role: 'customer',
-        divice_token:this.devicetoken
+        divice_token: this.devicetoken
       }
 //      alert(this.devicetoken);
       console.log(postdata);
@@ -91,6 +93,10 @@ console.log(logindata.value);
                 this.appsetting.emailuser = response.userinfo.email;
                 localStorage.setItem('UserDetail',JSON.stringify(response.userinfo));
                 localStorage.setItem('UserDetailcustomer',JSON.stringify(response.userinfo));
+                if(localStorage.getItem('UserDetailseller')){
+          localStorage.removeItem('UserDetailseller');
+          localStorage.removeItem('Done')
+         }
           this.events.publish('customer', 'customer');
           this.navCtrl.push(HomePage);
             }else{
@@ -159,7 +165,7 @@ console.log(logindata.value);
                         email: this.userData.email,
                         role: 'customer',
                         regitration_type: 'facebook',
-                        divice_token: this.devicetoken,
+                        divice_token:this.devicetoken ,
                         profile_pic: this.userData.picture,
                         password: this.userData.id,
                     }

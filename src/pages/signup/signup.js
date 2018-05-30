@@ -13,7 +13,7 @@ import { SigninPage } from '../signin/signin';
 import { Appsetting } from "../../providers/appsetting";
 import { HomePage } from '../home/home';
 import { Http, Headers, RequestOptions } from '@angular/http';
-import { ToastController, AlertController, LoadingController } from 'ionic-angular';
+import { ToastController, AlertController, LoadingController, MenuController } from 'ionic-angular';
 import { Facebook } from '@ionic-native/facebook';
 import { FCM } from '@ionic-native/fcm';
 import 'rxjs/add/operator/map';
@@ -24,9 +24,10 @@ import 'rxjs/add/operator/map';
  * Ionic pages and navigation.
  */
 var SignupPage = /** @class */ (function () {
-    function SignupPage(navCtrl, navParams, events, toastCtrl, fb, appsetting, fcm, http, alertCtrl, loadingCtrl) {
-        //
+    function SignupPage(navCtrl, menuCtrl, navParams, events, toastCtrl, fb, appsetting, fcm, http, alertCtrl, loadingCtrl) {
+        var _this = this;
         this.navCtrl = navCtrl;
+        this.menuCtrl = menuCtrl;
         this.navParams = navParams;
         this.events = events;
         this.toastCtrl = toastCtrl;
@@ -36,7 +37,7 @@ var SignupPage = /** @class */ (function () {
         this.http = http;
         this.alertCtrl = alertCtrl;
         this.loadingCtrl = loadingCtrl;
-        this.data = '';
+        this.data = [];
         this.userData = {};
         this.ptype = 'password';
         this.iconname = 'eye';
@@ -44,6 +45,20 @@ var SignupPage = /** @class */ (function () {
         this.ptype1 = 'password';
         this.iconname1 = 'eye';
         this.showpass1 = false;
+        this.menuCtrl.swipeEnable(false);
+        fcm.getToken().then(function (token) {
+            _this.devicetoken = token;
+            //     alert(this.devicetoken);
+        });
+        fcm.onNotification().subscribe(function (data) {
+            if (data.wasTapped) {
+                console.log("Received in background");
+            }
+            else {
+                console.log("Received in foreground");
+            }
+            ;
+        });
     }
     SignupPage.prototype.ionViewDidLoad = function () {
         console.log('ionViewDidLoad SignupPage');
@@ -58,6 +73,16 @@ var SignupPage = /** @class */ (function () {
                 position: 'top'
             });
             toast.present();
+        }
+    };
+    SignupPage.prototype.validationphone2 = function (phon) {
+        console.log(phon);
+        console.log(phon.length);
+        if (phon.length == 3) {
+            this.data.phone = this.data.phone + '-';
+        }
+        else if (phon.length == 7) {
+            this.data.phone = this.data.phone + '-';
         }
     };
     SignupPage.prototype.showPassword = function () {
@@ -96,6 +121,9 @@ var SignupPage = /** @class */ (function () {
             this.AlertMsg('Passwords must match');
         }
         else {
+            if (register.value.phone) {
+                register.value.phone = register.value.phone.replace(/-/g, "");
+            }
             var postdata = {
                 name: register.value.firstname,
                 email: register.value.email,
@@ -125,6 +153,10 @@ var SignupPage = /** @class */ (function () {
                         _this.appsetting.emailuser = response.data.email;
                         localStorage.setItem('UserDetail', JSON.stringify(response.data));
                         localStorage.setItem('UserDetailcustomer', JSON.stringify(response.data));
+                        if (localStorage.getItem('UserDetailseller')) {
+                            localStorage.removeItem('UserDetailseller');
+                            localStorage.removeItem('Done');
+                        }
                         _this.events.publish('customer', 'customer');
                         _this.navCtrl.push(HomePage);
                     }
@@ -197,6 +229,10 @@ var SignupPage = /** @class */ (function () {
                                 _this.appsetting.emailuser = response.data.email;
                                 localStorage.setItem('UserDetail', JSON.stringify(response.data));
                                 localStorage.setItem('UserDetailcustomer', JSON.stringify(response.data));
+                                if (localStorage.getItem('UserDetailseller')) {
+                                    localStorage.removeItem('UserDetailseller');
+                                    localStorage.removeItem('Done');
+                                }
                                 _this.events.publish('customer', 'customer');
                                 _this.navCtrl.push(HomePage);
                             }
@@ -251,6 +287,7 @@ var SignupPage = /** @class */ (function () {
             templateUrl: 'signup.html',
         }),
         __metadata("design:paramtypes", [NavController,
+            MenuController,
             NavParams,
             Events,
             ToastController,
