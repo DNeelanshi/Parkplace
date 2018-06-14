@@ -22,6 +22,7 @@ import { HistoricalreservationPage } from '../pages/historicalreservation/histor
 import { CarinfoPage } from '../pages/carinfo/carinfo';
 import { AddcarinfoPage } from '../pages/addcarinfo/addcarinfo';
 import { CarlistPage } from '../pages/carlist/carlist';
+import { CardlistPage } from '../pages/cardlist/cardlist';
 import { DatetimemodalPage } from '../pages/datetimemodal/datetimemodal';
 import { EditcarinfoPage } from '../pages/editcarinfo/editcarinfo';
 import { ProfilePage } from '../pages/profile/profile';
@@ -95,6 +96,7 @@ import { InAppBrowser } from '@ionic-native/in-app-browser';
     ViewreviewsPage,
     ParkinglistPage,
     EditlistingPage,
+     CardlistPage,
     CheckstatusPage,
     
     CarlistPage,
@@ -149,6 +151,7 @@ import { InAppBrowser } from '@ionic-native/in-app-browser';
     ParkinglistPage,
     EditlistingPage,
     CheckstatusPage,
+     CardlistPage,
     ListingbeforeapprovalPage
   ],
   providers: [

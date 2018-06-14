@@ -1,4 +1,32 @@
 page-home {
+    .gmnoprint.gm-style-cc {
+    display: none !important;
+    }
+    .gm-style-cc {
+         display: none !important;
+    }
+    .gmnoprint{
+        
+        margin: 5px;
+        z-index: 10;
+        position: absolute;
+        top: 81px !important; 
+   left: 15px !important; 
+   right: unset !important;
+bottom: unset !important;
+    }
+    .gmnoprint.gm-bundled-control.gm-bundled-control-on-bottom{
+/*        bottom: 69px !important;
+        right: 26px !important;*/
+        .gmnoprint{
+            left: -5px !important;
+            top: 25px !important;
+            bottom: unset !important;
+            right: unset !important;
+            margin: unset !important;
+            z-index: unset !important;
+        }
+    }
         #map{
     height: 100%;
     width:100%;
@@ -115,7 +143,7 @@ page-home {
 	    	height: 33px;
     		min-height: auto;
     		.item-cover{
-    			width: fit-content !important;
+/*    			width: fit-content !important;*/
     		}
 	    	.item-inner{
 	    		padding-right: 0;

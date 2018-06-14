@@ -4,6 +4,7 @@ import { StatusBar } from '@ionic-native/status-bar';
 import {SplashScreen} from '@ionic-native/splash-screen';
 import {HomePage} from '../pages/home/home';
 import { CarlistPage } from '../pages/carlist/carlist';
+import { CardlistPage } from '../pages/cardlist/cardlist';
 import {ListPage} from '../pages/list/list';
 import {TermsPage} from '../pages/terms/terms';
 import {Terms2Page} from '../pages/terms2/terms2';
@@ -53,7 +54,7 @@ export class MyApp {
         public loadingCtrl: LoadingController,
     ) {
     
-    alert('Welcome user');
+    alert('Welcome');
     console.log('Welcome.');
         this.initializeApp();
    
@@ -211,7 +212,10 @@ export class MyApp {
                 //      { title: 'Home', component: HometwoPage,icon: 'assets/imgs/homeicon.png' },
                 { title: 'Home', component: HomePage,icon: 'assets/imgs/homeicon.png', subItems: [] },
                 { title: 'Edit Profile', component: EditprofilePage,icon: 'assets/imgs/editprofileicon.png', subItems: [] },
-//                { title: 'Billing Information', component: BillinginformationPage,icon: 'assets/imgs/billingicon.png', subItems: [] },
+            // { title: 'Billing Information', component: BillinginformationPage,icon: 'assets/imgs/billingicon.png', subItems: [] },
+                            {title: 'Add Payment Info', component: AddpaymentPage, icon: 'assets/imgs/s-addpaymentinfo.png',subItems: []},
+                            
+                          {title: 'Edit Payment Info', component: CardlistPage, icon: 'assets/imgs/s-editpaymentinfo.png',subItems: []},
                 {
                     title: 'View Reservation', component: '', icon: 'assets/imgs/viewreservationsicon.png', subItems: [
                         {

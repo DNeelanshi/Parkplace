@@ -1,0 +1,70 @@
+page-cardlist {
+.content{
+	background-image: url("../assets/imgs/reviewbg.png");
+        background-size: cover;
+        background-position: top center;
+        background-repeat: no-repeat;
+	}
+	.list{
+		margin-bottom: 0;
+	}
+    .item{
+    	align-items: start;
+    	padding-left: 8px;
+    	border-radius: 5px;
+    	box-shadow: 0 3px 3px #dcdbdb;
+    	margin-bottom: 15px;
+    	position: relative;
+
+    	ion-thumbnail {
+		    min-width: 65px !important;
+		    min-height: 55px !important;
+		    margin: 8px 11px 8px 2px !important;
+
+		    img{
+		    	width: 65px !important;
+		    	height: 55px !important;
+		    }
+		}
+		.item-inner{
+			padding-right: 10px;
+		
+			.label{
+				margin: 8px auto;
+
+				h2{
+					@extend .fontsize15px;
+					white-space: nowrap;
+				    padding-right: 45px;
+				    overflow: hidden;
+				    text-overflow: ellipsis;
+				}
+				p{
+					@extend .fontsize13px;
+					white-space: normal;
+
+					.left{
+						font-weight: 500;
+						color: #08afb8;
+					}
+				}
+			}
+		}
+		.action{
+			    position: absolute;
+			    top: 4px;
+			    right: 3px;
+			img{
+				width: 18px;
+    			padding-right: 4px;
+			}
+			.icon{
+				padding-right: 5px;
+    			padding-left: 2px;
+			}
+			.ion-md-trash:before {
+			    content: "\f4c5";
+			}
+		}
+    }
+}

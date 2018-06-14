@@ -93,7 +93,8 @@ export class ReviewsPage {
                         var userdata = JSON.parse(localStorage.getItem('UserDetailcustomer'));
         console.log(userdata);
         if(!userdata.profile_pic){
-            propic='assets/imgs/user.png';
+        
+            propic=''
         }else{
             propic=userdata.profile_pic;
         }
@@ -163,7 +164,7 @@ export class ReviewsPage {
  
                            
                     console.log(parkdata);
-                     for(var j=0;j<parkdata.length;j++){
+                     for(var j=0;j< parkdata.length;j++){
                          if(parkdata[j]._id == daa.parkid){
                              this.parkingdata = parkdata[j];
                             
@@ -190,7 +191,7 @@ export class ReviewsPage {
                     var start =0;
                     var end=0;
                     var x:any=0;
-                    for(var i=0; i<this.reviewarry.length;i++){ 
+                    for(var i=0; i< this.reviewarry.length;i++){ 
                        console.log(f);
                         while(x<=f){
                           console.log(x);
@@ -404,7 +405,7 @@ export class ReviewsPage {
         var userdata = JSON.parse(localStorage.getItem('UserDetailcustomer'));
         console.log(userdata);
         if(!userdata.profile_pic){
-            propic='assets/imgs/user.png';
+            propic='';
         }else{
             propic=userdata.profile_pic;
         }
@@ -493,7 +494,7 @@ export class ReviewsPage {
                 console.log(response);
 //                Loading.dismiss();
                 if (response.status == true) {
-
+ localStorage.setItem('Parkdetail', JSON.stringify(response.data[0].parking_space));
                     this.AlertMsg1('Your review deleted successfully')
 //                     localStorage.setItem('reviewdata',JSON.stringify(posttreviewdata))
                   

@@ -15,7 +15,25 @@ page-addpayment {
 			margin: 5px 0;
 			box-shadow: 0 2px 3px #cccccc;
 			background-color: rgba(255,255,255,0.8);
-		    border-radius: 5px;
+			border-radius: 5px;
+			
+			.label{
+				font-size: 15px;
+				font-weight: 400;
+				color: #999;
+				padding-left: 15px;
+			}
+			ion-select{
+				font-size: 15px;
+				font-weight: 400;
+				color: #222222 !important;
+			}
+
+			ion-datetime{
+				font-size: 15px;
+				font-weight: 400;
+				color: #222222 !important;
+			}
 
 			.item-inner{
 				padding-right: 0;
@@ -36,7 +54,7 @@ page-addpayment {
 			@extend .fontsize15px;
 			width: 100%;
 			float: left;
-			margin: 10px 0 !important;
+			margin: 8px 0 !important;
 		}
 		.outer{
 			width: 50%;
@@ -50,7 +68,8 @@ page-addpayment {
 		}
 		.img-sec{
 			width: 100%;
-    		        float: left;
+			float: left;
+			margin-bottom: 5px;
 
     		img{
     			width: 75px;
@@ -60,28 +79,7 @@ page-addpayment {
     		}
 		}		
 	}
-	ion-footer{
-		ion-toolbar{
-			padding: 0 !important;
-   		 	min-height: auto !important;
-			.btn-sec{
-				width: 100%;
-				float: left;
-				display: flex;
-
-				.button{
-					width: 100%;
-				    margin: 0;
-				    border: none;
-				    border-radius: 0;
-				    text-transform: uppercase;
-				    font-size: 15px;
-				    font-weight: 500;
-				    letter-spacing: 0.5px;
-				    box-shadow: none !important;
-				    height: 42px;
-				}
-			}
-		}
+	.btn1{
+		margin-top: 10px;
 	}
 }

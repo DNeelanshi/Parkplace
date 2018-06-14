@@ -17,40 +17,64 @@
 
 
 <ion-content padding>
-	<h2>Card Type</h2>
+     <form #bilingform="ngForm" name='bilingform' novalidate (submit)="Editbilling(bilingform)" style="width:100%; float: left;">
+	<h2 style="margin-top: 0 !important;">Card Type</h2>
 	<div class="img-sec">
 		<img src="assets/imgs/visa.png">
 		<img src="assets/imgs/mstrcrd.png">
 	</div>
 	<ion-list no-lines>
-      <h2>Card Holder Name</h2>
 	  <ion-item>   
-	    <ion-input type="text" value=""></ion-input>
+	    <ion-input placeholder="Card Holder Name" type="text" value="" [(ngModel)]="data.cardholdername" name="cardholdername" #cardholdername="ngModel"></ion-input>
 	  </ion-item>
 
-	  <h2>Card Number</h2>
 	  <ion-item>   
-	    <ion-input type="number" value=""></ion-input>
+	    <ion-input placeholder="Card Number" type="tel" minlength="16" maxlength="16" [(ngModel)]="data.cardnumbr" name="cardnumbr" #cardnumbr="ngModel"></ion-input>
 	  </ion-item>
-	  <h2>Expiry Date</h2>
-	  <div class="outer" style="padding-right: 5px;">
-	  	<ion-item>
-		  <ion-datetime displayFormat="MMMM" placeholder="Month"></ion-datetime>
-		</ion-item>
-	  </div>
-	  <div class="outer" style="padding-left: 5px;">
-	  	<ion-item>
-		  <ion-datetime displayFormat="YYYY" placeholder="Year"></ion-datetime>
-		</ion-item>
-	  </div>
+           <ion-item>
+		    <ion-input type="tel" minlength="3" maxlength="3"  placeholder="CVC/CVV" [(ngModel)]="data.cvc" name="cvc" #cvc="ngModel" required></ion-input>
+		  </ion-item>
+	
+	   <ion-item>
+				<ion-label>Expiry Date</ion-label>
+  			 <ion-datetime displayFormat="MM-YYYY" pickerFormat="MM YYYY" min="{{date}}" max="2037"  [(ngModel)]="data.dateyear"  name="dateyear" #dateyear="ngModel" required></ion-datetime>
+		  </ion-item>
+                      
+		  <h2 style="margin: 6px 0 !important">Billing Address(optional)</h2>
+
+		   <ion-item>
+		    <ion-input type="text" placeholder="Street Address" [(ngModel)]="data.address" name="address" #address="ngModel" ></ion-input>
+		  </ion-item>
+
+		  
+		    <ion-item>
+		      <ion-input type="text" placeholder="City" [(ngModel)]="data.city" name="city" #city="ngModel" ></ion-input>
+		    </ion-item>
+		  
+
+		 
+			 <ion-item>
+			    <ion-input type="text" placeholder="State/Province" [(ngModel)]="data.state" name="state" #state="ngModel" ></ion-input>
+			 </ion-item>
+		 
+
+		  
+		    <ion-item>
+		      <ion-input type="text"   maxlength="10" placeholder="Postal/Zip Code" [(ngModel)]="data.zipcode" name="zipcode" #zipcode="ngModel" ></ion-input>
+		    </ion-item>
+		 
+
+		 
+			 <ion-item>
+					<ion-label>Country</ion-label>
+		          <ion-select [(ngModel)]="data.country" name="country" #country="ngModel" >
+		            <ion-option value="USA">USA</ion-option>
+		            
+		          </ion-select>
+			 </ion-item>
+		  
 	</ion-list>
+         <button ion-button class="btn1" type='submit' color="theme-header" block [disabled]='!bilingform.valid'>Save</button>
+                </form>
 </ion-content>
-<ion-footer>
-	<ion-toolbar>
-		<div class="btn-sec">
-			<button ion-button color="theme-header" >SAVE</button>
-			<button ion-button style="background-color: #ffe28f; color: #000;" >CANCEL</button>
-		</div>
-	</ion-toolbar>
-</ion-footer>
 

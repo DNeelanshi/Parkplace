@@ -41,6 +41,10 @@
 		    <!--<ion-input type="text" [(ngModel)]="data.year" name="year" #year="ngModel" required></ion-input>-->
                      <ion-datetime placeholder="2018" displayFormat="YYYY" pickerFormat="YYYY" max="{{date}}" min="1950" [(ngModel)]="data.year"  name="year" #year="ngModel" ></ion-datetime>
 		  </ion-item>
+                     <ion-item>
+		    <ion-label fixed>Color</ion-label>
+		    <ion-input type="text" [(ngModel)]="data.color" name="color" #color="ngModel" placeholder="blue" required></ion-input>
+		  </ion-item>
 
 		  <ion-item>
 		    <ion-label fixed>License Plate</ion-label>

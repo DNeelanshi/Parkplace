@@ -29,16 +29,19 @@
                 <ion-datetime  displayFormat="MM-DD-YYYY" pickerFormat="MM DD YYYY" min="{{date}}" max="2037" [(ngModel)]="data.datee"  (ngModelChange)="changes()" name="datee" #datee="ngModel" ></ion-datetime>
         </ion-item>
             <ion-item>
-                <ion-label class="slct">Select Day</ion-label>
-                <ion-select  [(ngModel)]="data.day" name="day" #day="ngModel">
+                <ion-label fixed>WeekDay</ion-label>
+                <ion-input style="" text-right type="text" placeholder="-" [(ngModel)]="data.day" name="day" #day="ngModel" readonly></ion-input>
+                
+                <!--<ion-label text-right class="slct" [(ngModel)]="data.day" name="day" #day="ngModel"></ion-label>-->
+<!--                <ion-select  [(ngModel)]="data.day" name="day" #day="ngModel" readonly>
                     <span *ngFor="let dat of datetime.opening_days_and_timings"> <ion-option value={{dat.day}}>{{dat.day}}</ion-option></span>
-<!--                    <ion-option value="Monday">Monday</ion-option>
+                    <ion-option value="Monday">Monday</ion-option>
                     <ion-option value="Tuesday">Tuesday</ion-option>
                     <ion-option value="Wednesday">Wednesday</ion-option>
                     <ion-option value="Thursday">Thursday</ion-option>
                     <ion-option value="Friday">Friday</ion-option>
-                    <ion-option value="Saturday">Saturday</ion-option>-->
-                </ion-select>
+                    <ion-option value="Saturday">Saturday</ion-option>
+                </ion-select>-->
             </ion-item>
            
             <ion-item>

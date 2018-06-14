@@ -5,6 +5,7 @@ import {Appsetting} from "../../providers/appsetting";
 import {Http, Headers, RequestOptions, RequestMethod} from '@angular/http';
 import {ToastController, AlertController, LoadingController, ActionSheetController, MenuController, Nav, App,ModalController} from 'ionic-angular';
 import { AddcarinfoPage } from '../addcarinfo/addcarinfo';
+import { AddpaymentPage } from '../addpayment/addpayment';
 import { DatetimemodalPage } from '../datetimemodal/datetimemodal';
 import { Stripe } from '@ionic-native/stripe';
 import { BillinginformationPage } from '../billinginformation/billinginformation';
@@ -57,7 +58,6 @@ userdetail:any=[];
 //        if(typeof(this.navParams.data) == "string"){
 //           
 //        }
-     
   }
 
   ionViewDidLoad() {
@@ -78,7 +78,7 @@ getdetail(){
     })
     this.parkdetail1= this.parkdetail;
     console.log(this.parkdetail1);
-     if(temp.parkdetail.review_and_rating.length){
+     if(temp.parkdetail.review_and_rating){
                     temp.totalreviews =  temp.parkdetail.review_and_rating.length;
                     
                     console.log(temp.totalreviews);
@@ -222,7 +222,7 @@ getdetail(){
       }else{
           let alert = this.alertCtrl.create();
     alert.setTitle('Choose your vehicle');
-for(var s=0; s<this.userdetail.car_details.length; s++){
+for(var s=0; s< this.userdetail.car_details.length; s++){
     alert.addInput({
       type: 'radio',
       label: this.userdetail.car_details[s].car_maker+' '+this.userdetail.car_details[s].model,
@@ -270,7 +270,12 @@ car_id:cardata._id,
 spacenumber: this.parkdetail.space_number,
 address:this.parkdetail.street_address+','+this.parkdetail.city+','+this.parkdetail.state+','+this.parkdetail.zip_code
     };
-     this.navCtrl.push(BillinginformationPage,postdata1);
+     localStorage.setItem('payinfodata',JSON.stringify(postdata1))
+    if(this.userdetail.card_details.length == 0){
+         this.navCtrl.push(AddpaymentPage);
+}else{
+     this.navCtrl.push(BillinginformationPage,postdata1);}
+     
 
 //     if(this.navParams.data.length == undefined){
 //         console.log('not done');

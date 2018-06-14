@@ -35,7 +35,7 @@
 	    <p><span class="left">Time: </span> <span class="right">{{dat.parking_start_time}} to {{dat.parking_end_time}}</span></p>
 	    <p><span class="left">Address: </span> <span class="right">{{dat.parkingaddress}}</span></p>
 	    <p><span class="left">Amount Paid: </span> <span class="right">${{dat.total_amount}}</span></p>    
-               <button *ngIf="dat.checkin_status == 0" ion-button class="checkin" (click)="changestatus(dat)">Checkout</button>
+               <button *ngIf="dat.checkin_status == 1" ion-button class="checkin" (click)="changestatus(dat)">Checkout</button>
               </ion-item>                   
     
 	</ion-list>

@@ -40,6 +40,24 @@ comparison:Boolean=false;
         console.log(this.date);    
         this.time = moment(new Date()).format('HH:mm').toString();
         console.log(this.date); 
+        if(localStorage.getItem('datetimedata'))
+   {
+     this.data.datee = JSON.parse(localStorage.getItem('datetimedata')).bookingdate;
+     var a11:any=[];
+    a11=  moment(this.data.datee).format('LLLL');
+     console.log(a11);
+     a11 = a11.split(',')
+     this.datetime.opening_days_and_timings.forEach(function(value,key){
+         
+         if(value.day == a11[0]){
+             temp.data.day = a11[0];
+             console.log(a11[0],value.day)
+               temp.flag=1;
+         } 
+     });
+
+     this.data.start = JSON.parse(localStorage.getItem('datetimedata')).startime;
+   }
   }
   changestime(){
             
@@ -61,11 +79,12 @@ this.comparison = beginningTime.isBefore(currentime);
   }
   changes(){
       var tem=this;
-      
+      this.flag = 0;
        var flag1=0;
       var a:any=[];
     a=  moment(this.data.datee).format('LLLL');
      console.log(a);
+   
      a = a.split(',')
      this.datetime.opening_days_and_timings.forEach(function(value,key){
          
@@ -73,9 +92,13 @@ this.comparison = beginningTime.isBefore(currentime);
              tem.data.day = a[0];
              console.log(a[0],value.day)
              tem.flag=1;
-         }
+         }else{
+tem.data.day = a[0];
+}
+
          
      });
+     console.log(this.flag);
       if(this.flag == 1){     
              
          }
@@ -89,7 +112,6 @@ dismiss1() {
  }
  dismiss() {
    var temp = this;
- 
         if (this.data.day && this.data.datee && this.data.start && this.data.end) {
             this.datetime.opening_days_and_timings.forEach(function(value,key){
                 if(value.day == temp.data.day){
@@ -100,20 +122,35 @@ dismiss1() {
                     }else{
                                 var a = temp.data.start.split(':');
             var b = temp.data.end.split(':');
+            var f = temp.data.datee.split('-');
+            console.log(f[0],f[1],f[2]);
+           
+            console.log(temp.data.start,temp.data.end);
+            var la =  moment([f[0], f[1], f[2], a[0], a[1], 0]);
+            var lb =  moment([f[0], f[1], f[2], b[0], b[1], 0])
+            var compp = lb.diff(la, 'minutes')
+            console.log(compp)
             console.log(b[0],a[0],b[1],a[1])
            
             if(b[0]>a[0]){
-                console.log(parseInt(b[1])+30);
+                console.log(parseInt(b[1])+60);
               console.log((moment(temp.date).isSame(moment(temp.data.datee))));
               console.log(temp.comparison)
               console.log(temp.flag)
             if((moment(temp.date).isSame(moment(temp.data.datee)) == true)&&(temp.comparison == true)){
        
         temp.AlertMsg1('Time must be greater than current');
-        
+        if(compp < 60){
+                       temp.AlertMsg1('Minimum parking should be 60 minutes');
+
+     }
         }else{
-         if(temp.flag == 1){     
-              temp.finalcheck(temp.data.day,temp.data.start,temp.data.end,temp.data.datee)   
+         if(temp.flag == 1){    
+         if(compp < 60){
+                       temp.AlertMsg1('Minimum parking should be 60 minutes');
+
+     }else{ 
+              temp.finalcheck(temp.data.day,temp.data.start,temp.data.end,temp.data.datee)   }
          }
          else{
                temp.AlertMsg1('Sorry no service available on this date. Please choose other');
@@ -121,15 +158,17 @@ dismiss1() {
             
             }
         } else if(b[0]==a[0]){
-              console.log(parseInt(b[1])+30);
+              console.log(parseInt(b[1])+60);
               console.log((moment(temp.date).isSame(moment(temp.data.datee))));
               console.log(temp.comparison)
               console.log(temp.flag)
-               if((a[1]==b[1])||(parseInt(b[1])-parseInt(a[1]) < 30)){
-               temp.AlertMsg1('Minimum parking should be 30 minutes');
+           console.log(compp)
+           console.log(a[0],b[0],a[1],b[1]);
+               if((a[1] == b[1])||(compp < 60)){
+               temp.AlertMsg1('Minimum parking should be 60 minutes');
             }else if((moment(temp.date).isSame(moment(temp.data.datee)) == true)&&(temp.comparison == true)){
        
-        temp.AlertMsg1('Time must be greater than current');
+                     temp.AlertMsg1('Time must be greater than current');
         
         }else{
          if(temp.flag == 1){     
@@ -149,10 +188,13 @@ dismiss1() {
             })
     
         } else {
-            this.AlertMsg1('Are you sure you selected day,opening and closing time?');
+            this.AlertMsg1('Details are either wrong or incomplete.');
         }
   
  }
+   isReadonly() {
+    return this.isReadonly;   //return true/false
+  }
  finalcheck(fday,fstart,fend,fdate){
      console.log(fdate,fday,fstart,fend);
      let headers = new Headers();

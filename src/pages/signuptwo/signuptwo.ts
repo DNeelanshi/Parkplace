@@ -178,7 +178,7 @@ if(phnn.length==3){
                         })
                     })
 
-                    //}).catch((error: any) => console.log(error));
+                   
                 } else {
                     let toast = this.toastCtrl.create({
                         message: 'Check your internet connection',

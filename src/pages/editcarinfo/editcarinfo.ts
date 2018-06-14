@@ -55,6 +55,7 @@ public data: any = [];
     this.data.licence = this.cardata.licencse_plate;
     this.data.year = JSON.stringify(this.cardata.year);
     console.log(moment(this.cardata.year).format('YYYY'));
+    this.data.color = this.cardata.color;
     this.carpic= this.cardata.car_images;
     this.carpicture = this.cardata.car_images;
     this.carid = this.cardata._id;
@@ -77,7 +78,8 @@ public data: any = [];
             licencse_plate: cardata.value.licence,
             user_id: userid,
             car_images: this.carpicture,
-            car_id: this.carid
+            car_id: this.carid,
+             color:cardata.value.color
 
         };
 

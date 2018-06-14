@@ -46,19 +46,17 @@ export class SignintwoPage {
     public alertCtrl: AlertController,
     public loadingCtrl: LoadingController
     ) {
-    
-      this.menuCtrl.swipeEnable(false);
-            fcm.getToken().then(token=>{
-      this.devicetoken = token;
-
-      })
+     fcm.getToken().then(token=>{
+     this.devicetoken = token;
+     })
      fcm.onNotification().subscribe(data=>{
-   if(data.wasTapped){
-     console.log("Received in background");
-   } else {
-     console.log("Received in foreground");
-   };
- })
+  if(data.wasTapped){
+    console.log("Received in background");
+  } else {
+    console.log("Received in foreground");
+  };
+})    
+      this.menuCtrl.swipeEnable(false);
     }
  getstarted(){
       this.navCtrl.push(GetstartedPage);
@@ -104,23 +102,23 @@ export class SignintwoPage {
               console.log(response)
               Loading.dismiss();
               if(response.status == true){
-                localStorage.setItem('UserDetail',JSON.stringify(response.userinfo));
-                localStorage.setItem('UserDetailseller',JSON.stringify(response.userinfo));
+                localStorage.setItem('UserDetail',JSON.stringify(response.data));
+                localStorage.setItem('UserDetailseller',JSON.stringify(response.data));
                   if(localStorage.getItem('UserDetailcustomer')){
             localStorage.removeItem('UserDetailcustomer');
      
             }
-                 Userdata = response.userinfo;
-                this.appsetting.username = response.userinfo.name;
-        this.appsetting.emailuser = response.userinfo.email;
-        if(response.userinfo.profile_pic){
-         this.appsetting.SrcImage = response.userinfo.profile_pic;}
+                 Userdata = response.data;
+                this.appsetting.username = response.data.name;
+        this.appsetting.emailuser = response.data.email;
+        if(response.data.profile_pic){
+         this.appsetting.SrcImage = response.data.profile_pic;}
         if(localStorage.getItem('Done')){
           check = true;
           this.appsetting.haveparking = 1;
                 }else{
-                    if(response.userinfo.parking_space.length > 0){
-       check = response.userinfo.parking_space[0].status;
+                    if(response.data.parking_space.length > 0){
+       check = response.data.parking_space[0].status;
        console.log(check);
        }
                 }
@@ -249,7 +247,7 @@ if(Userdata.first_add == false){
             }
                 this.appsetting.username = response.data.name;
         this.appsetting.emailuser = response.data.email;
-        // this.appsetting.SrcImage = response.userinfo.profile_pic;s
+        // this.appsetting.SrcImage = response.data.profile_pic;s
        Userdata = response.data;
         if(localStorage.getItem('Done')){
           check = true;
@@ -288,7 +286,7 @@ if(Userdata.first_add == false){
                           })
                       })
 
-                      //}).catch((error: any) => console.log(error));
+                      
                   } else {
                       let toast = this.toastCtrl.create({
                           message: 'Check your internet connection',

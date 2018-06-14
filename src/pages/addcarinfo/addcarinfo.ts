@@ -61,9 +61,8 @@ export class AddcarinfoPage {
             year: cardata.value.year,
             licencse_plate: cardata.value.licence,
             user_id: userid,
-            car_images:this.carpicture
-           
-
+            car_images:this.carpicture,
+            color:cardata.value.color
         };
 
         var serialized = this.serializeObj(postdata);

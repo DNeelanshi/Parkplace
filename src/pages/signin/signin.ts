@@ -47,17 +47,18 @@ export class SigninPage {
   public alertCtrl: AlertController,
   public loadingCtrl: LoadingController
       ) {
-   this.menuCtrl.swipeEnable(false);
-   this.fcm.getToken().then(token=>{
-    this.devicetoken = token;
+       fcm.getToken().then(token=>{
+     this.devicetoken = token;
      })
-      this.fcm.onNotification().subscribe(data=>{
-   if(data.wasTapped){
-     console.log("Received in background");
-   } else {
-     console.log("Received in foreground");
-   };
- })
+     fcm.onNotification().subscribe(data=>{
+  if(data.wasTapped){
+    console.log("Received in background");
+  } else {
+    console.log("Received in foreground");
+  };
+})    
+
+   this.menuCtrl.swipeEnable(false);
   }
   getstarted(){
       this.navCtrl.push(GetstartedPage);
@@ -89,10 +90,10 @@ console.log(logindata.value);
               console.log(response)
               Loading.dismiss();
               if(response.status == true){
-                this.appsetting.username = response.userinfo.name;
-                this.appsetting.emailuser = response.userinfo.email;
-                localStorage.setItem('UserDetail',JSON.stringify(response.userinfo));
-                localStorage.setItem('UserDetailcustomer',JSON.stringify(response.userinfo));
+                this.appsetting.username = response.data.name;
+                this.appsetting.emailuser = response.data.email;
+                localStorage.setItem('UserDetail',JSON.stringify(response.data));
+                localStorage.setItem('UserDetailcustomer',JSON.stringify(response.data));
                 if(localStorage.getItem('UserDetailseller')){
           localStorage.removeItem('UserDetailseller');
           localStorage.removeItem('Done')
@@ -200,7 +201,6 @@ console.log(logindata.value);
                         })
                     })
 
-                    //}).catch((error: any) => console.log(error));
                 } else {
                     let toast = this.toastCtrl.create({
                         message: 'Check your internet connection',
@@ -214,13 +214,12 @@ console.log(logindata.value);
 
                     toast.present();
                 }
-            });
-
-        })
-        .catch(e => {
+                });
+            }).catch(e => {
             console.log('Error logging into Facebook', JSON.stringify(e))
         });
-}
+        }
+
   serializeObj(obj) {
     var result = [];
     for (var property in obj)
